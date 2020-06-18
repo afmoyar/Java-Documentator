@@ -1,0 +1,4 @@
+@startuml
+class BinarySearchTree{}
+class Node{}
+@enduml
