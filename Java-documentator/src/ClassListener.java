@@ -44,14 +44,16 @@ public class ClassListener extends Java8ParserBaseListener {
         {
             //if it has non public classes, then it has uml diagram
             String className = ctx.Identifier().getText();
-            visitor = new ClassVisitor(className);
             relations.put(className, new ArrayList<HashMap<String,String>>());
+            visitor = new ClassVisitor(className,relations);
             toFile.append(modifiers.toString());
             toFile.append("class "+className);
             toFile.append("{\n");
             for(Java8Parser.ClassBodyDeclarationContext cbdctx:ctx.classBody().classBodyDeclaration())
                 toFile.append(visitor.visitClassBodyDeclaration(cbdctx));
             toFile.append("}\n");
+            relations = visitor.getRelations();
+
         }
         isPublicClass=false;
     }
