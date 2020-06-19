@@ -2,9 +2,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class JavaListener extends Java8ParserBaseListener {
+public class ClassListener extends Java8ParserBaseListener {
 
     private StringBuilder toFile = new StringBuilder();
+    private boolean isPublicClass = false;
+    private ClassVisitor visitor = new ClassVisitor();
 
     private static void write(String data,String fileName) {
         try {
@@ -25,22 +27,35 @@ public class JavaListener extends Java8ParserBaseListener {
 
         System.out.println("Clase detectada");
         StringBuilder modifiers = new StringBuilder();
-        boolean isPublicClass = false;
+
         for(Java8Parser.ClassModifierContext mofifierctx: ctx.classModifier())
         {
             String modifier = mofifierctx.getText();
             //if modifier is public means this class is the main class, so its not included
-            if(modifier=="public")
+            if(modifier.equals("public"))
                 isPublicClass = true;
             if(modifier=="abstract")
                 modifiers.append(modifier+" ");
         }
         if(!isPublicClass)
         {
+            //if it has non public classes, then it has uml diagram
             toFile.append(modifiers.toString());
             toFile.append("class "+ctx.Identifier().getText());
-            toFile.append("{}\n");
+            toFile.append("{\n");
+            for(Java8Parser.ClassBodyDeclarationContext cbdctx:ctx.classBody().classBodyDeclaration())
+                toFile.append(visitor.visitClassBodyDeclaration(cbdctx));
+            toFile.append("}\n");
         }
+        isPublicClass=false;
+    }
+
+
+
+
+    @Override
+    public void exitNormalClassDeclaration(Java8Parser.NormalClassDeclarationContext ctx) {
+        isPublicClass = false;
     }
 
     @Override

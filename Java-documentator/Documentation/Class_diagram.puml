@@ -1,4 +1,7 @@
 @startuml
-class BinarySearchTree{}
-class Node{}
+class Node{
+	+key
+	+left
+	+right
+}
 @enduml

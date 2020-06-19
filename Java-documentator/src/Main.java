@@ -61,7 +61,7 @@ public class Main {
             Java8Parser parser = new Java8Parser(tokens);
             ParseTree tree = parser.compilationUnit();
             ParseTreeWalker walker = new ParseTreeWalker();
-            walker.walk(new JavaListener(),tree);
+            walker.walk(new ClassListener(),tree);
 
             /*
             //System.out.println(tokens.getTokens());
