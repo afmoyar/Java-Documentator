@@ -1,6 +1,12 @@
 import java.util.StringTokenizer;
 
 public class ClassVisitor extends Java8ParserBaseVisitor<String> {
+    private String className;
+    public ClassVisitor(String className)
+    {
+        this.className = className;
+    }
+    private String[] Atributes;
 
     public String getModifier(String modifier)
     {
@@ -59,6 +65,7 @@ public class ClassVisitor extends Java8ParserBaseVisitor<String> {
 
         }
         String type = ctx.unannType().getText();
+        //--------------------------------
         String[] variableNames = this.visitVariableDeclaratorList(ctx.variableDeclaratorList()).split(",");
         for(String variable:variableNames)
         {

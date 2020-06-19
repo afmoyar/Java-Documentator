@@ -1,12 +1,15 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ClassListener extends Java8ParserBaseListener {
 
     private StringBuilder toFile = new StringBuilder();
     private boolean isPublicClass = false;
-    private ClassVisitor visitor = new ClassVisitor();
+    private ClassVisitor visitor;
+    private HashMap<String, ArrayList<HashMap<String, String>>> relations = new HashMap<String, ArrayList<HashMap<String, String>>>();
 
     private static void write(String data,String fileName) {
         try {
@@ -34,14 +37,17 @@ public class ClassListener extends Java8ParserBaseListener {
             //if modifier is public means this class is the main class, so its not included
             if(modifier.equals("public"))
                 isPublicClass = true;
-            if(modifier=="abstract")
+            if(modifier.equals("abstract"))
                 modifiers.append(modifier+" ");
         }
         if(!isPublicClass)
         {
             //if it has non public classes, then it has uml diagram
+            String className = ctx.Identifier().getText();
+            visitor = new ClassVisitor(className);
+            relations.put(className, new ArrayList<HashMap<String,String>>());
             toFile.append(modifiers.toString());
-            toFile.append("class "+ctx.Identifier().getText());
+            toFile.append("class "+className);
             toFile.append("{\n");
             for(Java8Parser.ClassBodyDeclarationContext cbdctx:ctx.classBody().classBodyDeclaration())
                 toFile.append(visitor.visitClassBodyDeclaration(cbdctx));
