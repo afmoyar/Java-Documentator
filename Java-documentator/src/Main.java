@@ -48,11 +48,8 @@ public class Main {
                             break;
                         default:
                             System.out.println("Enter valid option");
-
                     }
-
                 }
-
             }
 
             CommonTokenStream tokens = new CommonTokenStream(lexer);

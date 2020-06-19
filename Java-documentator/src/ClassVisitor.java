@@ -5,6 +5,7 @@ import java.util.StringTokenizer;
 public class ClassVisitor extends Java8ParserBaseVisitor<String> {
     private String className;
     private HashMap<String, ArrayList<HashMap<String, String>>> relations;
+    private ArrayList<String> paramaterList = new ArrayList<String>();
     public ClassVisitor(String className, HashMap<String, ArrayList<HashMap<String, String>>> relations)
     {
         this.className = className;
@@ -39,6 +40,18 @@ public class ClassVisitor extends Java8ParserBaseVisitor<String> {
         return modifierSymbol;
     }
 
+    public boolean checkType(String type)
+    {
+        return (
+                !type.equals("String")&&!type.equals("String[]")&& !type.contains("<String>") &&
+                !type.equals("Integer")&&!type.equals("Integer[]")&&!type.contains("<String>") &&
+                !type.equals("Double")&&!type.equals("Double[]")&&!type.contains("<Double>") &&
+                !type.equals("Boolean")&&!type.equals("Boolean[]")&&!type.contains("<Boolean>") &&
+                !type.equals("Long")&&!type.equals("Long[]")&&!type.contains("<Long>")
+        );
+
+    }
+
     @Override
     public String visitClassBodyDeclaration(Java8Parser.ClassBodyDeclarationContext ctx) {
         StringBuilder classBuilder = new StringBuilder();
@@ -46,12 +59,14 @@ public class ClassVisitor extends Java8ParserBaseVisitor<String> {
                 ctx.constructorDeclaration().constructorDeclarator().formalParameterList()!=null)
         {
             //class has constructor with parameters
+            //System.out.println("cheking constructor parameters");
             this.visitFormalParameterList(ctx.constructorDeclaration().constructorDeclarator().formalParameterList());
         }
         if(ctx.classMemberDeclaration()!=null)
         {
             if(ctx.classMemberDeclaration().fieldDeclaration()!=null)
             {
+                //System.out.println("getting variables");
                 //get variables
                 String variables = this.visitFieldDeclaration(ctx.classMemberDeclaration().fieldDeclaration());
                 classBuilder.append(variables);
@@ -83,9 +98,14 @@ public class ClassVisitor extends Java8ParserBaseVisitor<String> {
         if(ctx.unannType().unannReferenceType()!=null)
         {
             //type is a class, this can mean that there is some relation between classes
-            this.relations.get(this.className).add(new HashMap<String,String>());
-            int lastRelationIndex =  this.relations.get(this.className).size()-1;
-            this.relations.get(this.className).get(lastRelationIndex).put(type,"relation unknown");
+            if(checkType(type))
+            {
+                this.relations.get(this.className).add(new HashMap<String,String>());
+                int lastRelationIndex =  this.relations.get(this.className).size()-1;
+                this.relations.get(this.className).get(lastRelationIndex).put(type,"composition");
+            }
+
+            //System.out.println(this.relations);
         }
         String[] variableNames = this.visitVariableDeclaratorList(ctx.variableDeclaratorList()).split(",");
         for(String variable:variableNames)
@@ -122,13 +142,23 @@ public class ClassVisitor extends Java8ParserBaseVisitor<String> {
 
     @Override
     public String visitFormalParameterList(Java8Parser.FormalParameterListContext ctx) {
-        ArrayList<String> paramaterList = new ArrayList<String>();
+
         if(ctx.receiverParameter()!=null)
         {
             paramaterList.add(ctx.receiverParameter().unannType().getText());
 
         }else if(ctx.formalParameters()!=null)
         {
+            //|	formalParameters ',' lastFormalParameter
+            visitFormalParameters(ctx.formalParameters());
+            if(ctx.lastFormalParameter().unannType()!=null)
+            {
+                paramaterList.add(ctx.lastFormalParameter().unannType().getText());
+            }
+            else
+            {
+                paramaterList.add(ctx.lastFormalParameter().formalParameter().unannType().getText());
+            }
 
         }else {
             //lastFormalParameter
@@ -141,7 +171,34 @@ public class ClassVisitor extends Java8ParserBaseVisitor<String> {
                 paramaterList.add(ctx.lastFormalParameter().formalParameter().unannType().getText());
             }
         }
-        System.out.println(paramaterList);
+        //System.out.println(paramaterList);
+        //System.out.println(relations);
+        ArrayList<HashMap<String ,String>> currentRelations = relations.get(this.className);
+        //System.out.println(currentRelations);
+        for(HashMap<String,String> map: currentRelations)
+        {
+            for(String paramater: paramaterList)
+            {
+                if(map.containsKey(paramater))
+                {
+                    map.put(paramater,"agregation");
+                }
+            }
+        }
+        //System.out.println(relations);
+        return null;
+    }
+
+    @Override
+    public String visitFormalParameters(Java8Parser.FormalParametersContext ctx) {
+        for(Java8Parser.FormalParameterContext fpctx: ctx.formalParameter())
+        {
+            paramaterList.add(fpctx.unannType().getText());
+        }
+        if(ctx.receiverParameter()!=null)
+        {
+            paramaterList.add(ctx.receiverParameter().unannType().getText());
+        }
         return null;
     }
 }

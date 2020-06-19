@@ -3,6 +3,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class ClassListener extends Java8ParserBaseListener {
 
@@ -18,7 +19,44 @@ public class ClassListener extends Java8ParserBaseListener {
             e.printStackTrace();
         }
     }
+    public static String getClassFromBrackets(String relation)
+    {
+        if(relation.contains("<")&&relation.contains(">"))
+        {
+            System.out.println("<>");
+            try {
+                return relation.substring(relation.indexOf('<')+1,relation.indexOf('>'));
+            }catch (Exception e)
+            {
+                System.out.println(e);
+                return "";
+            }
 
+        }
+        if(relation.contains("[")&&relation.contains("]"))
+        {
+            try {
+                return relation.substring(0,relation.indexOf('[')-1);
+            }catch (Exception e)
+            {
+                return "";
+            }
+
+        }
+        return "";
+    }
+
+    public static String getRelationSymbol(String relation)
+    {
+        switch (relation)
+        {
+            case "agregation":
+                return "o--";
+            case "composition":
+                return "*--";
+        }
+        return "";
+    }
     @Override
     public void enterCompilationUnit(Java8Parser.CompilationUnitContext ctx) {
         //program starts, add startuml to begin with uml file
@@ -68,6 +106,40 @@ public class ClassListener extends Java8ParserBaseListener {
 
     @Override
     public void exitCompilationUnit(Java8Parser.CompilationUnitContext ctx) {
+        HashSet<String> classess = new HashSet<String>(relations.keySet());
+        for(String classKey:relations.keySet())
+        {
+            //System.out.println(relations.get(classKey));
+            for(HashMap<String,String> classRelations:relations.get(classKey))
+            {
+                //System.out.println(classRelations);
+                for(String relation: classRelations.keySet())
+                {
+                    System.out.println("relation: "+relation+", inside class: "+getClassFromBrackets(relation));
+                    String symbol="";
+                    String classInsideBrackets =getClassFromBrackets(relation);
+                    System.out.println("relation: "+relation);
+                    System.out.println("keySet: "+classess);
+                    if(classess.contains(relation))
+                    {
+                        System.out.println("clas esta");
+
+                        System.out.println(classRelations.get(relation));
+                        symbol = getRelationSymbol(classRelations.get(relation));
+                        System.out.println(classKey+" "+classRelations.get(relation)+" "+relation);
+                        toFile.append(classKey+" "+symbol+" "+relation+"\n");
+                    }else if(classess.contains(classInsideBrackets))
+                    {
+                        System.out.println("inside esta");
+                        System.out.println(classRelations);
+                        System.out.println(classRelations.get(classInsideBrackets));
+                        symbol = getRelationSymbol(classRelations.get(relation));
+                        System.out.println(classKey+" "+classRelations.get(classInsideBrackets)+" "+classInsideBrackets);
+                        toFile.append(classKey+" "+symbol+" "+classInsideBrackets+"\n");
+                    }
+                }
+            }
+        }
         toFile.append("@enduml\n");
         write(toFile.toString(),"Class_diagram");
     }
