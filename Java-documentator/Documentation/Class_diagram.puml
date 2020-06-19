@@ -1,7 +1,7 @@
 @startuml
 class Node{
-	+key
-	+left
-	+right
+	key: int
+	left: Node
+	right: Node
 }
 @enduml

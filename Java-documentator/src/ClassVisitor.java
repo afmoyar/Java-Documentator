@@ -2,15 +2,46 @@ import java.util.StringTokenizer;
 
 public class ClassVisitor extends Java8ParserBaseVisitor<String> {
 
+    public String getModifier(String modifier)
+    {
+        String modifierSymbol="";
+        switch (modifier)
+        {
+            case "public":
+                modifierSymbol = "+";
+                break;
+            case "private":
+                modifierSymbol = "-";
+                break;
+            case "protected":
+                modifierSymbol = "#";
+                break;
+            case "static":
+                modifierSymbol = "{static}";
+                break;
+            default:
+                modifierSymbol = "";
+        }
+        return modifierSymbol;
+    }
+
     @Override
     public String visitClassBodyDeclaration(Java8Parser.ClassBodyDeclarationContext ctx) {
-
+        StringBuilder classBuilder = new StringBuilder();
         if(ctx.classMemberDeclaration()!=null)
         {
-            //get variables
-            String variables = this.visitFieldDeclaration(ctx.classMemberDeclaration().fieldDeclaration());
-            //System.out.println(variables);
-            return variables;
+            if(ctx.classMemberDeclaration().fieldDeclaration()!=null)
+            {
+                //get variables
+                String variables = this.visitFieldDeclaration(ctx.classMemberDeclaration().fieldDeclaration());
+                classBuilder.append(variables);
+            }
+            if(ctx.classMemberDeclaration().methodDeclaration()!=null)
+            {
+                String method = this.visitMethodDeclaration(ctx.classMemberDeclaration().methodDeclaration());
+                classBuilder.append(method);
+            }
+            return classBuilder.toString();
         }
         return  "";
     }
@@ -18,30 +49,20 @@ public class ClassVisitor extends Java8ParserBaseVisitor<String> {
     @Override
     public String visitFieldDeclaration(Java8Parser.FieldDeclarationContext ctx) {
 
-        String modifier = "+";
+        String modifier = "";
+        String modifierSymbol ="";
         StringBuilder toFile = new StringBuilder();
         for(Java8Parser.FieldModifierContext modifierctx: ctx.fieldModifier())
         {
             modifier = modifierctx.getText();
-            switch (modifier)
-            {
-                case "public":
-                    modifier = "+";
-                    break;
-                case "private":
-                    modifier = "-";
-                    break;
-                case "protected":
-                    modifier = "#";
-                    break;
-                default:
-                    modifier = "";
-            }
+            modifierSymbol += getModifier(modifier);
+
         }
+        String type = ctx.unannType().getText();
         String[] variableNames = this.visitVariableDeclaratorList(ctx.variableDeclaratorList()).split(",");
         for(String variable:variableNames)
         {
-            toFile.append("\t"+modifier+variable+"\n");
+            toFile.append("\t"+modifierSymbol+variable+": "+type+"\n");
         }
         return toFile.toString();
     }
@@ -54,6 +75,21 @@ public class ClassVisitor extends Java8ParserBaseVisitor<String> {
             variables.append(vdctx.variableDeclaratorId().Identifier().getText()+",");
         }
         return variables.toString();
+
+    }
+
+    @Override
+    public String visitMethodDeclaration(Java8Parser.MethodDeclarationContext ctx) {
+        String modifier = "";
+        String modifierSymbol ="";
+        StringBuilder toFile = new StringBuilder();
+        for(Java8Parser.MethodModifierContext modifierctx: ctx.methodModifier())
+        {
+            modifier = modifierctx.getText();
+            modifierSymbol += getModifier(modifier);
+        }
+        String method_name = ctx.methodHeader().methodDeclarator().Identifier().getText();
+        return "\t"+modifierSymbol+method_name+"()"+"\n";
 
     }
 }

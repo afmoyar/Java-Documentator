@@ -80,6 +80,8 @@ public class Main {
         }
         catch(Exception e){
             System.err.println("Error: "+e.getStackTrace()[0].getLineNumber());
+            System.err.println("Error: "+e.getStackTrace()[0].getClassName());
+            System.err.println("Error: "+e);
         }
     }
 }
