@@ -1,5 +1,17 @@
 public class UML{
-    class Teacher {
+    interface Thing {
+        public void getName(); // interface method (does not have a body)
+        public void doStuff(); // interface method (does not have a body)
+    }
+    interface Person extends Thing{
+        public void getName(); // interface method (does not have a body)
+        public void doStuff(); // interface method (does not have a body)
+    }
+    interface Worker{
+        public void getWork(); // interface method (does not have a body)
+        public void getPaid(); // interface method (does not have a body)
+    }
+    class Teacher implements Person, Worker {
         private String designation = "Teacher";
         private String collegeName = "Beginnersbook";
         private Job teaches_job = "Teacher";
