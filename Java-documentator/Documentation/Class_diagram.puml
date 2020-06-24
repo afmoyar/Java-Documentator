@@ -1,4 +1,10 @@
 @startuml
+Interface Thing{
+}
+Interface Person{
+}
+Interface Worker{
+}
 class Teacher{
 	-designation: String
 	-collegeName: String
@@ -36,4 +42,7 @@ class Heart{
 Teacher <|-- GoodTeacher
 Teacher o-- Job
 Teacher *-- Heart
+Person <|-- Teacher
+Worker <|-- Teacher
+Thing <|-- Person
 @enduml

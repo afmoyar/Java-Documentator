@@ -12,6 +12,7 @@ public class ClassListener extends Java8ParserBaseListener {
     private ClassVisitor visitor;
     private HashMap<String, ArrayList<HashMap<String, String>>> relations = new HashMap<String, ArrayList<HashMap<String, String>>>();
 
+
     private static void write(String data,String fileName) {
         try {
             Files.write(Paths.get("Documentation/"+fileName+".puml"), data.getBytes());
@@ -55,6 +56,8 @@ public class ClassListener extends Java8ParserBaseListener {
             case "composition":
                 return "*--";
             case "Inheritance":
+                return "<|--";
+            case "implements":
                 return "<|--";
         }
         return "";
@@ -101,6 +104,15 @@ public class ClassListener extends Java8ParserBaseListener {
                 int lastRelationIndex =  this.relations.get(className).size()-1;
                 relations.get(className).get(lastRelationIndex).put(ctx.superclass().classType().Identifier().getText(),"Inheritance");
             }
+            if(ctx.superinterfaces()!=null)
+            {
+                for(Java8Parser.InterfaceTypeContext itctx: ctx.superinterfaces().interfaceTypeList().interfaceType())
+                {
+                    this.relations.get(className).add(new HashMap<String,String>());
+                    int lastRelationIndex =  this.relations.get(className).size()-1;
+                    relations.get(className).get(lastRelationIndex).put(itctx.classType().Identifier().getText(),"implements");
+                }
+            }
 
         }
         isPublicClass=false;
@@ -112,6 +124,43 @@ public class ClassListener extends Java8ParserBaseListener {
     @Override
     public void exitNormalClassDeclaration(Java8Parser.NormalClassDeclarationContext ctx) {
         isPublicClass = false;
+    }
+
+    @Override
+    public void enterNormalInterfaceDeclaration(Java8Parser.NormalInterfaceDeclarationContext ctx) {
+        System.out.println("Interface detectada");
+        StringBuilder modifiers = new StringBuilder();
+
+        for(Java8Parser.InterfaceModifierContext mofifierctx: ctx.interfaceModifier())
+        {
+            String modifier = mofifierctx.getText();
+            //if modifier is public means this class is the main class, so its not included
+            if(modifier.equals("public"))
+                isPublicClass = true;
+            if(modifier.equals("abstract"))
+                modifiers.append(modifier+" ");
+        }
+        String interfaceName = ctx.Identifier().getText();
+        relations.put(interfaceName, new ArrayList<HashMap<String,String>>());
+        visitor = new ClassVisitor(interfaceName, relations);
+        toFile.append(modifiers.toString());
+        toFile.append("Interface "+interfaceName);
+        toFile.append("{\n");
+
+        toFile.append("}\n");
+
+        //checks if class has father
+        if(ctx.extendsInterfaces()!=null)
+        {
+            //HashMap<String, ArrayList<HashMap<String, String>>>
+            for(Java8Parser.InterfaceTypeContext itctx: ctx.extendsInterfaces().interfaceTypeList().interfaceType())
+            {
+                this.relations.get(interfaceName).add(new HashMap<String,String>());
+                int lastRelationIndex =  this.relations.get(interfaceName).size()-1;
+                relations.get(interfaceName).get(lastRelationIndex).put(itctx.classType().Identifier().getText(),"implements");
+            }
+
+        }
     }
 
     @Override
