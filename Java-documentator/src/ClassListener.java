@@ -54,6 +54,8 @@ public class ClassListener extends Java8ParserBaseListener {
                 return "o--";
             case "composition":
                 return "*--";
+            case "Inheritance":
+                return "<|--";
         }
         return "";
     }
@@ -91,6 +93,14 @@ public class ClassListener extends Java8ParserBaseListener {
                 toFile.append(visitor.visitClassBodyDeclaration(cbdctx));
             toFile.append("}\n");
             relations = visitor.getRelations();
+            //checks if class has father
+            if(ctx.superclass()!=null)
+            {
+                //HashMap<String, ArrayList<HashMap<String, String>>>
+                this.relations.get(className).add(new HashMap<String,String>());
+                int lastRelationIndex =  this.relations.get(className).size()-1;
+                relations.get(className).get(lastRelationIndex).put(ctx.superclass().classType().Identifier().getText(),"Inheritance");
+            }
 
         }
         isPublicClass=false;
@@ -127,7 +137,14 @@ public class ClassListener extends Java8ParserBaseListener {
                         System.out.println(classRelations.get(relation));
                         symbol = getRelationSymbol(classRelations.get(relation));
                         System.out.println(classKey+" "+classRelations.get(relation)+" "+relation);
-                        toFile.append(classKey+" "+symbol+" "+relation+"\n");
+                        if(symbol.equals("<|--"))
+                        {
+                            toFile.append(relation+" "+symbol+" "+classKey+"\n");
+                        }
+                        else {
+                            toFile.append(classKey+" "+symbol+" "+relation+"\n");
+                        }
+
                     }else if(classess.contains(classInsideBrackets))
                     {
                         System.out.println("inside esta");
