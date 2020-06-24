@@ -38,9 +38,12 @@ public class Main {
                             option = reader.readLine();
                             System.out.println("-----------------------------------------------");
                             try{
+                                System.out.println(option);
+                                //lexer = new Java8Lexer(CharStreams.fromFileName("C:\\Users\\chimi\\Desktop\\Java-Documentator-master\\Java-documentator\\Input\\"+option));
                                 lexer = new Java8Lexer(CharStreams.fromFileName("Input/"+option));
                                 validOption = true;
                             }catch (Exception e){
+                                System.out.println(e);
                                 System.out.println("Enter valid file name");
                                 validOption = false;
                             }
@@ -59,7 +62,7 @@ public class Main {
             ParseTree tree = parser.compilationUnit();
             ParseTreeWalker walker = new ParseTreeWalker();
             walker.walk(new ClassListener(),tree);
-
+            walker.walk(new html_generation(),tree);
             /*
             //System.out.println(tokens.getTokens());
             //System.out.println(tree.toStringTree(parser));
