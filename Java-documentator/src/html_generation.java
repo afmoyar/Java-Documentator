@@ -19,7 +19,7 @@ public class html_generation extends Java8ParserBaseListener{
     //Helpers
     private boolean isPublicClass = false;
     private String glob_classname = "";
-    private ClassVisitor visitor;
+    private Genvisitors visitor;
     private HashMap<String, ArrayList<HashMap<String, String>>> relations = new HashMap<String, ArrayList<HashMap<String, String>>>();
 
     private List<String> attributes = new ArrayList<String>();
@@ -42,7 +42,7 @@ public class html_generation extends Java8ParserBaseListener{
                 "    <link rel=\"stylesheet\" href=\"style/style.css\">\n" +
                 "  </head>\n" +
                 "  <body>\n" +
-                "    <div class=\"doc__bg\"></div>\n" +
+                "    <div class =\"doc__bg\"></div>\n" +
                 "    <nav class=\"header\">\n" +
                 "      <h1 class=\"logo\">Generated<span class=\"logo__thin\"> Documentation</span></h1>\n" +
                 "      <ul class=\"menu\">\n" +
@@ -76,7 +76,7 @@ public class html_generation extends Java8ParserBaseListener{
             String className = ctx.Identifier().getText();
             glob_classname = className;
             relations.put(className, new ArrayList<HashMap<String,String>>());
-            visitor = new ClassVisitor(className,relations);
+            visitor = new Genvisitors(className,relations);
             //sections_menu.append(modifiers.toString());
             if(selected_first_on_menu){
                 sections_menu.append("<li class=\"js-btn\">"+className.replace("+","")+"</li>");
@@ -122,6 +122,9 @@ public class html_generation extends Java8ParserBaseListener{
                         System.out.println("--------- ");*/
                         if (tmp.charAt(tmp.length() - 1) == ')' &&
                                 tmp.charAt(tmp.length() - 2) == '(') {
+
+                            String method_body = visitor.visit_method_body(class_body_ctx.classMemberDeclaration().methodDeclaration());
+                            tmp = tmp + method_body;
                             methods.add(tmp);
                         } else {
                             attributes.add(tmp);
@@ -169,6 +172,7 @@ public class html_generation extends Java8ParserBaseListener{
                             "<table id=\""+"methods_"+className+"\">"+
                             "<tr>\n" +
                             "<th>Method</th>\n" +
+                            "<th>Returns</th>\n" +
                             "<th>Access</th>\n" +
                             "</tr>"
                     );
@@ -186,13 +190,48 @@ public class html_generation extends Java8ParserBaseListener{
                     modifier = "protected";
                 }
 
+                String[] parts = method.split("\\)"); //separates, 0: method_name 1: method body
+                String[] method_body = parts[1].split("\\;"); //gets each line of body
+                String ret_stmt = "void";
+
+
                 if(modifier != "") {
+                    //append method name
                     sections.append("<tr>\n" +
-                            "<td>" + method.substring(1, method.length()).replace("{static}","") +
-                            "</td>\n" +
-                            "<td>" + modifier + "</td>\n" +
-                            "</tr>"
+                            "<td>" + parts[0].substring(1, parts[0].length()).replace("{static}","") + ")"
                     );
+
+                    //append method body
+                    boolean initialize_collapsible = false;
+                    for(String body_line: method_body){
+                        //System.out.println("!!!"+body_line);
+                        if(body_line.contains("return")){
+                            ret_stmt = body_line.split("return")[1];
+                        }
+                        else{
+                            if(initialize_collapsible == false){
+                                sections.append("<div type=\"button\" class=\"collapsible\"></div>\n" +
+                                                "<div class=\"content\">\n" +
+                                                "<p> Method body: <br/>  "+body_line+" <br/>");
+                                initialize_collapsible = true;
+                            }
+                            else{
+                                sections.append(body_line + "<br/>");
+                            }
+                        }
+                    }
+                    //close collapsible if exists
+                    if(initialize_collapsible == true){
+                        sections.append("</p>\n" +
+                                        "</div>");
+                    }
+
+                    //append return value and access
+                    sections.append(
+                            "</td>\n" +
+                            "<td>" + ret_stmt + "</td>\n" +
+                            "<td>" + modifier + "</td>\n" +
+                            "</tr>");
                 }
             }
 

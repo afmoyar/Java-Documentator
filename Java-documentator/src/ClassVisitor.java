@@ -136,6 +136,8 @@ public class ClassVisitor extends Java8ParserBaseVisitor<String> {
             modifier = modifierctx.getText();
             modifierSymbol += getModifier(modifier);
         }
+
+
         String method_name = ctx.methodHeader().methodDeclarator().Identifier().getText();
         return "\t"+modifierSymbol+method_name+"()"+"\n";
     }
