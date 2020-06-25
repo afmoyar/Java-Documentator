@@ -1,2 +1,48 @@
 @startuml
+Interface Thing{
+}
+Interface Person{
+}
+Interface Worker{
+}
+class Teacher{
+	-designation: String
+	-collegeName: String
+	-teaches_job: Job
+	-heart: Heart
+	+getDesignation()
+	#setDesignation()
+	#getCollegeName()
+	#setCollegeName()
+	does()
+}
+class GoodTeacher{
+	mainSubject: String
+	+{static}main()
+}
+class Job{
+	-role: String
+	-salary: long
+	-id: int
+	+getRole()
+	+setRole()
+	+getSalary()
+	+setSalary()
+	+getId()
+	+setId()
+}
+class Heart{
+	-cells: String
+	+blood: String
+	+muscles: String
+	+getCells()
+	+getBlood()
+	+getMuscles()
+}
+Teacher <|-- GoodTeacher
+Teacher o-- Job
+Teacher *-- Heart
+Person <|-- Teacher
+Worker <|-- Teacher
+Thing <|-- Person
 @enduml
