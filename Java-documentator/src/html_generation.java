@@ -211,7 +211,7 @@ public class html_generation extends Java8ParserBaseListener{
                         else{
                             if(initialize_collapsible == false){
                                 sections.append("<div type=\"button\" class=\"collapsible\"></div>\n" +
-                                                "<div class=\"content\">\n" +
+                                                "<div class=\"content code\">\n" +
                                                 "<p> Method body: <br/>  "+body_line+" <br/>");
                                 initialize_collapsible = true;
                             }

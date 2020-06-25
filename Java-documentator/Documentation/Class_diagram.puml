@@ -1,48 +1,43 @@
 @startuml
-Interface Thing{
+class Carrera{
+	-nombre: String
+	+facultadCarrera: Facultad
+	#departamento: String
+	-{static}nuevoListaEstudiantes: List<Estudiante>
+	+darFacultad()
+	+cambiarFacultad()
+	+darDepartamento()
+	+cambiarDepartamento()
+	-{static}darNombre()
+	#cambiarNombre()
+	+darEstudiantes()
+	+cambiarEstudiantes()
+	+toString()
 }
-Interface Person{
+class Estudiante{
+	-codigo: String
+	-correo: String
+	-nombre: String
+	-apellido: String
+	-carreraEstudiante: Carrera
+	-gruposEstudiante: List<Grupo>
+	-notasEstudiante: List<Nota>
+	+darCodigo()
+	+cambiarCodigo()
+	+darCorreo()
+	+cambiarCorreo()
+	+darNombre()
+	+cambiarNombre()
+	+darApellido()
+	+cambiarApellido()
+	+darCarrera()
+	+cambiarCarrera()
+	+darGrupos()
+	+cambiarGrupos()
+	+darNota()
+	+cambiarNotas()
+	+toString()
 }
-Interface Worker{
-}
-class Teacher{
-	-designation: String
-	-collegeName: String
-	-teaches_job: Job
-	-heart: Heart
-	+getDesignation()
-	#setDesignation()
-	#getCollegeName()
-	#setCollegeName()
-	does()
-}
-class GoodTeacher{
-	mainSubject: String
-	+{static}main()
-}
-class Job{
-	-role: String
-	-salary: long
-	-id: int
-	+getRole()
-	+setRole()
-	+getSalary()
-	+setSalary()
-	+getId()
-	+setId()
-}
-class Heart{
-	-cells: String
-	+blood: String
-	+muscles: String
-	+getCells()
-	+getBlood()
-	+getMuscles()
-}
-Teacher <|-- GoodTeacher
-Teacher o-- Job
-Teacher *-- Heart
-Person <|-- Teacher
-Worker <|-- Teacher
-Thing <|-- Person
+Carrera o-- Estudiante
+Estudiante o-- Carrera
 @enduml

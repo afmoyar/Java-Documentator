@@ -21,114 +21,83 @@
     </nav>
     <div class="wrapper">
    <aside class="doc__nav">
-        <ul><li class="js-btn selected">Teacher</li>
-<li class="js-btn">GoodTeacher</li>
-<li class="js-btn">Job</li>
-<li class="js-btn">Heart</li>
+        <ul><li class="js-btn selected">Carrera</li>
+<li class="js-btn">Estudiante</li>
 </ul>
 </aside><article class="doc__content"><section class="js-section">
-<h3 class="section__title"> Teacher</h3><table id="attributes_Teacher"><tr>
+<h3 class="section__title"> Carrera</h3><table id="attributes_Carrera"><tr>
 <th>Attribute</th>
 <th>Type</th>
 <th>Access</th>
 </tr><tr>
-<td>designation</td>
+<td>nombre</td>
 <td> String</td>
 <td>private</td>
 </tr><tr>
-<td>collegeName</td>
+<td>facultadCarrera</td>
+<td> Facultad</td>
+<td>public</td>
+</tr><tr>
+<td>departamento</td>
 <td> String</td>
-<td>private</td>
+<td>protected</td>
 </tr><tr>
-<td>teaches_job</td>
-<td> Job</td>
-<td>private</td>
-</tr><tr>
-<td>heart</td>
-<td> Heart</td>
+<td>nuevoListaEstudiantes</td>
+<td> List<Estudiante></td>
 <td>private</td>
 </tr></table>
-<table id="methods_Teacher"><tr>
+<table id="methods_Carrera"><tr>
 <th>Method</th>
 <th>Returns</th>
 <th>Access</th>
 </tr><tr>
-<td>getDesignation()</td>
-<td>designation</td>
+<td>darFacultad()</td>
+<td>facultadCarrera</td>
 <td>public</td>
 </tr><tr>
-<td>setDesignation()<div type="button" class="collapsible"></div>
-<div class="content">
-<p> Method body: <br/>  this.designation=designation <br/></p>
+<td>cambiarFacultad()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.facultadCarrera=facultad <br/></p>
 </div></td>
 <td>void</td>
-<td>protected</td>
-</tr><tr>
-<td>getCollegeName()</td>
-<td>collegeName</td>
-<td>protected</td>
-</tr><tr>
-<td>setCollegeName()<div type="button" class="collapsible"></div>
-<div class="content">
-<p> Method body: <br/>  this.collegeName=collegeName <br/></p>
-</div></td>
-<td>void</td>
-<td>protected</td>
-</tr></table>
-<p>End section</p>
-<hr />
-</section><section class="js-section">
-<h3 class="section__title"> GoodTeacher</h3><table id="attributes_GoodTeacher"><tr>
-<th>Attribute</th>
-<th>Type</th>
-<th>Access</th>
-</tr><tr>
-<td>designation</td>
-<td> String</td>
-<td>private</td>
-</tr><tr>
-<td>collegeName</td>
-<td> String</td>
-<td>private</td>
-</tr><tr>
-<td>teaches_job</td>
-<td> Job</td>
-<td>private</td>
-</tr><tr>
-<td>heart</td>
-<td> Heart</td>
-<td>private</td>
-</tr></table>
-<table id="methods_GoodTeacher"><tr>
-<th>Method</th>
-<th>Returns</th>
-<th>Access</th>
-</tr><tr>
-<td>getDesignation()</td>
-<td>designation</td>
 <td>public</td>
 </tr><tr>
-<td>setDesignation()<div type="button" class="collapsible"></div>
-<div class="content">
-<p> Method body: <br/>  this.designation=designation <br/></p>
+<td>darDepartamento()</td>
+<td>departamento</td>
+<td>public</td>
+</tr><tr>
+<td>cambiarDepartamento()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.departamento=departamento <br/></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+</tr><tr>
+<td>darNombre()</td>
+<td>nombre</td>
+<td>private</td>
+</tr><tr>
+<td>cambiarNombre()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.nombre=nombre <br/></p>
 </div></td>
 <td>void</td>
 <td>protected</td>
 </tr><tr>
-<td>getCollegeName()</td>
-<td>collegeName</td>
-<td>protected</td>
+<td>darEstudiantes()</td>
+<td>nuevoListaEstudiantes</td>
+<td>public</td>
 </tr><tr>
-<td>setCollegeName()<div type="button" class="collapsible"></div>
-<div class="content">
-<p> Method body: <br/>  this.collegeName=collegeName <br/></p>
+<td>cambiarEstudiantes()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.nuevoListaEstudiantes=estudiantes <br/></p>
 </div></td>
 <td>void</td>
-<td>protected</td>
+<td>public</td>
 </tr><tr>
-<td>main()<div type="button" class="collapsible"></div>
-<div class="content">
-<p> Method body: <br/>  JavaExampleobj=newJavaExample( <br/></p>
+<td>toString()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  Stringcadena="Carrera: "+String.valueOf(this.darNombre( <br/></p>
 </div></td>
 <td>void</td>
 <td>public</td>
@@ -136,223 +105,193 @@
 <p>End section</p>
 <hr />
 </section><section class="js-section">
-<h3 class="section__title"> Job</h3><table id="attributes_Job"><tr>
+<h3 class="section__title"> Estudiante</h3><table id="attributes_Estudiante"><tr>
 <th>Attribute</th>
 <th>Type</th>
 <th>Access</th>
 </tr><tr>
-<td>designation</td>
+<td>nombre</td>
 <td> String</td>
 <td>private</td>
 </tr><tr>
-<td>collegeName</td>
+<td>facultadCarrera</td>
+<td> Facultad</td>
+<td>public</td>
+</tr><tr>
+<td>departamento</td>
+<td> String</td>
+<td>protected</td>
+</tr><tr>
+<td>nuevoListaEstudiantes</td>
+<td> List<Estudiante></td>
+<td>private</td>
+</tr><tr>
+<td>codigo</td>
 <td> String</td>
 <td>private</td>
 </tr><tr>
-<td>teaches_job</td>
-<td> Job</td>
-<td>private</td>
-</tr><tr>
-<td>heart</td>
-<td> Heart</td>
-<td>private</td>
-</tr><tr>
-<td>role</td>
+<td>correo</td>
 <td> String</td>
 <td>private</td>
 </tr><tr>
-<td>salary</td>
-<td> long</td>
+<td>nombre</td>
+<td> String</td>
 <td>private</td>
 </tr><tr>
-<td>id</td>
-<td> int</td>
+<td>apellido</td>
+<td> String</td>
+<td>private</td>
+</tr><tr>
+<td>carreraEstudiante</td>
+<td> Carrera</td>
+<td>private</td>
+</tr><tr>
+<td>gruposEstudiante</td>
+<td> List<Grupo></td>
+<td>private</td>
+</tr><tr>
+<td>notasEstudiante</td>
+<td> List<Nota></td>
 <td>private</td>
 </tr></table>
-<table id="methods_Job"><tr>
+<table id="methods_Estudiante"><tr>
 <th>Method</th>
 <th>Returns</th>
 <th>Access</th>
 </tr><tr>
-<td>getDesignation()</td>
-<td>designation</td>
+<td>darFacultad()</td>
+<td>facultadCarrera</td>
 <td>public</td>
 </tr><tr>
-<td>setDesignation()<div type="button" class="collapsible"></div>
-<div class="content">
-<p> Method body: <br/>  this.designation=designation <br/></p>
+<td>cambiarFacultad()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.facultadCarrera=facultad <br/></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+</tr><tr>
+<td>darDepartamento()</td>
+<td>departamento</td>
+<td>public</td>
+</tr><tr>
+<td>cambiarDepartamento()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.departamento=departamento <br/></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+</tr><tr>
+<td>darNombre()</td>
+<td>nombre</td>
+<td>private</td>
+</tr><tr>
+<td>cambiarNombre()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.nombre=nombre <br/></p>
 </div></td>
 <td>void</td>
 <td>protected</td>
 </tr><tr>
-<td>getCollegeName()</td>
-<td>collegeName</td>
-<td>protected</td>
+<td>darEstudiantes()</td>
+<td>nuevoListaEstudiantes</td>
+<td>public</td>
 </tr><tr>
-<td>setCollegeName()<div type="button" class="collapsible"></div>
-<div class="content">
-<p> Method body: <br/>  this.collegeName=collegeName <br/></p>
-</div></td>
-<td>void</td>
-<td>protected</td>
-</tr><tr>
-<td>main()<div type="button" class="collapsible"></div>
-<div class="content">
-<p> Method body: <br/>  JavaExampleobj=newJavaExample( <br/></p>
+<td>cambiarEstudiantes()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.nuevoListaEstudiantes=estudiantes <br/></p>
 </div></td>
 <td>void</td>
 <td>public</td>
 </tr><tr>
-<td>getRole()</td>
-<td>role</td>
-<td>public</td>
-</tr><tr>
-<td>setRole()<div type="button" class="collapsible"></div>
-<div class="content">
-<p> Method body: <br/>  this.role=role <br/></p>
+<td>toString()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  Stringcadena="Carrera: "+String.valueOf(this.darNombre( <br/></p>
 </div></td>
 <td>void</td>
 <td>public</td>
 </tr><tr>
-<td>getSalary()</td>
-<td>salary</td>
+<td>darCodigo()</td>
+<td>codigo</td>
 <td>public</td>
 </tr><tr>
-<td>setSalary()<div type="button" class="collapsible"></div>
-<div class="content">
-<p> Method body: <br/>  this.salary=salary <br/></p>
+<td>cambiarCodigo()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.codigo=codigo <br/></p>
 </div></td>
 <td>void</td>
 <td>public</td>
 </tr><tr>
-<td>getId()</td>
-<td>id</td>
+<td>darCorreo()</td>
+<td>correo</td>
 <td>public</td>
 </tr><tr>
-<td>setId()<div type="button" class="collapsible"></div>
-<div class="content">
-<p> Method body: <br/>  this.id=id <br/></p>
-</div></td>
-<td>void</td>
-<td>public</td>
-</tr></table>
-<p>End section</p>
-<hr />
-</section><section class="js-section">
-<h3 class="section__title"> Heart</h3><table id="attributes_Heart"><tr>
-<th>Attribute</th>
-<th>Type</th>
-<th>Access</th>
-</tr><tr>
-<td>designation</td>
-<td> String</td>
-<td>private</td>
-</tr><tr>
-<td>collegeName</td>
-<td> String</td>
-<td>private</td>
-</tr><tr>
-<td>teaches_job</td>
-<td> Job</td>
-<td>private</td>
-</tr><tr>
-<td>heart</td>
-<td> Heart</td>
-<td>private</td>
-</tr><tr>
-<td>role</td>
-<td> String</td>
-<td>private</td>
-</tr><tr>
-<td>salary</td>
-<td> long</td>
-<td>private</td>
-</tr><tr>
-<td>id</td>
-<td> int</td>
-<td>private</td>
-</tr><tr>
-<td>cells</td>
-<td> String</td>
-<td>private</td>
-</tr><tr>
-<td>blood</td>
-<td> String</td>
-<td>public</td>
-</tr><tr>
-<td>muscles</td>
-<td> String</td>
-<td>public</td>
-</tr></table>
-<table id="methods_Heart"><tr>
-<th>Method</th>
-<th>Returns</th>
-<th>Access</th>
-</tr><tr>
-<td>getDesignation()</td>
-<td>designation</td>
-<td>public</td>
-</tr><tr>
-<td>setDesignation()<div type="button" class="collapsible"></div>
-<div class="content">
-<p> Method body: <br/>  this.designation=designation <br/></p>
-</div></td>
-<td>void</td>
-<td>protected</td>
-</tr><tr>
-<td>getCollegeName()</td>
-<td>collegeName</td>
-<td>protected</td>
-</tr><tr>
-<td>setCollegeName()<div type="button" class="collapsible"></div>
-<div class="content">
-<p> Method body: <br/>  this.collegeName=collegeName <br/></p>
-</div></td>
-<td>void</td>
-<td>protected</td>
-</tr><tr>
-<td>main()<div type="button" class="collapsible"></div>
-<div class="content">
-<p> Method body: <br/>  JavaExampleobj=newJavaExample( <br/></p>
+<td>cambiarCorreo()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.correo=correo <br/></p>
 </div></td>
 <td>void</td>
 <td>public</td>
 </tr><tr>
-<td>getRole()</td>
-<td>role</td>
+<td>darNombre()</td>
+<td>nombre</td>
 <td>public</td>
 </tr><tr>
-<td>setRole()<div type="button" class="collapsible"></div>
-<div class="content">
-<p> Method body: <br/>  this.role=role <br/></p>
+<td>cambiarNombre()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.nombre=nombre <br/>this.other=newline<br/>this.other_prop=newprop<br/></p>
 </div></td>
 <td>void</td>
 <td>public</td>
 </tr><tr>
-<td>getSalary()</td>
-<td>salary</td>
+<td>darApellido()</td>
+<td>apellido</td>
 <td>public</td>
 </tr><tr>
-<td>setSalary()<div type="button" class="collapsible"></div>
-<div class="content">
-<p> Method body: <br/>  this.salary=salary <br/></p>
+<td>cambiarApellido()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.apellido=apellido <br/></p>
 </div></td>
 <td>void</td>
 <td>public</td>
 </tr><tr>
-<td>getId()</td>
-<td>id</td>
+<td>darCarrera()</td>
+<td>carreraEstudiante</td>
 <td>public</td>
 </tr><tr>
-<td>setId()<div type="button" class="collapsible"></div>
-<div class="content">
-<p> Method body: <br/>  this.id=id <br/></p>
+<td>cambiarCarrera()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.carreraEstudiante=carrera <br/></p>
 </div></td>
 <td>void</td>
 <td>public</td>
 </tr><tr>
-<td>getMuscles()</td>
-<td>muscles</td>
+<td>darGrupos()</td>
+<td>gruposEstudiante</td>
+<td>public</td>
+</tr><tr>
+<td>cambiarGrupos()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.gruposEstudiante=grupos <br/></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+</tr><tr>
+<td>darNota()</td>
+<td>notasEstudiante</td>
+<td>public</td>
+</tr><tr>
+<td>cambiarNotas()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.notasEstudiante=notas <br/></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+</tr><tr>
+<td>toString()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  Stringcadena="Codigo: "+String.valueOf(this.darCodigo( <br/></p>
+</div></td>
+<td>void</td>
 <td>public</td>
 </tr></table>
 <p>End section</p>

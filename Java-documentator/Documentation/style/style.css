@@ -60,6 +60,11 @@ h3{
     height: 1.4em;*/
 }
 
+.code{
+  color: white !important;
+  font-weight: 600 !important;
+}
+
 .collapsible:after {
   content: '\02795'; /* Unicode character for "plus" sign (+) */
   color: white;
@@ -80,6 +85,7 @@ h3{
   display: none;
   overflow: hidden;
   background-color: #f1f1f1;
+  border: 1px solid #cccccc !important;
 }
 
 /* doc */
