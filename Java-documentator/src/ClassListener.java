@@ -171,7 +171,8 @@ public class ClassListener extends Java8ParserBaseListener {
         toFile.append(modifiers.toString());
         toFile.append("Interface "+interfaceName);
         toFile.append("{\n");
-
+        for(Java8Parser.InterfaceMemberDeclarationContext imdcctx:ctx.interfaceBody().interfaceMemberDeclaration())
+            toFile.append(visitor.visitInterfaceMemberDeclaration(imdcctx));
         toFile.append("}\n");
 
         //checks if class has father
