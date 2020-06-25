@@ -1,10 +1,16 @@
 @startuml
 Interface Thing{
-nullnull}
+	+getName()
+	+doStuff()
+}
 Interface Person{
-nullnull}
+	+getName()
+	+doStuff()
+}
 Interface Worker{
-nullnull}
+	+getWork()
+	+getPaid()
+}
 class Teacher{
 	-designation: String
 	-collegeName: String
@@ -39,10 +45,10 @@ class Heart{
 	+getBlood()
 	+getMuscles()
 }
-Teacher <|-- GoodTeacher
+GoodTeacher -up-|> Teacher
 Teacher o-- Job
 Teacher *-- Heart
-Person <|-- Teacher
-Worker <|-- Teacher
-Thing <|-- Person
+Teacher .up.|> Person
+Teacher .up.|> Worker
+Person .up.|> Thing
 @enduml

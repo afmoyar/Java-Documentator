@@ -81,9 +81,11 @@ public class ClassListener extends Java8ParserBaseListener {
             case "composition":
                 return "*--";
             case "Inheritance":
-                return "<|--";
+                return "-up-|>";
             case "implements":
-                return "<|--";
+                return ".up.|>";
+            case "asociation":
+                return "<--";
         }
         return "";
     }
@@ -212,13 +214,7 @@ public class ClassListener extends Java8ParserBaseListener {
                         System.out.println(classRelations.get(relation));
                         symbol = getRelationSymbol(classRelations.get(relation));
                         System.out.println(classKey+" "+classRelations.get(relation)+" "+relation);
-                        if(symbol.equals("<|--"))
-                        {
-                            toFile.append(relation+" "+symbol+" "+classKey+"\n");
-                        }
-                        else {
-                            toFile.append(classKey+" "+symbol+" "+relation+"\n");
-                        }
+                        toFile.append(classKey+" "+symbol+" "+relation+"\n");
 
                     }else if(classess.contains(classInsideBrackets))
                     {

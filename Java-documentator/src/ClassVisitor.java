@@ -218,7 +218,7 @@ public class ClassVisitor extends Java8ParserBaseVisitor<String> {
         if(ctx.interfaceMethodDeclaration()!=null)
         {
             //get methods
-            String method = this.visitMethodDeclaration(ctx.classMemberDeclaration().methodDeclaration());
+            String method = this.visitInterfaceMethodDeclaration(ctx.interfaceMethodDeclaration());
             classBuilder.append(method);
         }
         return classBuilder.toString();
@@ -243,7 +243,7 @@ public class ClassVisitor extends Java8ParserBaseVisitor<String> {
             {
                 this.relations.get(this.className).add(new HashMap<String,String>());
                 int lastRelationIndex =  this.relations.get(this.className).size()-1;
-                this.relations.get(this.className).get(lastRelationIndex).put(type,"composition");
+                this.relations.get(this.className).get(lastRelationIndex).put(type,"asociation");
             }
 
             //System.out.println(this.relations);
@@ -254,5 +254,22 @@ public class ClassVisitor extends Java8ParserBaseVisitor<String> {
             toFile.append("\t"+modifierSymbol+variable+": "+type+"\n");
         }
         return toFile.toString();
+    }
+
+    @Override
+    public String visitInterfaceMethodDeclaration(Java8Parser.InterfaceMethodDeclarationContext ctx) {
+        String modifier = "";
+        String modifierSymbol ="";
+        StringBuilder toFile = new StringBuilder();
+        for(Java8Parser.InterfaceMethodModifierContext modifierctx: ctx.interfaceMethodModifier())
+        {
+            modifier = modifierctx.getText();
+            modifierSymbol += getModifier(modifier);
+        }
+
+
+        String method_name = ctx.methodHeader().methodDeclarator().Identifier().getText();
+        return "\t"+modifierSymbol+method_name+"()"+"\n";
+
     }
 }
