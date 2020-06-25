@@ -1,4 +1,11 @@
+import net.sourceforge.plantuml.FileFormat;
+import net.sourceforge.plantuml.FileFormatOption;
+import net.sourceforge.plantuml.SourceStringReader;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -15,6 +22,24 @@ public class ClassListener extends Java8ParserBaseListener {
 
     private static void write(String data,String fileName) {
         try {
+            //Guardar imagen
+            SourceStringReader reader = new SourceStringReader(data);
+            final ByteArrayOutputStream os = new ByteArrayOutputStream();
+
+            /*
+            reader.outputImage(os , new FileFormatOption(FileFormat.PNG));
+            // The XML is stored into svg
+            final String png_image = new String(os.toByteArray());
+            Files.write(Paths.get("Documentation/"+fileName+".png"), png_image.getBytes());
+            */
+            reader.outputImage(os , new FileFormatOption(FileFormat.SVG));
+            // The XML is stored into svg
+            final String svg = new String(os.toByteArray(), Charset.forName("UTF-8"));
+            //uml.java
+            //System.out.println(svg);
+
+            Files.write(Paths.get("Documentation/images/"+fileName+".svg"), svg.getBytes());
+
             Files.write(Paths.get("Documentation/"+fileName+".puml"), data.getBytes());
         } catch (IOException e) {
             e.printStackTrace();

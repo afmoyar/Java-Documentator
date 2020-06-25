@@ -1,0 +1,302 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="style/style.css">
+  </head>
+  <body>
+    <div class ="doc__bg"></div>
+    <nav class="header">
+      <h1 class="logo">Generated<span class="logo__thin"> Documentation</span></h1>
+      <ul class="menu">
+        <div class="menu__item toggle"><span></span></div>
+        <li class="menu__item"><a href="" class="link link--dark"><i class="fa fa-github"></i> Github</a></li>
+        <li class="menu__item"><a href="index.html" class="link link--dark"><i class="fa fa-home"></i> Home</a></li>
+      </ul>
+    </nav>
+    <div class="wrapper">
+   <aside class="doc__nav">
+        <ul><li class="js-btn selected">Carrera</li>
+<li class="js-btn">Estudiante</li>
+</ul>
+</aside><article class="doc__content"><section class="js-section">
+<h3 class="section__title"> Carrera</h3><table id="attributes_Carrera"><tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Access</th>
+</tr><tr>
+<td>nombre</td>
+<td> String</td>
+<td>private</td>
+</tr><tr>
+<td>facultadCarrera</td>
+<td> Facultad</td>
+<td>public</td>
+</tr><tr>
+<td>departamento</td>
+<td> String</td>
+<td>protected</td>
+</tr><tr>
+<td>nuevoListaEstudiantes</td>
+<td> List<Estudiante></td>
+<td>private</td>
+</tr></table>
+<table id="methods_Carrera"><tr>
+<th>Method</th>
+<th>Returns</th>
+<th>Access</th>
+</tr><tr>
+<td>darFacultad()</td>
+<td>facultadCarrera</td>
+<td>public</td>
+</tr><tr>
+<td>cambiarFacultad()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.facultadCarrera=facultad <br/></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+</tr><tr>
+<td>darDepartamento()</td>
+<td>departamento</td>
+<td>public</td>
+</tr><tr>
+<td>cambiarDepartamento()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.departamento=departamento <br/></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+</tr><tr>
+<td>darNombre()</td>
+<td>nombre</td>
+<td>private</td>
+</tr><tr>
+<td>cambiarNombre()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.nombre=nombre <br/></p>
+</div></td>
+<td>void</td>
+<td>protected</td>
+</tr><tr>
+<td>darEstudiantes()</td>
+<td>nuevoListaEstudiantes</td>
+<td>public</td>
+</tr><tr>
+<td>cambiarEstudiantes()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.nuevoListaEstudiantes=estudiantes <br/></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+</tr><tr>
+<td>toString()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  Stringcadena="Carrera: "+String.valueOf(this.darNombre())+"\n"+"Facultad: "+String.valueOf(this.darFacultad())+"\n"+"Departamento: "+String.valueOf(this.darDepartamento()+"\n"+"Lista de estudiantes: Vacio") <br/></p>
+</div></td>
+<td>cadena</td>
+<td>public</td>
+</tr></table>
+<p>End section</p>
+<hr />
+</section><section class="js-section">
+<h3 class="section__title"> Estudiante</h3><table id="attributes_Estudiante"><tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Access</th>
+</tr><tr>
+<td>nombre</td>
+<td> String</td>
+<td>private</td>
+</tr><tr>
+<td>facultadCarrera</td>
+<td> Facultad</td>
+<td>public</td>
+</tr><tr>
+<td>departamento</td>
+<td> String</td>
+<td>protected</td>
+</tr><tr>
+<td>nuevoListaEstudiantes</td>
+<td> List<Estudiante></td>
+<td>private</td>
+</tr><tr>
+<td>codigo</td>
+<td> String</td>
+<td>private</td>
+</tr><tr>
+<td>correo</td>
+<td> String</td>
+<td>private</td>
+</tr><tr>
+<td>nombre</td>
+<td> String</td>
+<td>private</td>
+</tr><tr>
+<td>apellido</td>
+<td> String</td>
+<td>private</td>
+</tr><tr>
+<td>carreraEstudiante</td>
+<td> Carrera</td>
+<td>private</td>
+</tr><tr>
+<td>gruposEstudiante</td>
+<td> List<Grupo></td>
+<td>private</td>
+</tr><tr>
+<td>notasEstudiante</td>
+<td> List<Nota></td>
+<td>private</td>
+</tr></table>
+<table id="methods_Estudiante"><tr>
+<th>Method</th>
+<th>Returns</th>
+<th>Access</th>
+</tr><tr>
+<td>darFacultad()</td>
+<td>facultadCarrera</td>
+<td>public</td>
+</tr><tr>
+<td>cambiarFacultad()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.facultadCarrera=facultad <br/></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+</tr><tr>
+<td>darDepartamento()</td>
+<td>departamento</td>
+<td>public</td>
+</tr><tr>
+<td>cambiarDepartamento()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.departamento=departamento <br/></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+</tr><tr>
+<td>darNombre()</td>
+<td>nombre</td>
+<td>private</td>
+</tr><tr>
+<td>cambiarNombre()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.nombre=nombre <br/></p>
+</div></td>
+<td>void</td>
+<td>protected</td>
+</tr><tr>
+<td>darEstudiantes()</td>
+<td>nuevoListaEstudiantes</td>
+<td>public</td>
+</tr><tr>
+<td>cambiarEstudiantes()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.nuevoListaEstudiantes=estudiantes <br/></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+</tr><tr>
+<td>toString()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  Stringcadena="Carrera: "+String.valueOf(this.darNombre())+"\n"+"Facultad: "+String.valueOf(this.darFacultad())+"\n"+"Departamento: "+String.valueOf(this.darDepartamento()+"\n"+"Lista de estudiantes: Vacio") <br/></p>
+</div></td>
+<td>cadena</td>
+<td>public</td>
+</tr><tr>
+<td>darCodigo()</td>
+<td>codigo</td>
+<td>public</td>
+</tr><tr>
+<td>cambiarCodigo()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.codigo=codigo <br/></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+</tr><tr>
+<td>darCorreo()</td>
+<td>correo</td>
+<td>public</td>
+</tr><tr>
+<td>cambiarCorreo()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.correo=correo <br/></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+</tr><tr>
+<td>darNombre()</td>
+<td>nombre</td>
+<td>public</td>
+</tr><tr>
+<td>cambiarNombre()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.nombre=nombre <br/>this.other=newline<br/>this.other_prop=newprop<br/></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+</tr><tr>
+<td>darApellido()</td>
+<td>apellido</td>
+<td>public</td>
+</tr><tr>
+<td>cambiarApellido()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.apellido=apellido <br/></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+</tr><tr>
+<td>darCarrera()</td>
+<td>carreraEstudiante</td>
+<td>public</td>
+</tr><tr>
+<td>cambiarCarrera()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.carreraEstudiante=carrera <br/></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+</tr><tr>
+<td>darGrupos()</td>
+<td>gruposEstudiante</td>
+<td>public</td>
+</tr><tr>
+<td>cambiarGrupos()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.gruposEstudiante=grupos <br/></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+</tr><tr>
+<td>darNota()</td>
+<td>notasEstudiante</td>
+<td>public</td>
+</tr><tr>
+<td>cambiarNotas()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  this.notasEstudiante=notas <br/></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+</tr><tr>
+<td>toString()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p> Method body: <br/>  Stringcadena="Codigo: "+String.valueOf(this.darCodigo())+"\n"+"Correo: "+String.valueOf(this.darCorreo())+"\n"+"Nombre: "+String.valueOf(this.darNombre()+"\n"+"Apellido: "+String.valueOf(this.darApellido())+"\n"+"Carrera: "+String.valueOf(this.darCarrera())+"\n"+"Lista de Grupos: Vacio"+"\n"+"Lista de notas: Vacio") <br/></p>
+</div></td>
+<td>cadena</td>
+<td>public</td>
+</tr></table>
+<p>End section</p>
+<hr />
+</section><img src="images/Class_diagram.svg"></article>
+</div><script src="style/handle_select.js"></script>
+</body>
+</html>
