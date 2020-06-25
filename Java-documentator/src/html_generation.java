@@ -101,14 +101,7 @@ public class html_generation extends Java8ParserBaseListener{
                     );
             for(Java8Parser.ClassBodyDeclarationContext class_body_ctx:ctx.classBody().classBodyDeclaration()){
                 try {
-                    //System.out.println("!!!! "+visitor.visitClassBodyDeclaration(class_body_ctx));
-                    /*
-                    sections.append("<tr>\n" +
-                            "<td>encryption</td>\n" +
-                            "<td>" + visitor.visitClassBodyDeclaration(class_body_ctx) + "</td>\n" +
-                            "<td>false</td>\n" +
-                            "</tr>"
-                    );*/
+
                     String tmp = visitor.visitClassBodyDeclaration(class_body_ctx);
 
                     //check if its method or attribute
@@ -131,7 +124,7 @@ public class html_generation extends Java8ParserBaseListener{
                         }
                     }
                 }catch(Exception e){
-                    System.out.println(e);
+                    //System.out.println(e);
                 }
             }
 
@@ -190,7 +183,7 @@ public class html_generation extends Java8ParserBaseListener{
                     modifier = "protected";
                 }
 
-                String[] parts = method.split("\\)"); //separates, 0: method_name 1: method body
+                String[] parts = method.split("\\)",2); //separates, 0: method_name 1: method body
                 String[] method_body = parts[1].split("\\;"); //gets each line of body
                 String ret_stmt = "void";
 
