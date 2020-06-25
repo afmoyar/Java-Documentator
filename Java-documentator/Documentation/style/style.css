@@ -421,6 +421,9 @@ table th {
   text-align: left;
   background-color: white;
   border-color: white;
+  color: white;
+  font-weight: 600;
+  background-color: #fe6a6b;
   border-bottom-color: var(--code-bg-color);
 }
 
