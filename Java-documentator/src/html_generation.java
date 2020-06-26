@@ -183,8 +183,11 @@ public class html_generation extends Java8ParserBaseListener{
                     modifier = "protected";
                 }
 
-                String[] parts = method.split("\\)",2); //separates, 0: method_name 1: method body
-                String[] method_body = parts[1].split("\\;"); //gets each line of body
+                String[] parts = method.split("\\)",2); //separates by ")", 0: method_name 1: method body
+                //String[] method_body = parts[1].split("\\;"); //gets each line of body
+                //String[] method_body = parts[1].split("\\;|\\}|\\{"); //gets each line of body
+                String[] method_body = parts[1].split("((?<=\\;)|(?<=\\})|(?<=\\{))"); //gets each line of body
+
                 String ret_stmt = "void";
 
 
@@ -197,9 +200,22 @@ public class html_generation extends Java8ParserBaseListener{
                     //append method body
                     boolean initialize_collapsible = false;
                     for(String body_line: method_body){
-                        //System.out.println("!!!"+body_line);
+                        System.out.println("!!!"+body_line);
                         if(body_line.contains("return")){
-                            ret_stmt = body_line.split("return")[1];
+                            try {
+                                String[] tmp = body_line.split("return");
+                                //ret_stmt = tmp[tmp.length - 1];
+                                if(tmp[tmp.length - 1].charAt(tmp[tmp.length -1].length()-1) != ';'){
+                                    ret_stmt = body_line.split("return")[1];
+                                }
+                                else{
+                                    sections.append(body_line + "<br/>");
+                                }
+                            }
+                            catch(Exception e){
+                                sections.append(body_line + "<br/>");
+                                System.out.println("ERR! "+body_line);
+                            }
                         }
                         else{
                             if(initialize_collapsible == false){

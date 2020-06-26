@@ -1,0 +1,19 @@
+@startuml
+Interface Subject{
+}
+Interface Observer{
+}
+class MyTopic{
+	-observers: List<Observer>
+	-message: String
+	-changed: boolean
+	-MUTEX: Object
+	+register()
+	+unregister()
+	+notifyObservers()
+	+getUpdate()
+	+postMessage()
+}
+MyTopic *-- Observer
+Subject <|-- MyTopic
+@enduml
