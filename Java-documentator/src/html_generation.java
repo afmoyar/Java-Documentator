@@ -240,7 +240,7 @@ public class html_generation extends Java8ParserBaseListener{
                     //append return value and access
                     sections.append(
                             "</td>\n" +
-                            "<td>" + ret_stmt + "</td>\n" +
+                            "<td>" + ret_stmt.replace(";","") + "</td>\n" +
                             "<td>" + modifier + "</td>\n" +
                             "</tr>");
                 }

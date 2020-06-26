@@ -1,19 +1,43 @@
 @startuml
-Interface Subject{
+class Carrera{
+	-nombre: String
+	+facultadCarrera: Facultad
+	#departamento: String
+	-{static}nuevoListaEstudiantes: List<Estudiante>
+	+darFacultad()
+	+cambiarFacultad()
+	+darDepartamento()
+	+cambiarDepartamento()
+	-{static}darNombre()
+	#cambiarNombre()
+	+darEstudiantes()
+	+cambiarEstudiantes()
+	+toString()
 }
-Interface Observer{
+class Estudiante{
+	-codigo: String
+	-correo: String
+	-nombre: String
+	-apellido: String
+	-carreraEstudiante: Carrera
+	-gruposEstudiante: List<Grupo>
+	-notasEstudiante: List<Nota>
+	+darCodigo()
+	+cambiarCodigo()
+	+darCorreo()
+	+cambiarCorreo()
+	+darNombre()
+	+cambiarNombre()
+	+darApellido()
+	+cambiarApellido()
+	+darCarrera()
+	+cambiarCarrera()
+	+darGrupos()
+	+cambiarGrupos()
+	+darNota()
+	+cambiarNotas()
+	+toString()
 }
-class MyTopic{
-	-observers: List<Observer>
-	-message: String
-	-changed: boolean
-	-MUTEX: Object
-	+register()
-	+unregister()
-	+notifyObservers()
-	+getUpdate()
-	+postMessage()
-}
-MyTopic *-- Observer
-Subject <|-- MyTopic
+Carrera o-- Estudiante
+Estudiante o-- Carrera
 @enduml
