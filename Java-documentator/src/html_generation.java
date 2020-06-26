@@ -211,11 +211,11 @@ public class html_generation extends Java8ParserBaseListener{
                                     ret_stmt = body_line.split("return")[1];
                                 }
                                 else{
-                                    sections.append(body_line + "<br/>");
+                                    sections.append(body_line.trim() + "<br/>");
                                 }
                             }
                             catch(Exception e){
-                                sections.append(body_line + "<br/>");
+                                sections.append(body_line.trim() + "<br/>");
                                 System.out.println("ERR! "+body_line);
                             }
                         }
@@ -223,11 +223,11 @@ public class html_generation extends Java8ParserBaseListener{
                             if(initialize_collapsible == false){
                                 sections.append("<div type=\"button\" class=\"collapsible\"></div>\n" +
                                                 "<div class=\"content code\">\n" +
-                                                "<p><pre class=\"prettyprint\">Method body: <br/>  "+body_line+" <br/>");
+                                                "<p><pre class=\"prettyprint\">Method body: <br/>"+body_line.trim()+" <br/>");
                                 initialize_collapsible = true;
                             }
                             else{
-                                sections.append(body_line + "<br/>");
+                                sections.append(body_line.trim() + "<br/>");
                             }
                         }
                     }
