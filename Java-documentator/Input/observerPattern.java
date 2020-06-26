@@ -76,7 +76,7 @@ public class ObserverPattern{
 
     }
 
-    public class MyTopicSubscriber implements Observer {
+    class MyTopicSubscriber implements Observer {
 
         private String name;
         private Subject topic;

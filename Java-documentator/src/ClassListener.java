@@ -102,7 +102,7 @@ public class ClassListener extends Java8ParserBaseListener {
     @Override
     public void enterNormalClassDeclaration(Java8Parser.NormalClassDeclarationContext ctx) {
 
-        System.out.println("Clase detectada");
+        //System.out.println("Clase detectada");
         StringBuilder modifiers = new StringBuilder();
 
         for(Java8Parser.ClassModifierContext mofifierctx: ctx.classModifier())
@@ -159,7 +159,7 @@ public class ClassListener extends Java8ParserBaseListener {
 
     @Override
     public void enterNormalInterfaceDeclaration(Java8Parser.NormalInterfaceDeclarationContext ctx) {
-        System.out.println("Interface detectada");
+        //System.out.println("Interface detectada");
         StringBuilder modifiers = new StringBuilder();
 
         for(Java8Parser.InterfaceModifierContext mofifierctx: ctx.interfaceModifier())
@@ -197,7 +197,7 @@ public class ClassListener extends Java8ParserBaseListener {
 
     @Override
     public void enterConstructorDeclaration(Java8Parser.ConstructorDeclarationContext ctx) {
-        System.out.println("Entra a constructor");
+        //System.out.println("Entra a constructor");
         currentClass = ctx.constructorDeclarator().simpleTypeName().Identifier().getText();
         isInsideConstructor = true;
     }
@@ -206,7 +206,7 @@ public class ClassListener extends Java8ParserBaseListener {
     public void enterAssignment(Java8Parser.AssignmentContext ctx) {
         if(isInsideConstructor)
         {
-            System.out.println("constructor class is "+ currentClass);
+            //System.out.println("constructor class is "+ currentClass);
             isAsignmentInsideConstructor = true;
         }
 
@@ -216,14 +216,14 @@ public class ClassListener extends Java8ParserBaseListener {
     public void enterClassInstanceCreationExpression_lfno_primary(Java8Parser.ClassInstanceCreationExpression_lfno_primaryContext ctx) {
         if(isAsignmentInsideConstructor)
         {
-            System.out.println("entra a new ...");
+            //System.out.println("entra a new ...");
             String identifier = ctx.Identifier(0).getText();
             if(!constructorAsigments.containsKey(currentClass))
             {
                 constructorAsigments.put(currentClass,new ArrayList<String>());
             }
             constructorAsigments.get(currentClass).add(identifier);
-            System.out.println(identifier);
+            //System.out.println(identifier);
         }
     }
 
@@ -231,7 +231,7 @@ public class ClassListener extends Java8ParserBaseListener {
     public void exitConstructorDeclaration(Java8Parser.ConstructorDeclarationContext ctx) {
         isInsideConstructor = false;
         isAsignmentInsideConstructor = false;
-        System.out.println("sale de constructor");
+        //System.out.println("sale de constructor");
     }
 
     @Override
@@ -252,22 +252,26 @@ public class ClassListener extends Java8ParserBaseListener {
                     //System.out.println("keySet: "+classess);
                     if(classess.contains(relation)||classess.contains(classInsideBrackets))
                     {
+                        //relation betwen two classes found. Means that class relation is an atribute of classKey
                         String relatedClass;
                         if(classess.contains(classInsideBrackets))
-                            relatedClass = classInsideBrackets;
+                            relatedClass = classInsideBrackets;//related class is something like List<....>
                         else
                             relatedClass = relation;
-                        //System.out.println(classRelations.get(relation));
+
 
                         System.out.println(classKey+" "+classRelations.get(relation)+" "+relation);
                         if(classRelations.get(relation).equals("unknown")&&
                                 constructorAsigments.containsKey(classKey)&&
-                                constructorAsigments.get(classKey).contains(relatedClass))
-                        {
+                                constructorAsigments.get(classKey).contains(relatedClass)) {
+                            //composition detected, there is an object of relatedclass created inside constructor
+                            //of classkey
                             toFile.append(classKey+" "+getRelationSymbol("composition")+" "+relatedClass+"\n");
                         }else if(!classRelations.get(relation).equals("unknown"))
+                            //agragation detected, objetc of relatedClass is passed as argument of classKey constructor
                             toFile.append(classKey+" "+symbol+" "+relatedClass+"\n");
                         else{
+                            //Nor agregation nor composition, but there is a relation, must be asosiation
                             toFile.append(classKey+" "+getRelationSymbol("asociation")+" "+relatedClass+"\n");
                         }
 

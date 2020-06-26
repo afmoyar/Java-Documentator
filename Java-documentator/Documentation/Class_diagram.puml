@@ -20,6 +20,14 @@ class MyTopic{
 	+getUpdate()
 	+postMessage()
 }
+class MyTopicSubscriber{
+	-name: String
+	-topic: Subject
+	+update()
+	+setSubject()
+}
+MyTopicSubscriber --> Subject
+MyTopicSubscriber .up.|> Observer
 MyTopic --> Observer
 MyTopic .up.|> Subject
 @enduml
