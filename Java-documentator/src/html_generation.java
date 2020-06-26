@@ -37,6 +37,7 @@ public class html_generation extends Java8ParserBaseListener{
                 "    <meta name=\"description\" content=\"\">\n" +
                 "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
                 "    <title>Documentation</title>\n" +
+                "<script src=\"https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js\"></script>" +
                 "    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\n" +
                 "    <link href=\"https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800,900\" rel=\"stylesheet\">\n" +
                 "    <link rel=\"stylesheet\" href=\"style/style.css\">\n" +
@@ -183,8 +184,11 @@ public class html_generation extends Java8ParserBaseListener{
                     modifier = "protected";
                 }
 
-                String[] parts = method.split("\\)",2); //separates, 0: method_name 1: method body
-                String[] method_body = parts[1].split("\\;"); //gets each line of body
+                String[] parts = method.split("\\)",2); //separates by ")", 0: method_name 1: method body
+                //String[] method_body = parts[1].split("\\;"); //gets each line of body
+                //String[] method_body = parts[1].split("\\;|\\}|\\{"); //gets each line of body
+                String[] method_body = parts[1].split("((?<=\\;)|(?<=\\})|(?<=\\{))"); //gets each line of body
+
                 String ret_stmt = "void";
 
 
@@ -197,32 +201,46 @@ public class html_generation extends Java8ParserBaseListener{
                     //append method body
                     boolean initialize_collapsible = false;
                     for(String body_line: method_body){
-                        //System.out.println("!!!"+body_line);
+                        System.out.println("!!!"+body_line);
                         if(body_line.contains("return")){
-                            ret_stmt = body_line.split("return")[1];
+                            try {
+                                String[] tmp = body_line.split("return");
+                                //ret_stmt = tmp[tmp.length - 1];
+                                //tmp[tmp.length -1].length()-1
+                                if(tmp[tmp.length - 1].charAt(0) != ';'){
+                                    ret_stmt = body_line.split("return")[1];
+                                }
+                                else{
+                                    sections.append(body_line.trim() + "<br/>");
+                                }
+                            }
+                            catch(Exception e){
+                                sections.append(body_line.trim() + "<br/>");
+                                System.out.println("ERR! "+body_line);
+                            }
                         }
                         else{
                             if(initialize_collapsible == false){
                                 sections.append("<div type=\"button\" class=\"collapsible\"></div>\n" +
                                                 "<div class=\"content code\">\n" +
-                                                "<p> Method body: <br/>  "+body_line+" <br/>");
+                                                "<p><pre class=\"prettyprint\">Method body: <br/>"+body_line.trim()+" <br/>");
                                 initialize_collapsible = true;
                             }
                             else{
-                                sections.append(body_line + "<br/>");
+                                sections.append(body_line.trim() + "<br/>");
                             }
                         }
                     }
                     //close collapsible if exists
                     if(initialize_collapsible == true){
-                        sections.append("</p>\n" +
+                        sections.append("</pre></p>\n" +
                                         "</div>");
                     }
 
                     //append return value and access
                     sections.append(
                             "</td>\n" +
-                            "<td>" + ret_stmt + "</td>\n" +
+                            "<td>" + ret_stmt.replace(";","") + "</td>\n" +
                             "<td>" + modifier + "</td>\n" +
                             "</tr>");
                 }

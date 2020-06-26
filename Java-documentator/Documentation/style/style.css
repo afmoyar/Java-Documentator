@@ -427,6 +427,11 @@ table th {
   border-bottom-color: var(--code-bg-color);
 }
 
+pre.prettyprint {
+    padding: 2px;
+    border: 0px !important;
+}
+
 table td:first-child {
   background-color: var(--bg-color);
   font-weight: 600;
