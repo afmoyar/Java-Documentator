@@ -37,6 +37,7 @@ public class html_generation extends Java8ParserBaseListener{
                 "    <meta name=\"description\" content=\"\">\n" +
                 "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
                 "    <title>Documentation</title>\n" +
+                "<script src=\"https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js\"></script>" +
                 "    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\n" +
                 "    <link href=\"https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800,900\" rel=\"stylesheet\">\n" +
                 "    <link rel=\"stylesheet\" href=\"style/style.css\">\n" +
@@ -205,7 +206,8 @@ public class html_generation extends Java8ParserBaseListener{
                             try {
                                 String[] tmp = body_line.split("return");
                                 //ret_stmt = tmp[tmp.length - 1];
-                                if(tmp[tmp.length - 1].charAt(tmp[tmp.length -1].length()-1) != ';'){
+                                //tmp[tmp.length -1].length()-1
+                                if(tmp[tmp.length - 1].charAt(0) != ';'){
                                     ret_stmt = body_line.split("return")[1];
                                 }
                                 else{
@@ -221,7 +223,7 @@ public class html_generation extends Java8ParserBaseListener{
                             if(initialize_collapsible == false){
                                 sections.append("<div type=\"button\" class=\"collapsible\"></div>\n" +
                                                 "<div class=\"content code\">\n" +
-                                                "<p> Method body: <br/>  "+body_line+" <br/>");
+                                                "<p><pre class=\"prettyprint\">Method body: <br/>  "+body_line+" <br/>");
                                 initialize_collapsible = true;
                             }
                             else{
@@ -231,7 +233,7 @@ public class html_generation extends Java8ParserBaseListener{
                     }
                     //close collapsible if exists
                     if(initialize_collapsible == true){
-                        sections.append("</p>\n" +
+                        sections.append("</pre></p>\n" +
                                         "</div>");
                     }
 
