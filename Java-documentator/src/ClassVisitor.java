@@ -102,7 +102,8 @@ public class ClassVisitor extends Java8ParserBaseVisitor<String> {
             {
                 this.relations.get(this.className).add(new HashMap<String,String>());
                 int lastRelationIndex =  this.relations.get(this.className).size()-1;
-                this.relations.get(this.className).get(lastRelationIndex).put(type,"composition");
+                this.relations.get(this.className).get(lastRelationIndex).put(type,"unknown");
+                System.out.println("class name: "+this.className+" unknown "+type);
             }
 
             //System.out.println(this.relations);
@@ -202,5 +203,74 @@ public class ClassVisitor extends Java8ParserBaseVisitor<String> {
             paramaterList.add(ctx.receiverParameter().unannType().getText());
         }
         return null;
+    }
+
+    @Override
+    public String visitInterfaceMemberDeclaration(Java8Parser.InterfaceMemberDeclarationContext ctx) {
+        StringBuilder classBuilder = new StringBuilder();
+
+        if(ctx.constantDeclaration()!=null)
+        {
+            //System.out.println("getting variables");
+            //get variables
+            String variables = this.visitConstantDeclaration(ctx.constantDeclaration());
+            classBuilder.append(variables);
+        }
+        if(ctx.interfaceMethodDeclaration()!=null)
+        {
+            //get methods
+            String method = this.visitInterfaceMethodDeclaration(ctx.interfaceMethodDeclaration());
+            classBuilder.append(method);
+        }
+        return classBuilder.toString();
+    }
+
+    @Override
+    public String visitConstantDeclaration(Java8Parser.ConstantDeclarationContext ctx) {
+        String modifier = "";
+        String modifierSymbol ="";
+        StringBuilder toFile = new StringBuilder();
+        for(Java8Parser.ConstantModifierContext modifierctx: ctx.constantModifier())
+        {
+            modifier = modifierctx.getText();
+            modifierSymbol += getModifier(modifier);
+
+        }
+        String type = ctx.unannType().getText();
+        if(ctx.unannType().unannReferenceType()!=null)
+        {
+            //type is a class, this can mean that there is some relation between classes
+            if(checkType(type))
+            {
+                this.relations.get(this.className).add(new HashMap<String,String>());
+                int lastRelationIndex =  this.relations.get(this.className).size()-1;
+                this.relations.get(this.className).get(lastRelationIndex).put(type,"asociation");
+            }
+
+            //System.out.println(this.relations);
+        }
+        String[] variableNames = this.visitVariableDeclaratorList(ctx.variableDeclaratorList()).split(",");
+        for(String variable:variableNames)
+        {
+            toFile.append("\t"+modifierSymbol+variable+": "+type+"\n");
+        }
+        return toFile.toString();
+    }
+
+    @Override
+    public String visitInterfaceMethodDeclaration(Java8Parser.InterfaceMethodDeclarationContext ctx) {
+        String modifier = "";
+        String modifierSymbol ="";
+        StringBuilder toFile = new StringBuilder();
+        for(Java8Parser.InterfaceMethodModifierContext modifierctx: ctx.interfaceMethodModifier())
+        {
+            modifier = modifierctx.getText();
+            modifierSymbol += getModifier(modifier);
+        }
+
+
+        String method_name = ctx.methodHeader().methodDeclarator().Identifier().getText();
+        return "\t"+modifierSymbol+method_name+"()"+"\n";
+
     }
 }
