@@ -26,8 +26,8 @@ class MyTopicSubscriber{
 	+update()
 	+setSubject()
 }
-MyTopicSubscriber --> Subject
+MyTopicSubscriber -up-> Subject
 MyTopicSubscriber .up.|> Observer
-MyTopic --> Observer
+MyTopic -up-> Observer
 MyTopic .up.|> Subject
 @enduml
