@@ -1,3 +1,4 @@
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import net.sourceforge.plantuml.FileFormat;
 import net.sourceforge.plantuml.FileFormatOption;
 import net.sourceforge.plantuml.SourceStringReader;
@@ -16,8 +17,12 @@ public class ClassListener extends Java8ParserBaseListener {
 
     private StringBuilder toFile = new StringBuilder();
     private boolean isPublicClass = false;
+    private boolean isInsideConstructor = false;
+    private boolean isAsignmentInsideConstructor = false;
+    private String currentClass;
     private ClassVisitor visitor;
     private HashMap<String, ArrayList<HashMap<String, String>>> relations = new HashMap<String, ArrayList<HashMap<String, String>>>();
+    private HashMap<String,ArrayList<String>> constructorAsigments = new HashMap<>();
 
 
     private static void write(String data,String fileName) {
@@ -49,7 +54,6 @@ public class ClassListener extends Java8ParserBaseListener {
     {
         if(relation.contains("<")&&relation.contains(">"))
         {
-            System.out.println("<>");
             try {
                 return relation.substring(relation.indexOf('<')+1,relation.indexOf('>'));
             }catch (Exception e)
@@ -85,7 +89,7 @@ public class ClassListener extends Java8ParserBaseListener {
             case "implements":
                 return ".up.|>";
             case "asociation":
-                return "<--";
+                return "-->";
         }
         return "";
     }
@@ -192,6 +196,45 @@ public class ClassListener extends Java8ParserBaseListener {
     }
 
     @Override
+    public void enterConstructorDeclaration(Java8Parser.ConstructorDeclarationContext ctx) {
+        System.out.println("Entra a constructor");
+        currentClass = ctx.constructorDeclarator().simpleTypeName().Identifier().getText();
+        isInsideConstructor = true;
+    }
+
+    @Override
+    public void enterAssignment(Java8Parser.AssignmentContext ctx) {
+        if(isInsideConstructor)
+        {
+            System.out.println("constructor class is "+ currentClass);
+            isAsignmentInsideConstructor = true;
+        }
+
+    }
+
+    @Override
+    public void enterClassInstanceCreationExpression_lfno_primary(Java8Parser.ClassInstanceCreationExpression_lfno_primaryContext ctx) {
+        if(isAsignmentInsideConstructor)
+        {
+            System.out.println("entra a new ...");
+            String identifier = ctx.Identifier(0).getText();
+            if(!constructorAsigments.containsKey(currentClass))
+            {
+                constructorAsigments.put(currentClass,new ArrayList<String>());
+            }
+            constructorAsigments.get(currentClass).add(identifier);
+            System.out.println(identifier);
+        }
+    }
+
+    @Override
+    public void exitConstructorDeclaration(Java8Parser.ConstructorDeclarationContext ctx) {
+        isInsideConstructor = false;
+        isAsignmentInsideConstructor = false;
+        System.out.println("sale de constructor");
+    }
+
+    @Override
     public void exitCompilationUnit(Java8Parser.CompilationUnitContext ctx) {
         HashSet<String> classess = new HashSet<String>(relations.keySet());
         for(String classKey:relations.keySet())
@@ -202,28 +245,32 @@ public class ClassListener extends Java8ParserBaseListener {
                 //System.out.println(classRelations);
                 for(String relation: classRelations.keySet())
                 {
-                    System.out.println("relation: "+relation+", inside class: "+getClassFromBrackets(relation));
-                    String symbol="";
+                    //System.out.println("relation: "+relation+", inside class: "+getClassFromBrackets(relation));
+                    String symbol = getRelationSymbol(classRelations.get(relation));
                     String classInsideBrackets =getClassFromBrackets(relation);
-                    System.out.println("relation: "+relation);
-                    System.out.println("keySet: "+classess);
-                    if(classess.contains(relation))
+                    //System.out.println("relation: "+relation);
+                    //System.out.println("keySet: "+classess);
+                    if(classess.contains(relation)||classess.contains(classInsideBrackets))
                     {
-                        System.out.println("clas esta");
+                        String relatedClass;
+                        if(classess.contains(classInsideBrackets))
+                            relatedClass = classInsideBrackets;
+                        else
+                            relatedClass = relation;
+                        //System.out.println(classRelations.get(relation));
 
-                        System.out.println(classRelations.get(relation));
-                        symbol = getRelationSymbol(classRelations.get(relation));
                         System.out.println(classKey+" "+classRelations.get(relation)+" "+relation);
-                        toFile.append(classKey+" "+symbol+" "+relation+"\n");
+                        if(classRelations.get(relation).equals("unknown")&&
+                                constructorAsigments.containsKey(classKey)&&
+                                constructorAsigments.get(classKey).contains(relatedClass))
+                        {
+                            toFile.append(classKey+" "+getRelationSymbol("composition")+" "+relatedClass+"\n");
+                        }else if(!classRelations.get(relation).equals("unknown"))
+                            toFile.append(classKey+" "+symbol+" "+relatedClass+"\n");
+                        else{
+                            toFile.append(classKey+" "+getRelationSymbol("asociation")+" "+relatedClass+"\n");
+                        }
 
-                    }else if(classess.contains(classInsideBrackets))
-                    {
-                        System.out.println("inside esta");
-                        System.out.println(classRelations);
-                        System.out.println(classRelations.get(classInsideBrackets));
-                        symbol = getRelationSymbol(classRelations.get(relation));
-                        System.out.println(classKey+" "+classRelations.get(classInsideBrackets)+" "+classInsideBrackets);
-                        toFile.append(classKey+" "+symbol+" "+classInsideBrackets+"\n");
                     }
                 }
             }

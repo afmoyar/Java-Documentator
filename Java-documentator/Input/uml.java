@@ -17,7 +17,7 @@ public class UML{
         private Job teaches_job = "Teacher";
         private Heart heart;
         public Teacher(String designation,String collegeName, Job teaches_job){
-            //constructor
+            this.heart = new Heart();
         }
 
         public String getDesignation() {

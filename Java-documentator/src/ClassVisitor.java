@@ -102,7 +102,8 @@ public class ClassVisitor extends Java8ParserBaseVisitor<String> {
             {
                 this.relations.get(this.className).add(new HashMap<String,String>());
                 int lastRelationIndex =  this.relations.get(this.className).size()-1;
-                this.relations.get(this.className).get(lastRelationIndex).put(type,"composition");
+                this.relations.get(this.className).get(lastRelationIndex).put(type,"unknown");
+                System.out.println("class name: "+this.className+" unknown "+type);
             }
 
             //System.out.println(this.relations);
