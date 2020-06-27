@@ -1,3 +1,4 @@
+https://www.journaldev.com/1739/observer-design-pattern-in-java
 public class ObserverPattern{
     interface Subject {
 

@@ -77,8 +77,14 @@ public class ClassVisitor extends Java8ParserBaseVisitor<String> {
                 String method = this.visitMethodDeclaration(ctx.classMemberDeclaration().methodDeclaration());
                 classBuilder.append(method);
             }
+            if(ctx.classMemberDeclaration().classDeclaration()!=null)
+            {
+                //there is an inner class
+                visitClassDeclaration(ctx.classMemberDeclaration().classDeclaration());
+            }
             return classBuilder.toString();
         }
+
         return  "";
     }
 
@@ -202,6 +208,21 @@ public class ClassVisitor extends Java8ParserBaseVisitor<String> {
         {
             paramaterList.add(ctx.receiverParameter().unannType().getText());
         }
+        return null;
+    }
+
+    @Override
+    public String visitClassDeclaration(Java8Parser.ClassDeclarationContext ctx) {
+        if(ctx.normalClassDeclaration()!=null)
+        {
+            String innerClass = ctx.normalClassDeclaration().Identifier().getText();
+            System.out.println(this.className +" has an inner class named: "+innerClass);
+            HashMap<String, String> map = new HashMap<>();
+            map.put(innerClass,"innerClass");
+            this.relations.get(this.className).add(map);
+
+        }
+
         return null;
     }
 
