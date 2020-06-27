@@ -99,6 +99,7 @@ public class ClassListener extends Java8ParserBaseListener {
     public void enterCompilationUnit(Java8Parser.CompilationUnitContext ctx) {
         //program starts, add startuml to begin with uml file
         toFile.append("@startuml\n");
+        toFile.append("title Class diagram\n");
     }
 
     @Override
