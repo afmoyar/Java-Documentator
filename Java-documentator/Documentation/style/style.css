@@ -40,11 +40,17 @@ h3{
 .menu__item {
   padding: 1.5rem 1rem;
 }
+
+.blue{
+  background-color: #2196F3 !important;
+}
+
 /* Style the button that is used to open and close the collapsible content */
 .collapsible {
     color: white;
     /*border-radius: 50%;*/
-    background-color: #fe6a6b;
+    /*background-color: #fe6a6b;*/
+    background-color: #2196F3;
     cursor: pointer;
     padding: 1px;
     width: 2em;

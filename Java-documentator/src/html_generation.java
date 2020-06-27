@@ -61,6 +61,8 @@ public class html_generation extends Java8ParserBaseListener{
     public void enterNormalClassDeclaration(Java8Parser.NormalClassDeclarationContext ctx) {
 
         StringBuilder modifiers = new StringBuilder();
+        methods.clear();
+        attributes.clear();
 
         for(Java8Parser.ClassModifierContext mofifierctx: ctx.classModifier())
         {
@@ -75,6 +77,7 @@ public class html_generation extends Java8ParserBaseListener{
         {
             //start section
             String className = ctx.Identifier().getText();
+            System.out.println("in "+className);
             glob_classname = className;
             relations.put(className, new ArrayList<HashMap<String,String>>());
             visitor = new Genvisitors(className,relations);
@@ -91,14 +94,8 @@ public class html_generation extends Java8ParserBaseListener{
 
             sections.append(
                     "<section class=\"js-section\">\n" +
-                    "<h3 class=\"section__title\"> " + className+"</h3>" +
+                    "<h3 class=\"section__title\"> " + className+"</h3>"
                     //"<p>Constructor</p>" +
-                    "<table id=\""+"attributes_"+ className+"\">"+
-                    "<tr>\n" +
-                    "<th>Attribute</th>\n" +
-                    "<th>Type</th>\n" +
-                    "<th>Access</th>\n" +
-                    "</tr>"
                     );
             for(Java8Parser.ClassBodyDeclarationContext class_body_ctx:ctx.classBody().classBodyDeclaration()){
                 try {
@@ -107,6 +104,7 @@ public class html_generation extends Java8ParserBaseListener{
 
                     //check if its method or attribute
                     if(tmp.length() != 0) {
+
                         tmp = tmp.trim(); //Remove whitespaces
                         /*
                         System.out.println("--------- ");
@@ -114,6 +112,7 @@ public class html_generation extends Java8ParserBaseListener{
                         System.out.println("at -1: "+tmp.charAt(tmp.length() - 1));
                         System.out.println("at -2: "+tmp.charAt(tmp.length() - 2));
                         System.out.println("--------- ");*/
+                        System.out.println("###"+tmp);
                         if (tmp.charAt(tmp.length() - 1) == ')' &&
                                 tmp.charAt(tmp.length() - 2) == '(') {
 
@@ -129,26 +128,54 @@ public class html_generation extends Java8ParserBaseListener{
                 }
             }
 
+
+            if(!attributes.isEmpty()){
+                sections.append("<table id=\""+"attributes_"+ className+"\">"+
+                        "<tr>\n" +
+                        "<th>Attribute</th>\n" +
+                        "<th>Type</th>\n" +
+                        "<th>Access</th>\n" +
+                        "</tr>");
+            }
+
             for(String attr:attributes){
                 String type = "";
                 String attribute_name = "";
-                String modifier = "";
+                String modifier = "default"; //non-static
+                boolean from_zero = true;
                 Character leading = attr.charAt(0);
+                //System.out.println(attr);
                 if(leading == '+'){
                     modifier = "public";
+                    from_zero = false;
                 }
                 if(leading == '-'){
                     modifier = "private";
+                    from_zero = false;
                 }
                 if(leading == '#'){
                     modifier = "protected";
+                    from_zero = false;
+                }
+                if(attr.contains("{static}") && leading == '{'){
+                    from_zero = true;
                 }
 
+                //InnerClasses.java
+
                 String[] parts = attr.split(":");
+                //System.out.println(parts[0]);
+                String attrname = "";
+                if(from_zero == true){ //|| modifier == "non-static"){
+                    attrname = parts[0].substring(0, parts[0].length()).replace("{static}","");
+                }
+                else{
+                    attrname = parts[0].substring(1, parts[0].length()).replace("{static}","");
+                }
 
                 if(modifier != "") {
                     sections.append("<tr>\n" +
-                            "<td>" + parts[0].substring(1, parts[0].length()).replace("{static}","") +
+                            "<td>" + attrname +
                             "</td>\n" +
                             "<td>" + parts[1] + "</td>\n" +
                             "<td>" + modifier + "</td>\n" +
@@ -159,29 +186,37 @@ public class html_generation extends Java8ParserBaseListener{
             }
 
             //close attributes table
-            sections.append("</table>\n" );
+            if(!attributes.isEmpty()) {
+                sections.append("</table>\n");
+            }
 
-            //initialize methods table
-            sections.append(
-                            "<table id=\""+"methods_"+className+"\">"+
-                            "<tr>\n" +
-                            "<th>Method</th>\n" +
-                            "<th>Returns</th>\n" +
-                            "<th>Access</th>\n" +
-                            "</tr>"
-                    );
+            if(!methods.isEmpty()){
+                //initialize methods table
+                sections.append(
+                        "<table id=\""+"methods_"+className+"\">"+
+                                "<tr>\n" +
+                                "<th  class=\"blue\">Method</th>\n" +
+                                "<th  class=\"blue\">Returns</th>\n" +
+                                "<th  class=\"blue\">Access</th>\n" +
+                                "</tr>"
+                );
+            }
 
             for(String method:methods){
-                String modifier = "";
+                String modifier = "default";
+                boolean from_zero = true;
                 Character leading = method.charAt(0);
                 if(leading == '+'){
                     modifier = "public";
+                    from_zero = false;
                 }
                 if(leading == '-'){
                     modifier = "private";
+                    from_zero = false;
                 }
                 if(leading == '#'){
                     modifier = "protected";
+                    from_zero = false;
                 }
 
                 String[] parts = method.split("\\)",2); //separates by ")", 0: method_name 1: method body
@@ -193,15 +228,22 @@ public class html_generation extends Java8ParserBaseListener{
 
 
                 if(modifier != "") {
+                   String method_name = "";
+                    if(from_zero == true){
+                        method_name = parts[0].substring(0, parts[0].length()).replace("{static}","");
+                    }
+                    else{
+                        method_name = parts[0].substring(1, parts[0].length()).replace("{static}","");
+                    }
                     //append method name
                     sections.append("<tr>\n" +
-                            "<td>" + parts[0].substring(1, parts[0].length()).replace("{static}","") + ")"
+                            "<td>" + method_name + ")"
                     );
 
                     //append method body
                     boolean initialize_collapsible = false;
                     for(String body_line: method_body){
-                        System.out.println("!!!"+body_line);
+                        //System.out.println("!!!"+body_line);
                         if(body_line.contains("return")){
                             try {
                                 String[] tmp = body_line.split("return");
@@ -245,8 +287,10 @@ public class html_generation extends Java8ParserBaseListener{
                             "</tr>");
                 }
             }
-
-            sections.append("</table>\n" );
+            if(!methods.isEmpty()) {
+                //close the table
+                sections.append("</table>\n");
+            }
             //close the section
             sections.append(
                     "<p>End section</p>\n" +

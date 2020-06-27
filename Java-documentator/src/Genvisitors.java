@@ -76,12 +76,26 @@ public class Genvisitors extends Java8ParserBaseVisitor<String> {
                     String method = this.visitMethodDeclaration(ctx.classMemberDeclaration().methodDeclaration());
                     classBuilder.append(method);
                 }
+                if(ctx.classMemberDeclaration().classDeclaration()!=null)
+                {
+                    //there is an inner class
+                    visitClassDeclaration(ctx.classMemberDeclaration().classDeclaration());
+                }
                 return classBuilder.toString();
             }
             return  "";
         }
 
-        @Override
+    @Override
+    public String visitClassDeclaration(Java8Parser.ClassDeclarationContext ctx) {
+        if(ctx.normalClassDeclaration()!=null)
+        {
+            String innerClass = ctx.normalClassDeclaration().Identifier().getText();
+        }
+        return null;
+    }
+
+    @Override
         public String visitFieldDeclaration(Java8Parser.FieldDeclarationContext ctx) {
 
             String modifier = "";

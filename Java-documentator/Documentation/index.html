@@ -21,130 +21,59 @@
     </nav>
     <div class="wrapper">
    <aside class="doc__nav">
-        <ul><li class="js-btn selected">Job</li>
-<li class="js-btn">Person</li>
+
+        <ul><li class="js-btn selected">OuterClass</li>
+<li class="js-btn">InnerClass</li>
 </ul>
 </aside><article class="doc__content"><section class="js-section">
-<h3 class="section__title"> Job</h3><table id="attributes_Job"><tr>
+<h3 class="section__title"> OuterClass</h3><table id="attributes_OuterClass"><tr>
+
 <th>Attribute</th>
 <th>Type</th>
 <th>Access</th>
 </tr><tr>
-<td>role</td>
-<td> String</td>
-<td>private</td>
+
+<td>outer_x</td>
+<td> int</td>
+<td>default</td>
 </tr><tr>
-<td>salary</td>
-<td> long</td>
-<td>private</td>
+<td>outer_y</td>
+<td> int</td>
+<td>default</td>
 </tr><tr>
-<td>id</td>
+<td>outer_private</td>
 <td> int</td>
 <td>private</td>
 </tr></table>
-<table id="methods_Job"><tr>
+<table id="methods_OuterClass"><tr>
 <th>Method</th>
 <th>Returns</th>
 <th>Access</th>
-</tr><tr>
-<td>getRole()</td>
-<td>role</td>
-<td>public</td>
-</tr><tr>
-<td>setRole()<div type="button" class="collapsible"></div>
-<div class="content code">
-<p><pre class="prettyprint">Method body: <br/>this.role=role; <br/></pre></p>
-</div></td>
-<td>void</td>
-<td>public</td>
-</tr><tr>
-<td>getSalary()</td>
-<td>salary</td>
-<td>public</td>
-</tr><tr>
-<td>setSalary()<div type="button" class="collapsible"></div>
-<div class="content code">
-<p><pre class="prettyprint">Method body: <br/>this.salary=salary; <br/></pre></p>
-</div></td>
-<td>void</td>
-<td>public</td>
-</tr><tr>
-<td>getId()</td>
-<td>id</td>
-<td>public</td>
-</tr><tr>
-<td>setId()<div type="button" class="collapsible"></div>
-<div class="content code">
-<p><pre class="prettyprint">Method body: <br/>this.id=id; <br/></pre></p>
-</div></td>
-<td>void</td>
-<td>public</td>
+
 </tr></table>
 <p>End section</p>
 <hr />
 </section><section class="js-section">
-<h3 class="section__title"> Person</h3><table id="attributes_Person"><tr>
+
+<h3 class="section__title"> InnerClass</h3><table id="attributes_InnerClass"><tr>
 <th>Attribute</th>
 <th>Type</th>
 <th>Access</th>
-</tr><tr>
-<td>role</td>
-<td> String</td>
-<td>private</td>
-</tr><tr>
-<td>salary</td>
-<td> long</td>
-<td>private</td>
-</tr><tr>
-<td>id</td>
-<td> int</td>
-<td>private</td>
-</tr><tr>
-<td>job</td>
-<td> Job</td>
-<td>private</td>
 </tr></table>
-<table id="methods_Person"><tr>
+<table id="methods_InnerClass"><tr>
+
 <th>Method</th>
 <th>Returns</th>
 <th>Access</th>
 </tr><tr>
-<td>getRole()</td>
-<td>role</td>
-<td>public</td>
-</tr><tr>
-<td>setRole()<div type="button" class="collapsible"></div>
+
+<td>display()<div type="button" class="collapsible"></div>
 <div class="content code">
-<p><pre class="prettyprint">Method body: <br/>this.role=role; <br/></pre></p>
+<p><pre class="prettyprint">Method body: <br/>System.out.println("outer_x = "+outer_x); <br/>System.out.println("outer_y = "+outer_y);<br/>System.out.println("outer_private = "+outer_private);<br/></pre></p>
 </div></td>
 <td>void</td>
-<td>public</td>
-</tr><tr>
-<td>getSalary()</td>
-<td>salary</td>
-<td>public</td>
-</tr><tr>
-<td>setSalary()<div type="button" class="collapsible"></div>
-<div class="content code">
-<p><pre class="prettyprint">Method body: <br/>this.salary=salary; <br/></pre></p>
-</div></td>
-<td>void</td>
-<td>public</td>
-</tr><tr>
-<td>getId()</td>
-<td>id</td>
-<td>public</td>
-</tr><tr>
-<td>setId()<div type="button" class="collapsible"></div>
-<div class="content code">
-<p><pre class="prettyprint">Method body: <br/>this.id=id; <br/></pre></p>
-</div></td>
-<td>void</td>
-<td>public</td>
-</tr><tr>
-<td>getSalary()</td>
-<td>job.getSalary()</td>
-<td>public</td>
+<td>default</td>
+
 </tr></table>
 <p>End section</p>
 <hr />
