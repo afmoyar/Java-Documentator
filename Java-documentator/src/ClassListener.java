@@ -90,6 +90,8 @@ public class ClassListener extends Java8ParserBaseListener {
                 return ".up.|>";
             case "asociation":
                 return "-up->";
+            case "innerClass":
+                return "+--";
         }
         return "";
     }
