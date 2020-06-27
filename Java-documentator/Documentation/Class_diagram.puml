@@ -1,11 +1,18 @@
 @startuml
-class OuterClass{
-	{static}outer_x: int
-	outer_y: int
-	-outer_private: int
+class Job{
+	-role: String
+	-salary: long
+	-id: int
+	+getRole()
+	+setRole()
+	+getSalary()
+	+setSalary()
+	+getId()
+	+setId()
 }
-class InnerClass{
-	display()
+class Person{
+	-job: Job
+	+getSalary()
 }
-OuterClass +-- InnerClass
+Person *-- Job
 @enduml
