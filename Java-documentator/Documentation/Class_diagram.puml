@@ -1,33 +1,11 @@
 @startuml
-Interface Subject{
-	+register()
-	+unregister()
-	+notifyObservers()
-	+getUpdate()
+class OuterClass{
+	{static}outer_x: int
+	outer_y: int
+	-outer_private: int
 }
-Interface Observer{
-	+update()
-	+setSubject()
+class InnerClass{
+	display()
 }
-class MyTopic{
-	-observers: List<Observer>
-	-message: String
-	-changed: boolean
-	-MUTEX: Object
-	+register()
-	+unregister()
-	+notifyObservers()
-	+getUpdate()
-	+postMessage()
-}
-class MyTopicSubscriber{
-	-name: String
-	-topic: Subject
-	+update()
-	+setSubject()
-}
-MyTopicSubscriber -up-> Subject
-MyTopicSubscriber .up.|> Observer
-MyTopic -up-> Observer
-MyTopic .up.|> Subject
+OuterClass +-- InnerClass
 @enduml
