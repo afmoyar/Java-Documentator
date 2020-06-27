@@ -94,14 +94,8 @@ public class html_generation extends Java8ParserBaseListener{
 
             sections.append(
                     "<section class=\"js-section\">\n" +
-                    "<h3 class=\"section__title\"> " + className+"</h3>" +
+                    "<h3 class=\"section__title\"> " + className+"</h3>"
                     //"<p>Constructor</p>" +
-                    "<table id=\""+"attributes_"+ className+"\">"+
-                    "<tr>\n" +
-                    "<th>Attribute</th>\n" +
-                    "<th>Type</th>\n" +
-                    "<th>Access</th>\n" +
-                    "</tr>"
                     );
             for(Java8Parser.ClassBodyDeclarationContext class_body_ctx:ctx.classBody().classBodyDeclaration()){
                 try {
@@ -132,6 +126,16 @@ public class html_generation extends Java8ParserBaseListener{
                 }catch(Exception e){
                     //System.out.println(e);
                 }
+            }
+
+
+            if(!attributes.isEmpty()){
+                sections.append("<table id=\""+"attributes_"+ className+"\">"+
+                        "<tr>\n" +
+                        "<th>Attribute</th>\n" +
+                        "<th>Type</th>\n" +
+                        "<th>Access</th>\n" +
+                        "</tr>");
             }
 
             for(String attr:attributes){
@@ -182,17 +186,21 @@ public class html_generation extends Java8ParserBaseListener{
             }
 
             //close attributes table
-            sections.append("</table>\n" );
+            if(!attributes.isEmpty()) {
+                sections.append("</table>\n");
+            }
 
-            //initialize methods table
-            sections.append(
-                            "<table id=\""+"methods_"+className+"\">"+
-                            "<tr>\n" +
-                            "<th>Method</th>\n" +
-                            "<th>Returns</th>\n" +
-                            "<th>Access</th>\n" +
-                            "</tr>"
-                    );
+            if(!methods.isEmpty()){
+                //initialize methods table
+                sections.append(
+                        "<table id=\""+"methods_"+className+"\">"+
+                                "<tr>\n" +
+                                "<th  class=\"blue\">Method</th>\n" +
+                                "<th  class=\"blue\">Returns</th>\n" +
+                                "<th  class=\"blue\">Access</th>\n" +
+                                "</tr>"
+                );
+            }
 
             for(String method:methods){
                 String modifier = "default";
@@ -279,8 +287,10 @@ public class html_generation extends Java8ParserBaseListener{
                             "</tr>");
                 }
             }
-
-            sections.append("</table>\n" );
+            if(!methods.isEmpty()) {
+                //close the table
+                sections.append("</table>\n");
+            }
             //close the section
             sections.append(
                     "<p>End section</p>\n" +
