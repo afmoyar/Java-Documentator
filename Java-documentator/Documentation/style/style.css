@@ -32,6 +32,11 @@ h3{
   font-weight: 300;
 }
 
+.no_bot{
+  margin-bottom: 0em !important;
+  /*display: inline !important;*/
+}
+
 /* menu */
 .menu {
   grid-template-columns: 1fr 180px 60% 1fr;
@@ -47,6 +52,26 @@ h3{
 
 .blue{
   background-color: #2196F3 !important;
+}
+
+.collapsible_red {
+    color: white;
+    /*border-radius: 50%;*/
+    /*background-color: #fe6a6b;*/
+    background-color: #fe6a6b;
+    cursor: pointer;
+    padding: 1px;
+    width: 2em;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    content: '\02795';
+    text-align: center;
+    margin-top: 0.5em;
+    height: 1.5em;
+    width: 1.5em;
+    /*width: 1.4em;
+    height: 1.4em;*/
 }
 
 /* Style the button that is used to open and close the collapsible content */
@@ -80,6 +105,11 @@ h3{
   color: white;
 }
 
+.collapsible_red:after {
+  content: '\02795'; /* Unicode character for "plus" sign (+) */
+  color: white;
+}
+
 .active:after {
   content: "\2796"; /* Unicode character for "minus" sign (-) */
 }
@@ -89,6 +119,12 @@ h3{
   background-color: #ccc;
 }
 
+.active, .collapsible_red:hover {
+  background-color: #ccc;
+}
+
+
+
 /* Style the collapsible content. Note: hidden by default */
 .content {
   padding: 0 18px;
@@ -96,6 +132,11 @@ h3{
   overflow: hidden;
   background-color: #f1f1f1;
   border: 1px solid #cccccc !important;
+}
+
+.contentb {
+  width: 100%;
+  display: none;
 }
 
 /* doc */
@@ -433,7 +474,8 @@ table th {
   border-color: white;
   color: white;
   font-weight: 600;
-  background-color: #fe6a6b;
+  /* background-color: #fe6a6b; */
+  background-color: #9c27b0;
   border-bottom-color: var(--code-bg-color);
 }
 
@@ -479,6 +521,7 @@ table td:first-child {
 .wrapper {
   margin: 0 auto;
   width: 70%;
+  /*width: 85%;*/
 }
 
 .footer {
