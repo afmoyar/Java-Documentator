@@ -238,6 +238,8 @@ public class html_generation extends Java8ParserBaseListener{
                     from_zero = false;
                 }
 
+                //System.out.println("!!!"+method);
+
                 String[] parts = method.split("\\)",2); //separates by ")", 0: method_name 1: method body
                 //String[] method_body = parts[1].split("\\;"); //gets each line of body
                 //String[] method_body = parts[1].split("\\;|\\}|\\{"); //gets each line of body
@@ -263,7 +265,11 @@ public class html_generation extends Java8ParserBaseListener{
                     //append method body
                     boolean initialize_collapsible = false;
                     for(String body_line: method_body){
-                        //System.out.println("!!!"+body_line);
+                        System.out.println("!!!"+body_line);
+                        body_line = body_line.replace("&"," &amp "); //escape & character
+                        body_line = body_line.replace("<"," &lt "); //escape < character
+                        body_line = body_line.replace(">"," &gt "); //escape > character
+
 
                         body_line = body_line.replace("int","int ");
                         body_line = body_line.replace("int[]","int[] ");
