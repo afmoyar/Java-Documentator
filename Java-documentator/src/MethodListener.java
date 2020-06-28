@@ -46,6 +46,14 @@ public class MethodListener extends Java8ParserBaseListener{
         }
     }
 
+    public String expressionTranslate(String expression)
+    {
+        expression = expression.replace("||"," or ").replace("&&"," and ")
+                .replace("=="," equals ").replace(">"," > ")
+                .replace(">="," >= ").replace("<="," <= ")
+                .replace("<"," < ").replace("!="," not equals ");
+        return expression;
+    }
 
 
     @Override
@@ -144,7 +152,7 @@ public class MethodListener extends Java8ParserBaseListener{
 
     @Override
     public void enterIfThenStatement(Java8Parser.IfThenStatementContext ctx) {
-        toFile.append("if ("+ctx.expression().getText()+") then (yes)\n");
+        toFile.append("if ("+expressionTranslate(ctx.expression().getText())+ " ?) then (yes)\n");
 
     }
 
@@ -156,7 +164,7 @@ public class MethodListener extends Java8ParserBaseListener{
 
     @Override
     public void enterIfThenElseStatement(Java8Parser.IfThenElseStatementContext ctx) {
-        toFile.append("if ("+ctx.expression().getText()+") then (yes)\n");
+        toFile.append("if ("+expressionTranslate(ctx.expression().getText())+" ?) then (yes)\n");
     }
 
     @Override
@@ -171,7 +179,7 @@ public class MethodListener extends Java8ParserBaseListener{
 
     @Override
     public void enterIfThenElseStatementNoShortIf(Java8Parser.IfThenElseStatementNoShortIfContext ctx) {
-        toFile.append("if ("+ctx.expression().getText()+") then (yes)\n");
+        toFile.append("if ("+expressionTranslate(ctx.expression().getText())+" ?) then (yes)\n");
     }
 
     @Override
@@ -193,7 +201,7 @@ public class MethodListener extends Java8ParserBaseListener{
     @Override
     public void exitForSetUp(Java8Parser.ForSetUpContext ctx) {
         if(ctx.expression()!=null)
-            toFile.append("while ("+ctx.expression().getText()+") is (Yes)\n");
+            toFile.append("while ("+expressionTranslate(ctx.expression().getText())+" ?) is (Yes)\n");
         else
             toFile.append("while () is (Yes)\n");
         if(ctx.forUpdate()!=null)
@@ -214,7 +222,7 @@ public class MethodListener extends Java8ParserBaseListener{
 
     @Override
     public void enterWhileStatement(Java8Parser.WhileStatementContext ctx) {
-        toFile.append("while ("+ctx.expression().getText()+") is (Yes)\n");
+        toFile.append("while ("+expressionTranslate(ctx.expression().getText())+" ?) is (Yes)\n");
     }
 
     @Override
@@ -224,7 +232,7 @@ public class MethodListener extends Java8ParserBaseListener{
 
     @Override
     public void enterWhileStatementNoShortIf(Java8Parser.WhileStatementNoShortIfContext ctx) {
-        toFile.append("while ("+ctx.expression().getText()+") is (Yes)\n");
+        toFile.append("while ("+expressionTranslate(ctx.expression().getText())+" ?) is (Yes)\n");
     }
 
     @Override
@@ -239,7 +247,7 @@ public class MethodListener extends Java8ParserBaseListener{
 
     @Override
     public void exitDoStatement(Java8Parser.DoStatementContext ctx) {
-        toFile.append("repeat while ("+ctx.expression().getText()+")\n");
+        toFile.append("repeat while ("+expressionTranslate(ctx.expression().getText())+" ?)\n");
     }
 
     @Override

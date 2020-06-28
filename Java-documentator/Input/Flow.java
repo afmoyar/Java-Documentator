@@ -1,13 +1,13 @@
 public class Flow{
     void conditionals(){
         int n;
-        if(1>4)
+        if(1>4||n!=0)
         {
             n = 2;
             if(n!=2)
                 n *= 5;
         }
-        else if(true)
+        else if(true||false)
         {
                 n+=9;
         }

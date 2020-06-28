@@ -3,7 +3,7 @@ title whileLoop
 start
 :New variable: <b>a</b>;
 :Assign <color:darkblue><i>5</i></color> to <b>a</b>;
-while (true) is (Yes)
+while (true ?) is (Yes)
 :Assign <color:darkblue><i>-8</i></color> to <b>a</b>;
 :Print: <color:darkblue><i>"hello"</i></color>;
 :Enter subroutine: <color:darkred><b>forLoop</b></color>;
