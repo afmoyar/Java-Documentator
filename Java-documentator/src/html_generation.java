@@ -243,8 +243,9 @@ public class html_generation extends Java8ParserBaseListener{
                 //String[] method_body = parts[1].split("\\;|\\}|\\{"); //gets each line of body
                 String[] method_body = parts[1].split("((?<=\\;)|(?<=\\})|(?<=\\{))"); //gets each line of body
 
-                String ret_stmt = "void";
 
+
+                String ret_stmt = "void";
 
                 if(modifier != "") {
                    String method_name = "";
@@ -256,7 +257,7 @@ public class html_generation extends Java8ParserBaseListener{
                     }
                     //append method name
                     sections.append("<tr>\n" +
-                            "<td>" + method_name + ")"
+                                    "<td>" + method_name + ")"
                     );
 
                     //append method body
@@ -360,10 +361,12 @@ public class html_generation extends Java8ParserBaseListener{
             sections_menu.append("<li class=\"js-btn\">Class diagram</li>");
 
             sections.append("<section class=\"js-section\">\n" +
-                    "<h3 class=\"section__title\"> Class diagram</h3>" +
-                    "<img src=\"images/" + "Class_diagram" + ".svg\">"+
-                    "<hr />\n" +
-                    "</section>"
+                            "<h3 class=\"section__title\"> Class diagram</h3>" +
+                            "<div class=\"center\">" +
+                            "<img src=\"images/" + "Class_diagram" + ".svg\">"+
+                            "</div>"+
+                            "<hr />\n" +
+                            "</section>"
             );
         }
 
