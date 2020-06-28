@@ -1,0 +1,15 @@
+@startuml
+title forLoop
+start
+:New variable: <b>i</b>;
+:Assign <color:darkblue><i>0</i></color> to <b>i</b>;
+while (i<6) is (Yes)
+:i++;
+if (i==5) then (yes)
+:New variable: <b>x</b>;
+:Assign <color:darkblue><i>"hello"</i></color> to <b>x</b>;
+else (no)
+endif
+endwhile (No)
+stop
+@enduml
