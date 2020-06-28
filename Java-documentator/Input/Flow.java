@@ -40,4 +40,13 @@ public class Flow{
             a = false;
         }while (a == true);
     }
+    int withReturnValue()
+    {
+        int number = 6;
+        if(number>6)
+        {
+            return 8;
+        }else
+            return 20;
+    }
 }

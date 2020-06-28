@@ -1,0 +1,12 @@
+@startuml
+title withReturnValue
+start
+:New variable: <b>number</b>;
+:Assign <color:darkblue><i>6</i></color> to <b>number</b>;
+if (number>6) then (yes)
+:<color:INDIGO><i>return</i></color> <color:INDIGO><b>8</b></color>;
+else (no)
+:<color:INDIGO><i>return</i></color> <color:INDIGO><b>20</b></color>;
+endif
+stop
+@enduml

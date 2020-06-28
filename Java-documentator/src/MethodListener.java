@@ -243,6 +243,18 @@ public class MethodListener extends Java8ParserBaseListener{
     }
 
     @Override
+    public void enterReturnStatement(Java8Parser.ReturnStatementContext ctx) {
+        if(ctx.expression()!=null)
+        {
+            toFile.append(":<color:INDIGO><i>return</i></color> <color:INDIGO><b>"+ctx.expression().getText()+"</b></color>;\n");
+        }
+        else {
+            toFile.append(":<color:INDIGO><b>Exit subroutine</b></color>;\n");
+        }
+
+    }
+
+    @Override
     public void exitMethodBody(Java8Parser.MethodBodyContext ctx) {
         toFile.append("stop\n");
         toFile.append("@enduml\n");

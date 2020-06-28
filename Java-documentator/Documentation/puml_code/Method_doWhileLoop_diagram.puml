@@ -6,5 +6,6 @@ start
 repeat
 :Assign <color:darkblue><i>false</i></color> to <b>a</b>;
 repeat while (a==true)
+:<color:INDIGO><b>Exit subroutine</b></color>;
 stop
 @enduml
