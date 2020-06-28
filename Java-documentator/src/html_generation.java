@@ -111,9 +111,16 @@ public class html_generation extends Java8ParserBaseListener{
 
         sections_menu.append("\n");
 
+        String class_style = "\"section__title no_bot\"";
+        /*
+        if(isPublicClass){
+            class_style = class_style + " public_class";
+        }*/
         sections.append(
                 "<section class=\"js-section\">\n" +
-                        "<h3 class=\"section__title\"> " + className+"</h3>"
+                "<h3 class="+class_style+"> " + className+"</h3>"+
+                "<div type=\"button\" class=\"collapsible_red\"></div>"+
+                "<div class=\"contentb\">"
                 //"<p>Constructor</p>" +
         );
         for(Java8Parser.ClassBodyDeclarationContext class_body_ctx:ctx.classBody().classBodyDeclaration()){
@@ -149,7 +156,8 @@ public class html_generation extends Java8ParserBaseListener{
 
 
         if(!attributes.isEmpty()){
-            sections.append("<table id=\""+"attributes_"+ className+"\">"+
+            sections.append(
+                    "<table id=\""+"attributes_"+ className+"\">"+
                     "<tr>\n" +
                     "<th>Attribute</th>\n" +
                     "<th>Type</th>\n" +
@@ -338,8 +346,8 @@ public class html_generation extends Java8ParserBaseListener{
                                 "<td>" + ret_stmt.replace(";","") + "</td>\n" +
                                 "<td>" + modifier + "</td>\n" +
                                 "<td><div class=\"center \">" +
-                                "<img src=\"images/Method_"+method_name.replace("(","")+"_diagram.svg\"></td>\n" +
-                                "</div>" +
+                                "<img src=\"images/Method_"+method_name.replace("(","")+"_diagram.svg\"></div>\n" +
+                                "</td>" +
                                 "</tr>");
             }
         }
@@ -350,8 +358,9 @@ public class html_generation extends Java8ParserBaseListener{
         //close the section
         sections.append(
                 //"<p>End section</p>\n" +
+                "</div>" +
                 "<hr />\n" +
-                        "</section>");
+                "</section>");
 
         //}
         isPublicClass = false;
