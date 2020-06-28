@@ -14,6 +14,7 @@ public class MethodListener extends Java8ParserBaseListener{
     private String methodName;
     private StringBuilder toFile = new StringBuilder();
     private boolean isInsideMethod = false;
+    private boolean isInsideForSetUp = false;
     private static void write(String data,String fileName) {
         try {
             //Guardar imagen
@@ -81,6 +82,33 @@ public class MethodListener extends Java8ParserBaseListener{
     }
 
     @Override
+    public void enterAssignment(Java8Parser.AssignmentContext ctx) {
+        if(isInsideForSetUp)
+            return;
+        String expresion = ctx.expression().getText();
+        String lefHandSide = ctx.leftHandSide().getText();
+        switch (ctx.assignmentOperator().getText())
+        {
+            case "=":
+                toFile.append(":Assign "+expresion+" to "+lefHandSide+";\n");
+                break;
+            case "+=":
+                toFile.append(":Assign "+expresion+"+"+lefHandSide+" to "+lefHandSide+";\n");
+                break;
+            case "*=":
+                toFile.append(":Assign "+expresion+"*"+lefHandSide+" to "+lefHandSide+";\n");
+                break;
+            case "/=":
+                toFile.append(":Assign "+lefHandSide+"/"+expresion+" to "+lefHandSide+";\n");
+                break;
+            case "%=":
+                toFile.append(":Assign "+lefHandSide+"%"+expresion+" to "+lefHandSide+";\n");
+                break;
+        }
+
+    }
+
+    @Override
     public void enterIfThenStatement(Java8Parser.IfThenStatementContext ctx) {
         toFile.append("if ("+ctx.expression().getText()+") then (yes)\n");
 
@@ -120,6 +148,33 @@ public class MethodListener extends Java8ParserBaseListener{
     @Override
     public void exitIfThenElseStatementNoShortIf(Java8Parser.IfThenElseStatementNoShortIfContext ctx) {
         toFile.append("endif\n");
+    }
+
+
+    @Override
+    public void enterForSetUp(Java8Parser.ForSetUpContext ctx) {
+        isInsideForSetUp = true;
+    }
+
+    @Override
+    public void exitForSetUp(Java8Parser.ForSetUpContext ctx) {
+        if(ctx.expression()!=null)
+            toFile.append("while ("+ctx.expression().getText()+") is (Yes)\n");
+        else
+            toFile.append("while () is (Yes)\n");
+        if(ctx.forUpdate()!=null)
+            toFile.append(":"+ctx.forUpdate().getText()+";\n");
+        isInsideForSetUp = false;
+    }
+
+    @Override
+    public void exitBasicForStatement(Java8Parser.BasicForStatementContext ctx) {
+        toFile.append("endwhile (No)\n");
+    }
+
+    @Override
+    public void exitBasicForStatementNoShortIf(Java8Parser.BasicForStatementNoShortIfContext ctx) {
+        toFile.append("endwhile (No)\n");
     }
 
     @Override

@@ -952,6 +952,12 @@ public interface Java8ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBasicForStatementNoShortIf(Java8Parser.BasicForStatementNoShortIfContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link Java8Parser#forSetUp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitForSetUp(Java8Parser.ForSetUpContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link Java8Parser#forInit}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

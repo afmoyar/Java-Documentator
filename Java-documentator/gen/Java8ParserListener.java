@@ -1577,6 +1577,16 @@ public interface Java8ParserListener extends ParseTreeListener {
 	 */
 	void exitBasicForStatementNoShortIf(Java8Parser.BasicForStatementNoShortIfContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link Java8Parser#forSetUp}.
+	 * @param ctx the parse tree
+	 */
+	void enterForSetUp(Java8Parser.ForSetUpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link Java8Parser#forSetUp}.
+	 * @param ctx the parse tree
+	 */
+	void exitForSetUp(Java8Parser.ForSetUpContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link Java8Parser#forInit}.
 	 * @param ctx the parse tree
 	 */

@@ -866,12 +866,16 @@ forStatementNoShortIf
 	;
 
 basicForStatement
-	:	'for' '(' forInit? ';' expression? ';' forUpdate? ')' statement
+	:	forSetUp statement
 	;
 
 basicForStatementNoShortIf
-	:	'for' '(' forInit? ';' expression? ';' forUpdate? ')' statementNoShortIf
+	:	forSetUp statementNoShortIf
 	;
+
+forSetUp
+    :   'for' '(' forInit? ';' expression? ';' forUpdate? ')'
+    ;
 
 forInit
 	:	statementExpressionList

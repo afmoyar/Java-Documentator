@@ -4,10 +4,15 @@ public class example{
         if(1>4)
         {
             n = 2;
+            if(n!=2)
+                n *= 5;
         }
         else
         {
-            n = 8;
+            for (int i = 0; i < 8; i = i +1) {
+                n+=9;
+            }
+
         }
     }
 }

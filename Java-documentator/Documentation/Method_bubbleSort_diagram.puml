@@ -1,0 +1,24 @@
+@startuml
+title bubbleSort
+start
+:New variable: n;
+:Assign arr.length to n;
+:New variable: i;
+:Assign 0 to i;
+while (i<n-1) is (Yes)
+:i++;
+:New variable: j;
+:Assign 0 to j;
+while (j<n-i-1) is (Yes)
+:j++;
+if (arr[j]>arr[j+1]) then (yes)
+:New variable: temp;
+:Assign arr[j] to temp;
+:Assign arr[j+1] to arr[j];
+:Assign temp to arr[j+1];
+else (no)
+endif
+endwhile (No)
+endwhile (No)
+stop
+@enduml
