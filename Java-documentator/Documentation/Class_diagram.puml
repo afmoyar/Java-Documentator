@@ -1,18 +1,3 @@
 @startuml
-class Job{
-	-role: String
-	-salary: long
-	-id: int
-	+getRole()
-	+setRole()
-	+getSalary()
-	+setSalary()
-	+getId()
-	+setId()
-}
-class Person{
-	-job: Job
-	+getSalary()
-}
-Person *-- Job
+title Class diagram
 @enduml

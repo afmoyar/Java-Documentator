@@ -1,4 +1,4 @@
-// Generated from D:/Documents/Tareas/NOVENA_MATRICULA/Lenguajes_de_programacion/Proyecto/Java-documentator/Grammar\Java8Parser.g4 by ANTLR 4.8
+// Generated from D:/Documents/Tareas/NOVENA_MATRICULA/Lenguajes_de_programacion/Java-Documentator/Java-documentator/Grammar\Java8Parser.g4 by ANTLR 4.8
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
@@ -997,6 +997,20 @@ public class Java8ParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitIfThenElseStatementNoShortIf(Java8Parser.IfThenElseStatementNoShortIfContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitElseStatement(Java8Parser.ElseStatementContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitElseStatementNoShortIf(Java8Parser.ElseStatementNoShortIfContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

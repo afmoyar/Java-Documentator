@@ -1,0 +1,9 @@
+@startuml
+title method
+start
+:New variable: n;
+if (1>4) then (yes)
+else (no)
+endif
+stop
+@enduml

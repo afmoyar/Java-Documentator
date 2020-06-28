@@ -797,12 +797,20 @@ ifThenStatement
 	;
 
 ifThenElseStatement
-	:	'if' '(' expression ')' statementNoShortIf 'else' statement
+	:	'if' '(' expression ')' statementNoShortIf elseStatement
 	;
 
 ifThenElseStatementNoShortIf
-	:	'if' '(' expression ')' statementNoShortIf 'else' statementNoShortIf
+	:	'if' '(' expression ')' statementNoShortIf elseStatementNoShortIf
 	;
+
+elseStatement
+    :   'else' statement
+    ;
+
+elseStatementNoShortIf
+    :   'else' statementNoShortIf
+    ;
 
 assertStatement
 	:	'assert' expression ';'

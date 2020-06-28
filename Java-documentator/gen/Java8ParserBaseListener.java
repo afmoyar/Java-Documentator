@@ -1,4 +1,4 @@
-// Generated from D:/Documents/Tareas/NOVENA_MATRICULA/Lenguajes_de_programacion/Proyecto/Java-documentator/Grammar\Java8Parser.g4 by ANTLR 4.8
+// Generated from D:/Documents/Tareas/NOVENA_MATRICULA/Lenguajes_de_programacion/Java-Documentator/Java-documentator/Grammar\Java8Parser.g4 by ANTLR 4.8
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -1702,6 +1702,30 @@ public class Java8ParserBaseListener implements Java8ParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitIfThenElseStatementNoShortIf(Java8Parser.IfThenElseStatementNoShortIfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterElseStatement(Java8Parser.ElseStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitElseStatement(Java8Parser.ElseStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterElseStatementNoShortIf(Java8Parser.ElseStatementNoShortIfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitElseStatementNoShortIf(Java8Parser.ElseStatementNoShortIfContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -1,4 +1,4 @@
-// Generated from D:/Documents/Tareas/NOVENA_MATRICULA/Lenguajes_de_programacion/Proyecto/Java-documentator/Grammar\Java8Parser.g4 by ANTLR 4.8
+// Generated from D:/Documents/Tareas/NOVENA_MATRICULA/Lenguajes_de_programacion/Java-Documentator/Java-documentator/Grammar\Java8Parser.g4 by ANTLR 4.8
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -855,6 +855,18 @@ public interface Java8ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitIfThenElseStatementNoShortIf(Java8Parser.IfThenElseStatementNoShortIfContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link Java8Parser#elseStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElseStatement(Java8Parser.ElseStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link Java8Parser#elseStatementNoShortIf}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElseStatementNoShortIf(Java8Parser.ElseStatementNoShortIfContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link Java8Parser#assertStatement}.
 	 * @param ctx the parse tree

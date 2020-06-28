@@ -1,4 +1,4 @@
-// Generated from D:/Documents/Tareas/NOVENA_MATRICULA/Lenguajes_de_programacion/Proyecto/Java-documentator/Grammar\Java8Parser.g4 by ANTLR 4.8
+// Generated from D:/Documents/Tareas/NOVENA_MATRICULA/Lenguajes_de_programacion/Java-Documentator/Java-documentator/Grammar\Java8Parser.g4 by ANTLR 4.8
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -1416,6 +1416,26 @@ public interface Java8ParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIfThenElseStatementNoShortIf(Java8Parser.IfThenElseStatementNoShortIfContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link Java8Parser#elseStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterElseStatement(Java8Parser.ElseStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link Java8Parser#elseStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitElseStatement(Java8Parser.ElseStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link Java8Parser#elseStatementNoShortIf}.
+	 * @param ctx the parse tree
+	 */
+	void enterElseStatementNoShortIf(Java8Parser.ElseStatementNoShortIfContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link Java8Parser#elseStatementNoShortIf}.
+	 * @param ctx the parse tree
+	 */
+	void exitElseStatementNoShortIf(Java8Parser.ElseStatementNoShortIfContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link Java8Parser#assertStatement}.
 	 * @param ctx the parse tree
