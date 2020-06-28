@@ -37,6 +37,10 @@ h3{
   grid-template-columns: 1fr 180px 60% 1fr;
 }
 
+.center{
+  text-align: center;
+}
+
 .menu__item {
   padding: 1.5rem 1rem;
 }
