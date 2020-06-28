@@ -26,6 +26,7 @@ public class html_generation extends Java8ParserBaseListener{
     private List<String> methods = new ArrayList<String>();
 
     private boolean selected_first_on_menu = false;
+    private boolean has_class_diagram = false;
 
     @Override
     public void enterCompilationUnit(Java8Parser.CompilationUnitContext ctx) {
@@ -49,7 +50,7 @@ public class html_generation extends Java8ParserBaseListener{
                 "      <ul class=\"menu\">\n" +
                 "        <div class=\"menu__item toggle\"><span></span></div>\n" +
                 "        <li class=\"menu__item\"><a href=\"https://github.com/afmoyar/Java-Documentator\" class=\"link link--dark\"><i class=\"fa fa-github\"></i> Github</a></li>\n" +
-                "        <li class=\"menu__item\"><a href=\"index.html\" class=\"link link--dark\"><i class=\"fa fa-home\"></i> Home</a></li>\n" +
+               // "        <li class=\"menu__item\"><a href=\"index.html\" class=\"link link--dark\"><i class=\"fa fa-home\"></i> Home</a></li>\n" +
                 "      </ul>\n" +
                 "    </nav>\n" +
                 "    <div class=\"wrapper\">\n" +
@@ -91,6 +92,9 @@ public class html_generation extends Java8ParserBaseListener{
                 className = "Public " + className;
             }
 
+            if(!isPublicClass) {
+                has_class_diagram = true;
+            }
 
             System.out.println("in "+className);
             glob_classname = className;
@@ -333,7 +337,7 @@ public class html_generation extends Java8ParserBaseListener{
             }
             //close the section
             sections.append(
-                    "<p>End section</p>\n" +
+                    //"<p>End section</p>\n" +
                     "<hr />\n" +
                     "</section>");
 
@@ -352,13 +356,23 @@ public class html_generation extends Java8ParserBaseListener{
 
     @Override
     public void exitCompilationUnit(Java8Parser.CompilationUnitContext ctx) {
+        if(has_class_diagram) {
+            sections_menu.append("<li class=\"js-btn\">Class diagram</li>");
+
+            sections.append("<section class=\"js-section\">\n" +
+                    "<h3 class=\"section__title\"> Class diagram</h3>" +
+                    "<img src=\"images/" + "Class_diagram" + ".svg\">"+
+                    "<hr />\n" +
+                    "</section>"
+            );
+        }
 
         struct.append(sections_menu);
         struct.append("</ul>\n" +
                       "</aside>"+
                       "<article class=\"doc__content\">");
 
-        sections.append("<img src=\"images/" + "Class_diagram" + ".svg\">"); //change to the classname
+
         struct.append(sections);
         String ending = "</article>\n" +
                         "</div>" +
