@@ -109,6 +109,20 @@ public class MethodListener extends Java8ParserBaseListener{
     }
 
     @Override
+    public void enterMethodInvocation(Java8Parser.MethodInvocationContext ctx) {
+        System.out.println(ctx.getText()+"****************************");
+        if(ctx.getText().contains("System.out.print") && ctx.argumentList()!=null)
+        {
+            toFile.append(":Print: "+ctx.argumentList().getText()+";\n");
+        }
+    }
+
+    @Override
+    public void exitMethodInvocation(Java8Parser.MethodInvocationContext ctx) {
+        super.exitMethodInvocation(ctx);
+    }
+
+    @Override
     public void enterIfThenStatement(Java8Parser.IfThenStatementContext ctx) {
         toFile.append("if ("+ctx.expression().getText()+") then (yes)\n");
 

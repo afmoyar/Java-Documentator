@@ -29,6 +29,8 @@ public class Flow{
         while (true)
         {
             a =- 8;
+            System.out.println("hello");
+            forLoop();
         }
     }
     void doWhileLoop()

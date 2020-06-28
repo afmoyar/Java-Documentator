@@ -35,6 +35,7 @@ start
 :Assign 5 to a;
 while (true) is (Yes)
 :Assign -8 to a;
+:Print: "hello";
 endwhile (No)
 stop
 @enduml
