@@ -797,12 +797,20 @@ ifThenStatement
 	;
 
 ifThenElseStatement
-	:	'if' '(' expression ')' statementNoShortIf 'else' statement
+	:	'if' '(' expression ')' statementNoShortIf elseStatement
 	;
 
 ifThenElseStatementNoShortIf
-	:	'if' '(' expression ')' statementNoShortIf 'else' statementNoShortIf
+	:	'if' '(' expression ')' statementNoShortIf elseStatementNoShortIf
 	;
+
+elseStatement
+    :   'else' statement
+    ;
+
+elseStatementNoShortIf
+    :   'else' statementNoShortIf
+    ;
 
 assertStatement
 	:	'assert' expression ';'
@@ -858,12 +866,16 @@ forStatementNoShortIf
 	;
 
 basicForStatement
-	:	'for' '(' forInit? ';' expression? ';' forUpdate? ')' statement
+	:	forSetUp statement
 	;
 
 basicForStatementNoShortIf
-	:	'for' '(' forInit? ';' expression? ';' forUpdate? ')' statementNoShortIf
+	:	forSetUp statementNoShortIf
 	;
+
+forSetUp
+    :   'for' '(' forInit? ';' expression? ';' forUpdate? ')'
+    ;
 
 forInit
 	:	statementExpressionList

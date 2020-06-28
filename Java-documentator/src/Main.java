@@ -62,6 +62,7 @@ public class Main {
             ParseTree tree = parser.compilationUnit();
             ParseTreeWalker walker = new ParseTreeWalker();
             walker.walk(new ClassListener(),tree);
+            walker.walk(new MethodListener(),tree);
             walker.walk(new html_generation(),tree);
             /*
             //System.out.println(tokens.getTokens());

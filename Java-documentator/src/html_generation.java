@@ -48,7 +48,7 @@ public class html_generation extends Java8ParserBaseListener{
                 "      <h1 class=\"logo\">Generated<span class=\"logo__thin\"> Documentation</span></h1>\n" +
                 "      <ul class=\"menu\">\n" +
                 "        <div class=\"menu__item toggle\"><span></span></div>\n" +
-                "        <li class=\"menu__item\"><a href=\"\" class=\"link link--dark\"><i class=\"fa fa-github\"></i> Github</a></li>\n" +
+                "        <li class=\"menu__item\"><a href=\"https://github.com/afmoyar/Java-Documentator\" class=\"link link--dark\"><i class=\"fa fa-github\"></i> Github</a></li>\n" +
                 "        <li class=\"menu__item\"><a href=\"index.html\" class=\"link link--dark\"><i class=\"fa fa-home\"></i> Home</a></li>\n" +
                 "      </ul>\n" +
                 "    </nav>\n" +
@@ -56,6 +56,16 @@ public class html_generation extends Java8ParserBaseListener{
                 "   <aside class=\"doc__nav\">\n" +
                 "        <ul>");
     }
+
+    @Override
+    public void enterMethodDeclarator(Java8Parser.MethodDeclaratorContext ctx) {
+        if(isPublicClass) {
+            String methodName = ctx.Identifier().getText();
+            //System.out.println("##entra a " + methodName);
+        }
+    }
+
+
 
     @Override
     public void enterNormalClassDeclaration(Java8Parser.NormalClassDeclarationContext ctx) {
@@ -73,10 +83,15 @@ public class html_generation extends Java8ParserBaseListener{
             if(modifier.equals("abstract"))
                 modifiers.append(modifier+" ");
         }
-        if(!isPublicClass)
-        {
+
+        //if(!isPublicClass){
             //start section
             String className = ctx.Identifier().getText();
+            if(isPublicClass){
+                className = "Public " + className;
+            }
+
+
             System.out.println("in "+className);
             glob_classname = className;
             relations.put(className, new ArrayList<HashMap<String,String>>());
@@ -297,7 +312,7 @@ public class html_generation extends Java8ParserBaseListener{
                     "<hr />\n" +
                     "</section>");
 
-        }
+        //}
         isPublicClass = false;
         glob_classname = "";
     }
@@ -306,6 +321,7 @@ public class html_generation extends Java8ParserBaseListener{
     @Override
     public void exitNormalClassDeclaration(Java8Parser.NormalClassDeclarationContext ctx) {
 
+        //isPublicClass = false;
     }
 
 
