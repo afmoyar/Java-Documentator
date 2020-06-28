@@ -12,7 +12,10 @@ h3{
 /* layout */
 .header {
   border-bottom: 1px solid var(--code-bg-color);
-  grid-template-columns: 1fr 150px 60% 1fr;
+  /*grid-template-columns: 1fr 150px 60% 1fr;
+  grid-template-columns: 1fr 180px 70% 1fr;
+  */
+  grid-template-columns: 1fr 180px 80% 1fr;
 }
 
 .wrapper {
@@ -40,6 +43,7 @@ h3{
 /* menu */
 .menu {
   grid-template-columns: 1fr 180px 60% 1fr;
+
 }
 
 .center{
@@ -520,8 +524,10 @@ table td:first-child {
 /* layout */
 .wrapper {
   margin: 0 auto;
+  /*
   width: 70%;
-  /*width: 85%;*/
+  width: 80%;*/
+  width: 90%;
 }
 
 .footer {
