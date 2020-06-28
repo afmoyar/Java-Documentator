@@ -217,6 +217,7 @@ public class html_generation extends Java8ParserBaseListener{
                             "<th  class=\"blue\">Method</th>\n" +
                             "<th  class=\"blue\">Returns</th>\n" +
                             "<th  class=\"blue\">Access</th>\n" +
+                            "<th  class=\"blue\">Diagram</th>" +
                             "</tr>"
             );
         }
@@ -265,7 +266,8 @@ public class html_generation extends Java8ParserBaseListener{
                 //append method body
                 boolean initialize_collapsible = false;
                 for(String body_line: method_body){
-                    System.out.println("!!!"+body_line);
+                    //System.out.println("!!!"+body_line);
+
                     body_line = body_line.replace("&"," &amp "); //escape & character
                     body_line = body_line.replace("<"," &lt "); //escape < character
                     body_line = body_line.replace(">"," &gt "); //escape > character
@@ -335,6 +337,9 @@ public class html_generation extends Java8ParserBaseListener{
                         "</td>\n" +
                                 "<td>" + ret_stmt.replace(";","") + "</td>\n" +
                                 "<td>" + modifier + "</td>\n" +
+                                "<td><div class=\"center \">" +
+                                "<img src=\"images/Method_"+method_name.replace("(","")+"_diagram.svg\"></td>\n" +
+                                "</div>" +
                                 "</tr>");
             }
         }
