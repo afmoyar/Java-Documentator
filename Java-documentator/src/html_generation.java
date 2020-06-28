@@ -127,7 +127,7 @@ public class html_generation extends Java8ParserBaseListener{
                         System.out.println("at -1: "+tmp.charAt(tmp.length() - 1));
                         System.out.println("at -2: "+tmp.charAt(tmp.length() - 2));
                         System.out.println("--------- ");*/
-                        System.out.println("###"+tmp);
+                        //System.out.println("###"+tmp);
                         if (tmp.charAt(tmp.length() - 1) == ')' &&
                                 tmp.charAt(tmp.length() - 2) == '(') {
 
@@ -259,6 +259,31 @@ public class html_generation extends Java8ParserBaseListener{
                     boolean initialize_collapsible = false;
                     for(String body_line: method_body){
                         //System.out.println("!!!"+body_line);
+
+                        body_line = body_line.replace("int","int ");
+                        body_line = body_line.replace("int[]","int[] ");
+                        body_line = body_line.replace("Integer","Integer ");
+                        body_line = body_line.replace("Integer[]","Integer[] ");
+
+                        body_line = body_line.replace("String","String ");
+                        body_line = body_line.replace("String[]","String[] ");
+                        body_line = body_line.replace("<String>","<String> ");
+
+                        body_line = body_line.replace("Double","Double ");
+                        body_line = body_line.replace("Double[]","Double[] ");
+                        body_line = body_line.replace("<Double>","<Double> ");
+
+
+                        body_line = body_line.replace("Boolean","Boolean ");
+                        body_line = body_line.replace("boolean","boolean ");
+                        body_line = body_line.replace("Boolean[]","Boolean[] ");
+                        body_line = body_line.replace("<Boolean>","<Boolean> ");
+
+                        body_line = body_line.replace("Long","Long ");
+                        body_line = body_line.replace("Long[]","Long[] ");
+                        body_line = body_line.replace("<Long>","<Long> ");
+
+
                         if(body_line.contains("return")){
                             try {
                                 String[] tmp = body_line.split("return");
@@ -273,7 +298,7 @@ public class html_generation extends Java8ParserBaseListener{
                             }
                             catch(Exception e){
                                 sections.append(body_line.trim() + "<br/>");
-                                System.out.println("ERR! "+body_line);
+                                //System.out.println("ERR! "+body_line);
                             }
                         }
                         else{
