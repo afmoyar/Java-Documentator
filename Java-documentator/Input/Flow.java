@@ -7,7 +7,7 @@ public class Flow{
             if(n!=2)
                 n *= 5;
         }
-        else
+        else if(true)
         {
                 n+=9;
         }

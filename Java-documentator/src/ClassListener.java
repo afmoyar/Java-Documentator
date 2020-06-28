@@ -45,7 +45,7 @@ public class ClassListener extends Java8ParserBaseListener {
 
             Files.write(Paths.get("Documentation/images/"+fileName+".svg"), svg.getBytes());
 
-            Files.write(Paths.get("Documentation/"+fileName+".puml"), data.getBytes());
+            Files.write(Paths.get("Documentation/puml_code/"+fileName+".puml"), data.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }

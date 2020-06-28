@@ -17,7 +17,8 @@ public class MethodListener extends Java8ParserBaseListener{
     private boolean isInsideMethod = false;
     private boolean isInsideForSetUp = false;
     private HashSet<String> methods = new HashSet<>();
-    private static void write(String data,String fileName) {
+
+    private void write(String data,String fileName) {
         try {
             //Guardar imagen
             SourceStringReader reader = new SourceStringReader(data);
@@ -37,7 +38,8 @@ public class MethodListener extends Java8ParserBaseListener{
 
             Files.write(Paths.get("Documentation/images/"+fileName+".svg"), svg.getBytes());
 
-            Files.write(Paths.get("Documentation/"+fileName+".puml"), data.getBytes());
+            Files.write(Paths.get("Documentation/puml_code/"+fileName+".puml"), data.getBytes());
+            toFile = new StringBuilder();
         } catch (IOException e) {
             e.printStackTrace();
         }
