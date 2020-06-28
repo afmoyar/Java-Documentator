@@ -1,5 +1,5 @@
 @startuml
-title method
+title conditionals
 start
 :New variable: n;
 if (1>4) then (yes)
@@ -9,12 +9,7 @@ if (n!=2) then (yes)
 else (no)
 endif
 else (no)
-:New variable: i;
-:Assign 0 to i;
-while (i<8) is (Yes)
-:i=i+1;
 :Assign 9+n to n;
-endwhile (No)
 endif
 stop
 @enduml

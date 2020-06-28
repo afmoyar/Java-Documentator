@@ -177,6 +177,37 @@ public class MethodListener extends Java8ParserBaseListener{
         toFile.append("endwhile (No)\n");
     }
 
+
+    @Override
+    public void enterWhileStatement(Java8Parser.WhileStatementContext ctx) {
+        toFile.append("while ("+ctx.expression().getText()+") is (Yes)\n");
+    }
+
+    @Override
+    public void exitWhileStatement(Java8Parser.WhileStatementContext ctx) {
+        toFile.append("endwhile (No)\n");
+    }
+
+    @Override
+    public void enterWhileStatementNoShortIf(Java8Parser.WhileStatementNoShortIfContext ctx) {
+        toFile.append("while ("+ctx.expression().getText()+") is (Yes)\n");
+    }
+
+    @Override
+    public void exitWhileStatementNoShortIf(Java8Parser.WhileStatementNoShortIfContext ctx) {
+        toFile.append("endwhile (No)\n");
+    }
+
+    @Override
+    public void enterDoStatement(Java8Parser.DoStatementContext ctx) {
+        toFile.append("repeat\n");
+    }
+
+    @Override
+    public void exitDoStatement(Java8Parser.DoStatementContext ctx) {
+        toFile.append("repeat while ("+ctx.expression().getText()+")\n");
+    }
+
     @Override
     public void exitMethodBody(Java8Parser.MethodBodyContext ctx) {
         toFile.append("stop\n");

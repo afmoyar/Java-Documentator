@@ -1,0 +1,50 @@
+@startuml
+title conditionals
+start
+:New variable: n;
+if (1>4) then (yes)
+:Assign 2 to n;
+if (n!=2) then (yes)
+:Assign 5*n to n;
+else (no)
+endif
+else (no)
+:Assign 9+n to n;
+endif
+stop
+@enduml
+@startuml
+title forLoop
+start
+:New variable: i;
+:Assign 0 to i;
+while (i<6) is (Yes)
+:i++;
+if (i==5) then (yes)
+:New variable: x;
+:Assign "hello" to x;
+else (no)
+endif
+endwhile (No)
+stop
+@enduml
+@startuml
+title whileLoop
+start
+:New variable: a;
+:Assign 5 to a;
+while (true) is (Yes)
+:Assign -8 to a;
+endwhile (No)
+stop
+@enduml
+@startuml
+title doWhileLoop
+start
+:New variable: a;
+:Assign true to a;
+repeat
+:Assign false to a;
+repeat while (a==true)
+stop
+@enduml
