@@ -1,0 +1,10 @@
+@startuml
+title doWhileLoop
+start
+:New variable: <b>a</b>;
+:Assign <color:darkblue><i>true</i></color> to <b>a</b>;
+repeat
+:Assign <color:darkblue><i>false</i></color> to <b>a</b>;
+repeat while (a==true)
+stop
+@enduml

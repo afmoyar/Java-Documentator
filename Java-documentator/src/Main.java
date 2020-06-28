@@ -57,11 +57,16 @@ public class Main {
 
             CommonTokenStream tokens = new CommonTokenStream(lexer);
 
+            //Deleting folders with info of the previos usage of program
+            FolderDeletion.deleteFolder("Documentation/images");
+            FolderDeletion.deleteFolder("Documentation/puml_code");
+
             //Parser
             Java8Parser parser = new Java8Parser(tokens);
             ParseTree tree = parser.compilationUnit();
             ParseTreeWalker walker = new ParseTreeWalker();
             walker.walk(new ClassListener(),tree);
+            walker.walk(new MethodListener(),tree);
             walker.walk(new html_generation(),tree);
             /*
             //System.out.println(tokens.getTokens());

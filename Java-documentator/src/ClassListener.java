@@ -4,6 +4,7 @@ import net.sourceforge.plantuml.FileFormatOption;
 import net.sourceforge.plantuml.SourceStringReader;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
@@ -42,10 +43,10 @@ public class ClassListener extends Java8ParserBaseListener {
             final String svg = new String(os.toByteArray(), Charset.forName("UTF-8"));
             //uml.java
             //System.out.println(svg);
-
+            new File("Documentation/images").mkdirs();
             Files.write(Paths.get("Documentation/images/"+fileName+".svg"), svg.getBytes());
-
-            Files.write(Paths.get("Documentation/"+fileName+".puml"), data.getBytes());
+            new File("Documentation/puml_code").mkdirs();
+            Files.write(Paths.get("Documentation/puml_code/"+fileName+".puml"), data.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
