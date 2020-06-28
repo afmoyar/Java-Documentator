@@ -8,6 +8,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Stack;
 
 public class MethodListener extends Java8ParserBaseListener{
@@ -15,6 +16,7 @@ public class MethodListener extends Java8ParserBaseListener{
     private StringBuilder toFile = new StringBuilder();
     private boolean isInsideMethod = false;
     private boolean isInsideForSetUp = false;
+    private HashSet<String> methods = new HashSet<>();
     private static void write(String data,String fileName) {
         try {
             //Guardar imagen
@@ -49,6 +51,7 @@ public class MethodListener extends Java8ParserBaseListener{
         System.out.println("entra a "+methodName);
         toFile.append("@startuml\n");
         toFile.append("title ").append(methodName).append("\n");
+        methods.add(methodName);
     }
 
 
@@ -72,10 +75,10 @@ public class MethodListener extends Java8ParserBaseListener{
             }
         }
         for (int i = 0; i <variables.size() ; i++) {
-            toFile.append(":New variable: "+variables.get(i)+";\n");
+            toFile.append(":New variable: <b>"+variables.get(i)+"</b>;\n");
             if(assignation!=null)
             {
-                toFile.append(":Assign "+assignation+" to "+variables.get(i)+";\n");
+                toFile.append(":Assign <color:darkblue><i>"+assignation+"</i></color> to <b>"+variables.get(i)+"</b>;\n");
             }
 
         }
@@ -90,19 +93,19 @@ public class MethodListener extends Java8ParserBaseListener{
         switch (ctx.assignmentOperator().getText())
         {
             case "=":
-                toFile.append(":Assign "+expresion+" to "+lefHandSide+";\n");
+                toFile.append(":Assign <color:darkblue><i>"+expresion+"</i></color> to <b>"+lefHandSide+"</b>;\n");
                 break;
             case "+=":
-                toFile.append(":Assign "+expresion+"+"+lefHandSide+" to "+lefHandSide+";\n");
+                toFile.append(":Assign <color:darkblue><i>"+expresion+"+"+lefHandSide+"</i></color> to <b>"+lefHandSide+"</b>;\n");
                 break;
             case "*=":
-                toFile.append(":Assign "+expresion+"*"+lefHandSide+" to "+lefHandSide+";\n");
+                toFile.append(":Assign <color:darkblue><i>"+expresion+"*"+lefHandSide+"</i></color> to <b>"+lefHandSide+"</b>;\n");
                 break;
             case "/=":
-                toFile.append(":Assign "+lefHandSide+"/"+expresion+" to "+lefHandSide+";\n");
+                toFile.append(":Assign <color:darkblue><i>"+lefHandSide+"/"+expresion+"</i></color> to <b>"+lefHandSide+"</b>;\n");
                 break;
             case "%=":
-                toFile.append(":Assign "+lefHandSide+"%"+expresion+" to "+lefHandSide+";\n");
+                toFile.append(":Assign <color:darkblue><i>"+lefHandSide+"%"+expresion+"</i></color> to <b>"+lefHandSide+"</b>;\n");
                 break;
         }
 
@@ -110,10 +113,24 @@ public class MethodListener extends Java8ParserBaseListener{
 
     @Override
     public void enterMethodInvocation(Java8Parser.MethodInvocationContext ctx) {
-        System.out.println(ctx.getText()+"****************************");
+
+        String methodName = null;
         if(ctx.getText().contains("System.out.print") && ctx.argumentList()!=null)
         {
-            toFile.append(":Print: "+ctx.argumentList().getText()+";\n");
+            toFile.append(":Print: <color:darkblue><i>"+ctx.argumentList().getText()+"</i></color>;\n");
+            return;
+        }
+        else if(ctx.methodName()!=null)
+        {
+            System.out.println("ctx.methodName()!=null");
+           methodName = ctx.methodName().Identifier().getText();
+        }else {
+            System.out.println("else");
+            methodName = ctx.Identifier().getText();
+        }
+        if(methods.contains(methodName))
+        {
+            toFile.append(":Enter subroutine: <color:darkred><b>"+methodName+"</b></color>;\n");
         }
     }
 

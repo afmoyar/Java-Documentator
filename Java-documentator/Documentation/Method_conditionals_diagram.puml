@@ -1,15 +1,15 @@
 @startuml
 title conditionals
 start
-:New variable: n;
+:New variable: <b>n</b>;
 if (1>4) then (yes)
-:Assign 2 to n;
+:Assign <color:darkblue><i>2</i></color> to <b>n</b>;
 if (n!=2) then (yes)
-:Assign 5*n to n;
+:Assign <color:darkblue><i>5*n</i></color> to <b>n</b>;
 else (no)
 endif
 else (no)
-:Assign 9+n to n;
+:Assign <color:darkblue><i>9+n</i></color> to <b>n</b>;
 endif
 stop
 @enduml

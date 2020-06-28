@@ -1,28 +1,28 @@
 @startuml
 title conditionals
 start
-:New variable: n;
+:New variable: <b>n</b>;
 if (1>4) then (yes)
-:Assign 2 to n;
+:Assign <color:darkblue><i>2</i></color> to <b>n</b>;
 if (n!=2) then (yes)
-:Assign 5*n to n;
+:Assign <color:darkblue><i>5*n</i></color> to <b>n</b>;
 else (no)
 endif
 else (no)
-:Assign 9+n to n;
+:Assign <color:darkblue><i>9+n</i></color> to <b>n</b>;
 endif
 stop
 @enduml
 @startuml
 title forLoop
 start
-:New variable: i;
-:Assign 0 to i;
+:New variable: <b>i</b>;
+:Assign <color:darkblue><i>0</i></color> to <b>i</b>;
 while (i<6) is (Yes)
 :i++;
 if (i==5) then (yes)
-:New variable: x;
-:Assign "hello" to x;
+:New variable: <b>x</b>;
+:Assign <color:darkblue><i>"hello"</i></color> to <b>x</b>;
 else (no)
 endif
 endwhile (No)
@@ -31,21 +31,22 @@ stop
 @startuml
 title whileLoop
 start
-:New variable: a;
-:Assign 5 to a;
+:New variable: <b>a</b>;
+:Assign <color:darkblue><i>5</i></color> to <b>a</b>;
 while (true) is (Yes)
-:Assign -8 to a;
-:Print: "hello";
+:Assign <color:darkblue><i>-8</i></color> to <b>a</b>;
+:Print: <color:darkblue><i>"hello"</i></color>;
+:Enter subroutine: <color:darkred><b>forLoop</b></color>;
 endwhile (No)
 stop
 @enduml
 @startuml
 title doWhileLoop
 start
-:New variable: a;
-:Assign true to a;
+:New variable: <b>a</b>;
+:Assign <color:darkblue><i>true</i></color> to <b>a</b>;
 repeat
-:Assign false to a;
+:Assign <color:darkblue><i>false</i></color> to <b>a</b>;
 repeat while (a==true)
 stop
 @enduml
