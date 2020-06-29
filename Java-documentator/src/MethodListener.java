@@ -311,6 +311,27 @@ public class MethodListener extends Java8ParserBaseListener{
     }
 
     @Override
+    public void enterForEachSetUp(Java8Parser.ForEachSetUpContext ctx) {
+
+        toFile.append("while(For each <b>"+ctx.variableDeclaratorId().Identifier()+"</b> of <b>"+ctx.expression().getText()+"</b>);\n");
+    }
+
+    @Override
+    public void exitForEachSetUp(Java8Parser.ForEachSetUpContext ctx) {
+
+    }
+
+    @Override
+    public void exitEnhancedForStatement(Java8Parser.EnhancedForStatementContext ctx) {
+        toFile.append("endWhile\n");
+    }
+
+    @Override
+    public void exitEnhancedForStatementNoShortIf(Java8Parser.EnhancedForStatementNoShortIfContext ctx) {
+        toFile.append("endWhile\n");
+    }
+
+    @Override
     public void enterReturnStatement(Java8Parser.ReturnStatementContext ctx) {
         if(ctx.expression()!=null)
         {
