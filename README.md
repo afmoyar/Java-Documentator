@@ -30,7 +30,7 @@ Once the analysis is complete, open in your browser index.html, wich is located 
 
 if you want to check or modify the code that generates the uml graphs, check the puml_code int the Documentation folder.
 
-###Contact:
+### Contact:
 - Michael Estiven Guerrero
 - Andrés Felipe Moya
 - Esteban Jaramillo Sarmiento
