@@ -15,14 +15,69 @@
       <h1 class="logo">Generated<span class="logo__thin"> Documentation</span></h1>
       <ul class="menu">
         <div class="menu__item toggle"><span></span></div>
-        <li class="menu__item"><a href="" class="link link--dark"><i class="fa fa-github"></i> Github</a></li>
-        <li class="menu__item"><a href="index.html" class="link link--dark"><i class="fa fa-home"></i> Home</a></li>
+        <li class="menu__item"><a href="https://github.com/afmoyar/Java-Documentator" class="link link--dark"><i class="fa fa-github"></i> Github</a></li>
       </ul>
     </nav>
     <div class="wrapper">
    <aside class="doc__nav">
-        <ul></ul>
-</aside><article class="doc__content"><img src="images/Class_diagram.svg"></article>
+        <ul><li class="js-btn selected">Public Flow</li>
+</ul>
+</aside><article class="doc__content"><section class="js-section">
+<h3 class="section__title no_bot"> Public Flow</h3><div type="button" class="collapsible_red"></div><div class="contentb"><table id="methods_Public Flow"><tr>
+<th  class="blue">Method</th>
+<th  class="blue">Returns</th>
+<th  class="blue">Access</th>
+<th  class="blue">Diagram</th></tr><tr>
+<td>conditionals()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p><pre class="prettyprint">Method body: <br/>int n; <br/>if(1&gt4||n!=0){<br/>n=2;<br/>if(n!=2)n*=5;<br/>}<br/>elseif(true||false){<br/>n+=9;<br/>}<br/></pre></p>
+</div></td>
+<td>void</td>
+<td>default</td>
+<td><div class="center "><img src="images/Method_conditionals_diagram.svg"></div>
+</td></tr><tr>
+<td>forLoop()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p><pre class="prettyprint">Method body: <br/>for(int i=0;i&lt6;i++) <br/>{<br/>if(i==5){<br/>String x="hello";<br/>}<br/>}<br/></pre></p>
+</div></td>
+<td>void</td>
+<td>default</td>
+<td><div class="center "><img src="images/Method_forLoop_diagram.svg"></div>
+</td></tr><tr>
+<td>whileLoop()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p><pre class="prettyprint">Method body: <br/>int a=5; <br/>while(true){<br/>a=-8;<br/>System.out.print ln("hello");<br/>forLoop()<br/>}<br/></pre></p>
+</div></td>
+<td>void</td>
+<td>default</td>
+<td><div class="center "><img src="images/Method_whileLoop_diagram.svg"></div>
+</td></tr><tr>
+<td>doWhileLoop()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p><pre class="prettyprint">Method body: <br/>boolean a=true; <br/>do{<br/>a=false;<br/>}<br/>while(a==true);<br/></pre></p>
+</div></td>
+<td>void</td>
+<td>default</td>
+<td><div class="center "><img src="images/Method_doWhileLoop_diagram.svg"></div>
+</td></tr><tr>
+<td>withReturnValue()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p><pre class="prettyprint">Method body: <br/>int number=6; <br/>if(number&gt6){<br/>}<br/></pre></p>
+</div></td>
+<td>20</td>
+<td>default</td>
+<td><div class="center "><img src="images/Method_withReturnValue_diagram.svg"></div>
+</td></tr><tr>
+<td>withArrays()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p><pre class="prettyprint">Method body: <br/>int []numbers; <br/>ArrayList&ltString &gtwords=newArrayList&lt&gt();<br/>words.add("Word");<br/>HashMap&ltString ,Integer &gtnumberMap=newHashMap&lt&gt();<br/>HashSet&ltInteger &gtnumberSet=newHashSet&lt&gt();<br/>Integer x=newInteger (5);<br/></pre></p>
+</div></td>
+<td>void</td>
+<td>default</td>
+<td><div class="center "><img src="images/Method_withArrays_diagram.svg"></div>
+</td></tr></table>
+</div><hr />
+</section></article>
 </div><script src="style/handle_select.js"></script>
 </body>
 </html>

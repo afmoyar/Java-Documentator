@@ -18,6 +18,7 @@ public class MethodListener extends Java8ParserBaseListener{
     private boolean isInsideMethod = false;
     private boolean isInsideForSetUp = false;
     private HashSet<String> methods = new HashSet<>();
+    private String variableType = "variable";
 
     private void write(String data,String fileName) {
         try {
@@ -73,6 +74,32 @@ public class MethodListener extends Java8ParserBaseListener{
     }
 
     @Override
+    public void enterUnannType(Java8Parser.UnannTypeContext ctx) {
+        String type = ctx.getText();
+        if(type.contains("[]"))
+        {
+            variableType = "array";
+            return;
+        }
+        if(ctx.unannReferenceType()!=null)
+        {
+            if(!type.equals("String") && !type.equals("Integer")
+                    &&!type.equals("Double")&&!type.equals("Boolean")&& !type.equals("Long"))
+            {
+                if(type.contains("List<")){
+                    variableType = "list";
+                }else if(type.contains("Map<")) {
+                    variableType = "map";
+                }else if(type.contains("Set<")) {
+                    variableType = "set";
+                }else {
+                    variableType = "object";
+                }
+            }
+        }
+    }
+
+    @Override
     public void enterVariableDeclaratorList(Java8Parser.VariableDeclaratorListContext ctx) {
         ArrayList<String> variables = new ArrayList<>();
         String assignation = null;
@@ -86,7 +113,7 @@ public class MethodListener extends Java8ParserBaseListener{
             }
         }
         for (int i = 0; i <variables.size() ; i++) {
-            toFile.append(":New variable: <b>"+variables.get(i)+"</b>;\n");
+            toFile.append(":New "+variableType+": <b>"+variables.get(i)+"</b>;\n");
             if(assignation!=null)
             {
                 toFile.append(":Assign <color:darkblue><i>"+assignation+"</i></color> to <b>"+variables.get(i)+"</b>;\n");
@@ -133,16 +160,17 @@ public class MethodListener extends Java8ParserBaseListener{
         }
         else if(ctx.methodName()!=null)
         {
-            System.out.println("ctx.methodName()!=null");
+            //System.out.println("ctx.methodName()!=null");
            methodName = ctx.methodName().Identifier().getText();
         }else {
-            System.out.println("else");
+            //System.out.println("else");
             methodName = ctx.Identifier().getText();
         }
         if(methods.contains(methodName))
         {
             toFile.append(":Enter subroutine: <color:darkred><b>"+methodName+"</b></color>;\n");
         }
+
     }
 
     @Override

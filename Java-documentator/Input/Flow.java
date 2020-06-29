@@ -49,4 +49,13 @@ public class Flow{
         }else
             return 20;
     }
+    void withArrays()
+    {
+        int[] numbers;
+        ArrayList<String> words = new ArrayList<>();
+        words.add("Word");
+        HashMap<String,Integer> numberMap = new HashMap<>();
+        HashSet<Integer> numberSet = new HashSet<>();
+        Integer x = new Integer(5);
+    }
 }

@@ -1,0 +1,14 @@
+@startuml
+title withArrays
+start
+:New array: <b>numbers</b>;
+:New list: <b>words</b>;
+:Assign <color:darkblue><i>newArrayList<>()</i></color> to <b>words</b>;
+:New map: <b>numberMap</b>;
+:Assign <color:darkblue><i>newHashMap<>()</i></color> to <b>numberMap</b>;
+:New set: <b>numberSet</b>;
+:Assign <color:darkblue><i>newHashSet<>()</i></color> to <b>numberSet</b>;
+:New set: <b>x</b>;
+:Assign <color:darkblue><i>newInteger(5)</i></color> to <b>x</b>;
+stop
+@enduml
