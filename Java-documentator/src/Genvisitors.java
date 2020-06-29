@@ -149,6 +149,55 @@ public class Genvisitors extends Java8ParserBaseVisitor<String> {
             return body;
         }
 
+        public String space_replacements(String params){
+            params = params.replace(">", "> ");
+
+            params = params.replace("&","&amp"); //escape & character
+            params = params.replace("<","&lt"); //escape < character
+            params = params.replace(">","&gt"); //escape > character
+
+            params = params.replace("int","int ");
+            params = params.replace("int[]","int[] ");
+            params = params.replace("Integer","Integer ");
+            params = params.replace("Integer[]","Integer[] ");
+
+            params = params.replace("String","String ");
+            params = params.replace("String[]","String[] ");
+            params = params.replace("<String>","<String> ");
+
+            params = params.replace("Double","Double ");
+            params = params.replace("Double[]","Double[] ");
+            params = params.replace("<Double>","<Double> ");
+
+
+            params = params.replace("Boolean","Boolean ");
+            params = params.replace("boolean","boolean ");
+            params = params.replace("Boolean[]","Boolean[] ");
+            params = params.replace("<Boolean>","<Boolean> ");
+
+            params = params.replace("Long","Long ");
+            params = params.replace("long","long ");
+            params = params.replace("Long[]","Long[] ");
+            params = params.replace("<Long>","<Long> ");
+
+            return params;
+        }
+
+        public String visit_method_params(Java8Parser.MethodDeclarationContext ctx){
+            try{
+            String params = "";
+            //ctx.methodHeader().typeParameters().typeParameterList();
+            //System.out.println("...");
+            params = ctx.methodHeader().methodDeclarator().formalParameterList().getText();
+            params = this.space_replacements(params);
+            return params;
+            }
+            catch (Exception e){
+                System.out.println("no params");
+                return "";
+            }
+        }
+
         @Override
         public String visitMethodDeclaration(Java8Parser.MethodDeclarationContext ctx) {
             String modifier = "";
