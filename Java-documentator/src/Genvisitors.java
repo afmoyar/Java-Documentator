@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.StringTokenizer;
 public class Genvisitors extends Java8ParserBaseVisitor<String> {
         private String className;
@@ -147,6 +148,17 @@ public class Genvisitors extends Java8ParserBaseVisitor<String> {
 
             body = ctx.methodBody().block().blockStatements().getText();
             return body;
+        }
+
+        public String objects_replacements(String params, List<String> possible){
+            for(String obj : possible){
+                //System.out.println("00"+possible);
+                if(params.contains(obj)){
+                    params = params.replace(obj, obj+" ");
+                }
+            }
+
+            return params;
         }
 
         public String space_replacements(String params){

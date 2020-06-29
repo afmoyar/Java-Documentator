@@ -25,6 +25,8 @@ public class html_generation extends Java8ParserBaseListener{
     private List<String> attributes = new ArrayList<String>();
     private List<String> methods = new ArrayList<String>();
 
+    private List<String> possible_declarations = new ArrayList<String>();
+
     private boolean selected_first_on_menu = false;
     private boolean has_class_diagram = false;
 
@@ -66,6 +68,23 @@ public class html_generation extends Java8ParserBaseListener{
         }
     }
 
+    @Override
+    public void enterNormalInterfaceDeclaration(Java8Parser.NormalInterfaceDeclarationContext ctx) {
+        //System.out.println("Interface detectada");
+        StringBuilder modifiers = new StringBuilder();
+
+        for(Java8Parser.InterfaceModifierContext mofifierctx: ctx.interfaceModifier())
+        {
+            String modifier = mofifierctx.getText();
+            //if modifier is public means this class is the main class, so its not included
+            if(modifier.equals("public"))
+                isPublicClass = true;
+            if(modifier.equals("abstract"))
+                modifiers.append(modifier+" ");
+        }
+        String interfaceName = ctx.Identifier().getText();
+        possible_declarations.add(interfaceName.trim());
+    }
 
 
     @Override
@@ -97,6 +116,8 @@ public class html_generation extends Java8ParserBaseListener{
         }
 
         System.out.println("in "+className);
+        possible_declarations.add(className);
+
         glob_classname = className;
         relations.put(className, new ArrayList<HashMap<String,String>>());
         visitor = new Genvisitors(className,relations);
@@ -138,15 +159,18 @@ public class html_generation extends Java8ParserBaseListener{
 
                         String method_body = visitor.visit_method_body(class_body_ctx.classMemberDeclaration().methodDeclaration());
                         String params = visitor.visit_method_params(class_body_ctx.classMemberDeclaration().methodDeclaration());
+                        params = visitor.objects_replacements(params, possible_declarations);
                         tmp = tmp + method_body;
                         //add params
                         //System.out.println(params);
                         tmp = tmp.replace("()","("+params+")");
-                        System.out.println("ismetohd"+tmp);
+                        //System.out.println("ismetohd"+tmp);
                         methods.add(tmp);
 
                     } else {
                         attributes.add(tmp);
+                        String[] atribute_str = tmp.split(":");
+                        possible_declarations.add(atribute_str[1].trim());
                     }
                 }
             }catch(Exception e){
@@ -208,6 +232,7 @@ public class html_generation extends Java8ParserBaseListener{
                         "<td>" + modifier + "</td>\n" +
                         "</tr>"
                 );
+
             }
 
         }
@@ -437,6 +462,7 @@ public class html_generation extends Java8ParserBaseListener{
                 "</html>";
         struct.append(ending);
         write(struct.toString(),"index.html");
+
     }
 
     private static void write(String data,String fileName) {
