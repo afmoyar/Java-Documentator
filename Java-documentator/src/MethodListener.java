@@ -173,8 +173,18 @@ public class MethodListener extends Java8ParserBaseListener{
         }
         if(methods.contains(methodName))
         {
-            toFile.append(":Enter subroutine: <color:darkred><b>"+methodName+"</b></color>;\n");
-            return;
+            //calling a method created in the program
+            if(ctx.typeName()!=null)
+            {
+                //method belongs to an objetct
+                String objectName = ctx.typeName().Identifier().getText();
+                toFile.append(":Enter <b>"+objectName+"'s</b> subroutine: <color:darkred><b>"+methodName+"</b></color>;\n");
+                return;
+            }else{
+                toFile.append(":Enter subroutine: <color:darkred><b>"+methodName+"</b></color>;\n");
+                return;
+            }
+
         }else{
             toFile.append(":"+ctx.getText()+";\n");
         }

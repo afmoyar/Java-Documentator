@@ -1,0 +1,15 @@
+:New object: <b>name</b>;
+:New object: <b>topic</b>;
+:Assign <color:darkblue><i>nm</i></color> to <b>this.name</b>;
+@startuml
+title update
+start
+:New variable: <b>msg</b>;
+:Assign <color:darkblue><i>(String)topic.getUpdate(this)</i></color> to <b>msg</b>;
+if (msg equals null ?) then (yes)
+:Print: <color:darkblue><i>name+":: No new message"</i></color>;
+else (no)
+:Print: <color:darkblue><i>name+":: Consuming message::"+msg</i></color>;
+endif
+stop
+@enduml

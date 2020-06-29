@@ -1,0 +1,9 @@
+@startuml
+title postMessage
+start
+:Print: <color:darkblue><i>"Message Posted to Topic:"+msg</i></color>;
+:Assign <color:darkblue><i>msg</i></color> to <b>this.message</b>;
+:Assign <color:darkblue><i>true</i></color> to <b>this.changed</b>;
+:Enter subroutine: <color:darkred><b>notifyObservers</b></color>;
+stop
+@enduml

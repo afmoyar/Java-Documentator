@@ -1,3 +1,34 @@
 @startuml
 title Class diagram
+Interface Subject{
+	+register()
+	+unregister()
+	+notifyObservers()
+	+getUpdate()
+}
+Interface Observer{
+	+update()
+	+setSubject()
+}
+class MyTopic{
+	-observers: List<Observer>
+	-message: String
+	-changed: boolean
+	-MUTEX: Object
+	+register()
+	+unregister()
+	+notifyObservers()
+	+getUpdate()
+	+postMessage()
+}
+class MyTopicSubscriber{
+	-name: String
+	-topic: Subject
+	+update()
+	+setSubject()
+}
+MyTopicSubscriber -up-> Subject
+MyTopicSubscriber .up.|> Observer
+MyTopic -up-> Observer
+MyTopic .up.|> Subject
 @enduml

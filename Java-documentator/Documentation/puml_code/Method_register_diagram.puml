@@ -1,0 +1,18 @@
+:New list: <b>observers</b>;
+:New variable: <b>message</b>;
+:New variable: <b>changed</b>;
+:New object: <b>MUTEX</b>;
+:Assign <color:darkblue><i>newObject()</i></color> to <b>MUTEX</b>;
+:Assign <color:darkblue><i>newArrayList<>()</i></color> to <b>this.observers</b>;
+@startuml
+title register
+start
+if (obj equals null ?) then (yes)
+else (no)
+endif
+if (!observers.contains(obj) ?) then (yes)
+:observers.add(obj);
+else (no)
+endif
+stop
+@enduml
