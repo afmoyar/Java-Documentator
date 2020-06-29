@@ -1,6 +1,0 @@
-@startuml
-title setSubject
-start
-:Assign <color:darkblue><i>sub</i></color> to <b>this.topic</b>;
-stop
-@enduml

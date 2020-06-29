@@ -58,4 +58,14 @@ public class Flow{
         HashSet<Integer> numberSet = new HashSet<>();
         Integer x = new Integer(5);
     }
+    void forEach()
+    {
+        ArrayList<String> words = new ArrayList<>();
+        words.add("hello");
+        words.add("world");
+        for(String word: words)
+        {
+            System.out.println(word);
+        }
+    }
 }

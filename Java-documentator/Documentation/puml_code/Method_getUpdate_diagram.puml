@@ -1,6 +1,0 @@
-@startuml
-title getUpdate
-start
-:<color:INDIGO><i>return</i></color> <color:INDIGO><b>this.message</b></color>;
-stop
-@enduml

@@ -20,115 +20,71 @@
     </nav>
     <div class="wrapper">
    <aside class="doc__nav">
-        <ul><li class="js-btn selected">Public ObserverPattern</li>
-<li class="js-btn">MyTopic</li>
-<li class="js-btn">MyTopicSubscriber</li>
-<li class="js-btn">Class diagram</li></ul>
+        <ul><li class="js-btn selected">Public Flow</li>
+</ul>
 </aside><article class="doc__content"><section class="js-section">
-<h3 class="section__title no_bot"> Public ObserverPattern</h3><div type="button" class="collapsible_red"></div><div class="contentb"></div><hr />
-</section><section class="js-section">
-<h3 class="section__title no_bot"> MyTopic</h3><div type="button" class="collapsible_red"></div><div class="contentb"><table id="attributes_MyTopic"><tr>
-<th>Attribute</th>
-<th>Type</th>
-<th>Access</th>
-</tr><tr>
-<td>observers</td>
-<td> List<Observer></td>
-<td>private</td>
-</tr><tr>
-<td>message</td>
-<td> String</td>
-<td>private</td>
-</tr><tr>
-<td>changed</td>
-<td> boolean</td>
-<td>private</td>
-</tr><tr>
-<td>MUTEX</td>
-<td> Object</td>
-<td>private</td>
-</tr></table>
-<table id="methods_MyTopic"><tr>
+<h3 class="section__title no_bot"> Public Flow</h3><div type="button" class="collapsible_red"></div><div class="contentb"><table id="methods_Public Flow"><tr>
 <th  class="blue">Method</th>
 <th  class="blue">Returns</th>
 <th  class="blue">Access</th>
 <th  class="blue">Diagram</th></tr><tr>
-<td>register()<div type="button" class="collapsible"></div>
+<td>conditionals()<div type="button" class="collapsible"></div>
 <div class="content code">
-<p><pre class="prettyprint">Method body: <br/>if(obj==null)thrownewNullPoint erException("Null Observer") <br/>synchronized(MUTEX){<br/>if(!observers.contains(obj)<br/>)observers.add(obj);<br/>}<br/></pre></p>
+<p><pre class="prettyprint">Method body: <br/>int n; <br/>if(1&gt4||n!=0){<br/>n=2;<br/>if(n!=2)n*=5;<br/>}<br/>elseif(true||false){<br/>n+=9;<br/>}<br/></pre></p>
 </div></td>
 <td>void</td>
-<td>public</td>
-<td><div class="center "><img src="images/Method_register_diagram.svg"></div>
+<td>default</td>
+<td><div class="center "><img src="images/Method_conditionals_diagram.svg"></div>
 </td></tr><tr>
-<td>unregister()<div type="button" class="collapsible"></div>
+<td>forLoop()<div type="button" class="collapsible"></div>
 <div class="content code">
-<p><pre class="prettyprint">Method body: <br/>synchronized(MUTEX){ <br/>observers.remove(obj);<br/>}<br/></pre></p>
+<p><pre class="prettyprint">Method body: <br/>for(int i=0;i&lt6;i++) <br/>{<br/>if(i==5){<br/>String x="hello";<br/>}<br/>}<br/></pre></p>
 </div></td>
 <td>void</td>
-<td>public</td>
-<td><div class="center "><img src="images/Method_unregister_diagram.svg"></div>
+<td>default</td>
+<td><div class="center "><img src="images/Method_forLoop_diagram.svg"></div>
 </td></tr><tr>
-<td>notifyObservers()<div type="button" class="collapsible"></div>
+<td>whileLoop()<div type="button" class="collapsible"></div>
 <div class="content code">
-<p><pre class="prettyprint">Method body: <br/>List&ltObserver&gtobserversLocal=null; <br/>synchronized(MUTEX){<br/>if(!changed)return;<br/>observersLocal=newArrayList&lt&gt(this.observers)<br/>this.changed=false;<br/>}<br/>for(Observerobj:observersLocal)<br/>{<br/>obj.update();<br/>}<br/></pre></p>
+<p><pre class="prettyprint">Method body: <br/>int a=5; <br/>while(true){<br/>a=-8;<br/>System.out.print ln("hello");<br/>forLoop()<br/>}<br/></pre></p>
 </div></td>
 <td>void</td>
-<td>public</td>
-<td><div class="center "><img src="images/Method_notifyObservers_diagram.svg"></div>
+<td>default</td>
+<td><div class="center "><img src="images/Method_whileLoop_diagram.svg"></div>
 </td></tr><tr>
-<td>getUpdate()</td>
-<td>this.message</td>
-<td>public</td>
-<td><div class="center "><img src="images/Method_getUpdate_diagram.svg"></div>
-</td></tr><tr>
-<td>postMessage()<div type="button" class="collapsible"></div>
+<td>doWhileLoop()<div type="button" class="collapsible"></div>
 <div class="content code">
-<p><pre class="prettyprint">Method body: <br/>System.out.print ln("Message Posted to Topic:"+msg); <br/>this.message=msg;<br/>this.changed=true;<br/>notifyObservers();<br/></pre></p>
+<p><pre class="prettyprint">Method body: <br/>boolean a=true; <br/>do{<br/>a=false;<br/>}<br/>while(a==true);<br/></pre></p>
 </div></td>
 <td>void</td>
-<td>public</td>
-<td><div class="center "><img src="images/Method_postMessage_diagram.svg"></div>
+<td>default</td>
+<td><div class="center "><img src="images/Method_doWhileLoop_diagram.svg"></div>
+</td></tr><tr>
+<td>withReturnValue()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p><pre class="prettyprint">Method body: <br/>int number=6; <br/>if(number&gt6){<br/>}<br/></pre></p>
+</div></td>
+<td>20</td>
+<td>default</td>
+<td><div class="center "><img src="images/Method_withReturnValue_diagram.svg"></div>
+</td></tr><tr>
+<td>withArrays()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p><pre class="prettyprint">Method body: <br/>int []numbers; <br/>ArrayList&ltString &gtwords=newArrayList&lt&gt();<br/>words.add("Word");<br/>HashMap&ltString ,Integer &gtnumberMap=newHashMap&lt&gt();<br/>HashSet&ltInteger &gtnumberSet=newHashSet&lt&gt();<br/>Integer x=newInteger (5);<br/></pre></p>
+</div></td>
+<td>void</td>
+<td>default</td>
+<td><div class="center "><img src="images/Method_withArrays_diagram.svg"></div>
+</td></tr><tr>
+<td>forEach()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p><pre class="prettyprint">Method body: <br/>ArrayList&ltString &gtwords=newArrayList&lt&gt(); <br/>words.add("hello");<br/>words.add("world");<br/>for(String word:words)<br/>{<br/>System.out.print ln(word);<br/>}<br/></pre></p>
+</div></td>
+<td>void</td>
+<td>default</td>
+<td><div class="center "><img src="images/Method_forEach_diagram.svg"></div>
 </td></tr></table>
 </div><hr />
-</section><section class="js-section">
-<h3 class="section__title no_bot"> MyTopicSubscriber</h3><div type="button" class="collapsible_red"></div><div class="contentb"><table id="attributes_MyTopicSubscriber"><tr>
-<th>Attribute</th>
-<th>Type</th>
-<th>Access</th>
-</tr><tr>
-<td>name</td>
-<td> String</td>
-<td>private</td>
-</tr><tr>
-<td>topic</td>
-<td> Subject</td>
-<td>private</td>
-</tr></table>
-<table id="methods_MyTopicSubscriber"><tr>
-<th  class="blue">Method</th>
-<th  class="blue">Returns</th>
-<th  class="blue">Access</th>
-<th  class="blue">Diagram</th></tr><tr>
-<td>update()<div type="button" class="collapsible"></div>
-<div class="content code">
-<p><pre class="prettyprint">Method body: <br/>String msg=(String )topic.getUpdate(this); <br/>if(msg==null){<br/>System.out.print ln(name+":: No new message")<br/>}<br/>elseSystem.out.print ln(name+":: Consuming message::"+msg);<br/></pre></p>
-</div></td>
-<td>void</td>
-<td>public</td>
-<td><div class="center "><img src="images/Method_update_diagram.svg"></div>
-</td></tr><tr>
-<td>setSubject()<div type="button" class="collapsible"></div>
-<div class="content code">
-<p><pre class="prettyprint">Method body: <br/>this.topic=sub; <br/></pre></p>
-</div></td>
-<td>void</td>
-<td>public</td>
-<td><div class="center "><img src="images/Method_setSubject_diagram.svg"></div>
-</td></tr></table>
-</div><hr />
-</section><section class="js-section">
-<h3 class="section__title"> Class diagram</h3><div class="center"><img src="images/Class_diagram.svg"></div><hr />
 </section></article>
 </div><script src="style/handle_select.js"></script>
 </body>

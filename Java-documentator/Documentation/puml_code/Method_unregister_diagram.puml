@@ -1,6 +1,0 @@
-@startuml
-title unregister
-start
-:observers.remove(obj);
-stop
-@enduml

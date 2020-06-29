@@ -323,7 +323,7 @@ public class MethodListener extends Java8ParserBaseListener{
 
     @Override
     public void exitEnhancedForStatement(Java8Parser.EnhancedForStatementContext ctx) {
-        toFile.append("endWhile\n");
+        toFile.append("endWhile (No more elements)\n");
     }
 
     @Override
