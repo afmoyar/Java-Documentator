@@ -9,6 +9,8 @@ else (no)
 endif
 :Assign <color:darkblue><i>newArrayList<>(this.observers)</i></color> to <b>observersLocal</b>;
 :Assign <color:darkblue><i>false</i></color> to <b>this.changed</b>;
+while(For each <b>obj</b> of <b>observersLocal</b>);
 :Enter <b>obj's</b> subroutine: <color:darkred><b>update</b></color>;
+endWhile
 stop
 @enduml

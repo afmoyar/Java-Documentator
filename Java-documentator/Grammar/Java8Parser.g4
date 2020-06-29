@@ -332,7 +332,7 @@ classMemberDeclaration
 	;
 
 fieldDeclaration
-	:	fieldModifier*   variableDeclaratorList ';'
+	:	fieldModifier* unannType variableDeclaratorList ';'
 	;
 
 fieldModifier
