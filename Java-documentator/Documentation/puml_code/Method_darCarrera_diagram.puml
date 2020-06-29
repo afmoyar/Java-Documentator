@@ -1,6 +1,0 @@
-@startuml
-title darCarrera
-start
-:<color:INDIGO><i>return</i></color> <color:INDIGO><b>carreraEstudiante</b></color>;
-stop
-@enduml

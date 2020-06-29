@@ -1,6 +1,0 @@
-@startuml
-title cambiarNotas
-start
-:Assign <color:darkblue><i>notas</i></color> to <b>this.notasEstudiante</b>;
-stop
-@enduml

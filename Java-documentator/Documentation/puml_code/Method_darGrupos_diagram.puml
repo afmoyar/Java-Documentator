@@ -1,6 +1,0 @@
-@startuml
-title darGrupos
-start
-:<color:INDIGO><i>return</i></color> <color:INDIGO><b>gruposEstudiante</b></color>;
-stop
-@enduml

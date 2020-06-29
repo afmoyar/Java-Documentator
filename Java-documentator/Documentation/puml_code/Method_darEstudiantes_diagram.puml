@@ -1,6 +1,0 @@
-@startuml
-title darEstudiantes
-start
-:<color:INDIGO><i>return</i></color> <color:INDIGO><b>nuevoListaEstudiantes</b></color>;
-stop
-@enduml

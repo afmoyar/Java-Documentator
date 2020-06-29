@@ -1,6 +1,0 @@
-@startuml
-title cambiarApellido
-start
-:Assign <color:darkblue><i>apellido</i></color> to <b>this.apellido</b>;
-stop
-@enduml

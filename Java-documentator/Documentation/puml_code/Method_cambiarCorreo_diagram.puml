@@ -1,6 +1,0 @@
-@startuml
-title cambiarCorreo
-start
-:Assign <color:darkblue><i>correo</i></color> to <b>this.correo</b>;
-stop
-@enduml

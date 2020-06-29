@@ -1,6 +1,0 @@
-@startuml
-title cambiarFacultad
-start
-:Assign <color:darkblue><i>facultad</i></color> to <b>this.facultadCarrera</b>;
-stop
-@enduml

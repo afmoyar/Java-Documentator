@@ -113,7 +113,7 @@ public class MethodListener extends Java8ParserBaseListener{
             }
             if(varctx.variableInitializer()!=null)
             {
-                assignation = varctx.variableInitializer().getText();
+                assignation = varctx.variableInitializer().getText().replace("\\n","\\n<color:darkblue><i>");
             }
         }
         for (int i = 0; i <variables.size() ; i++) {
@@ -160,7 +160,7 @@ public class MethodListener extends Java8ParserBaseListener{
         String methodName = null;
         if(ctx.getText().contains("System.out.print") && ctx.argumentList()!=null)
         {
-            toFile.append(":Print: <color:darkblue><i>"+ctx.argumentList().getText()+"</i></color>;\n");
+            toFile.append(":Print: <color:darkblue><i>"+ctx.argumentList().getText().replace("\\n","\\n<color:darkblue><i>")+"</i></color>;\n");
             return;
         }
         else if(ctx.methodName()!=null)

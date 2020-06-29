@@ -1,6 +1,0 @@
-@startuml
-title cambiarEstudiantes
-start
-:Assign <color:darkblue><i>estudiantes</i></color> to <b>this.nuevoListaEstudiantes</b>;
-stop
-@enduml

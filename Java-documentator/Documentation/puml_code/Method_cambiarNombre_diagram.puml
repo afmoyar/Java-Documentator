@@ -1,6 +1,0 @@
-@startuml
-title cambiarNombre
-start
-:Assign <color:darkblue><i>nombre</i></color> to <b>this.nombre</b>;
-stop
-@enduml
