@@ -4,7 +4,7 @@
 Final project for the Programming languages class at Universidad Nacional de Colombia.
 
 This project generates documentation from Java source code. Source code to analyze should be inside only one file.
-####Documentation supported:
+#### Documentation supported:
 - Information about class attributes
 - Information about every method
 - Class diagram (the outer public class is not included)
