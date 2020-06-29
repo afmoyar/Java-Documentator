@@ -1,0 +1,8 @@
+@startuml
+title toString
+start
+:New list: <b>cadena</b>;
+:Assign <color:darkblue><i>"Carrera: "+String.valueOf(this.darNombre())+"\n"+"Facultad: "+String.valueOf(this.darFacultad())+"\n"+"Departamento: "+String.valueOf(this.darDepartamento()+"\n"+"Lista de estudiantes: Vacio")</i></color> to <b>cadena</b>;
+:<color:INDIGO><i>return</i></color> <color:INDIGO><b>cadena</b></color>;
+stop
+@enduml

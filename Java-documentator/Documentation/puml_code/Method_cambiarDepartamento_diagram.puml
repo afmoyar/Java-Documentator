@@ -1,0 +1,6 @@
+@startuml
+title cambiarDepartamento
+start
+:Assign <color:darkblue><i>departamento</i></color> to <b>this.departamento</b>;
+stop
+@enduml

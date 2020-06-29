@@ -1,0 +1,27 @@
+:New variable: <b>codigo</b>;
+:New variable: <b>correo</b>;
+:New variable: <b>nombre</b>;
+:New variable: <b>apellido</b>;
+:New object: <b>carreraEstudiante</b>;
+:New list: <b>gruposEstudiante</b>;
+:New list: <b>notasEstudiante</b>;
+:Assign <color:darkblue><i>nombre</i></color> to <b>this.nombre</b>;
+:Assign <color:darkblue><i>apellido</i></color> to <b>this.apellido</b>;
+:Assign <color:darkblue><i>carrera</i></color> to <b>this.carreraEstudiante</b>;
+:Assign <color:darkblue><i>codigo</i></color> to <b>this.codigo</b>;
+:Assign <color:darkblue><i>correo</i></color> to <b>this.correo</b>;
+:Assign <color:darkblue><i>grupos</i></color> to <b>this.gruposEstudiante</b>;
+:Assign <color:darkblue><i>notas</i></color> to <b>this.notasEstudiante</b>;
+:this.cambiarNombre("UNDEFINED");
+:this.cambiarApellido("UNDEFINED");
+:this.cambiarCarrera(null);
+:this.cambiarCodigo("UNDEFINED");
+:this.cambiarCorreo("UNDEFINED");
+:this.cambiarGrupos(null);
+:this.cambiarNotas(null);
+@startuml
+title darCodigo
+start
+:<color:INDIGO><i>return</i></color> <color:INDIGO><b>codigo</b></color>;
+stop
+@enduml

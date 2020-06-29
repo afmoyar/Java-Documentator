@@ -1,0 +1,14 @@
+:New variable: <b>nombre</b>;
+:New object: <b>facultadCarrera</b>;
+:New variable: <b>departamento</b>;
+:New list: <b>nuevoListaEstudiantes</b>;
+:Assign <color:darkblue><i>nombre</i></color> to <b>this.nombre</b>;
+:Assign <color:darkblue><i>facultad</i></color> to <b>this.facultadCarrera</b>;
+:Assign <color:darkblue><i>departamento</i></color> to <b>this.departamento</b>;
+:Assign <color:darkblue><i>estudiantes</i></color> to <b>this.nuevoListaEstudiantes</b>;
+@startuml
+title darFacultad
+start
+:<color:INDIGO><i>return</i></color> <color:INDIGO><b>facultadCarrera</b></color>;
+stop
+@enduml

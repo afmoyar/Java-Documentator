@@ -1,0 +1,6 @@
+@startuml
+title darApellido
+start
+:<color:INDIGO><i>return</i></color> <color:INDIGO><b>apellido</b></color>;
+stop
+@enduml

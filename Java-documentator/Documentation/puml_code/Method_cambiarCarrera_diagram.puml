@@ -1,0 +1,6 @@
+@startuml
+title cambiarCarrera
+start
+:Assign <color:darkblue><i>carrera</i></color> to <b>this.carreraEstudiante</b>;
+stop
+@enduml

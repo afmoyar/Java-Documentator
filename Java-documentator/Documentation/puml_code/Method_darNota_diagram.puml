@@ -1,0 +1,6 @@
+@startuml
+title darNota
+start
+:<color:INDIGO><i>return</i></color> <color:INDIGO><b>notasEstudiante</b></color>;
+stop
+@enduml

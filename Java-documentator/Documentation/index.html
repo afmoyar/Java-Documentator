@@ -20,39 +20,241 @@
     </nav>
     <div class="wrapper">
    <aside class="doc__nav">
-        <ul><li class="js-btn selected">Public BubbleSort</li>
-</ul>
+        <ul><li class="js-btn selected">Public Example</li>
+<li class="js-btn">Estudiante</li>
+<li class="js-btn">Carrera</li>
+<li class="js-btn">Class diagram</li></ul>
 </aside><article class="doc__content"><section class="js-section">
-<h3 class="section__title no_bot"> Public BubbleSort</h3><div type="button" class="collapsible_red"></div><div class="contentb"><table id="methods_Public BubbleSort"><tr>
+<h3 class="section__title no_bot"> Public Example</h3><div type="button" class="collapsible_red"></div><div class="contentb"></div><hr />
+</section><section class="js-section">
+<h3 class="section__title no_bot"> Estudiante</h3><div type="button" class="collapsible_red"></div><div class="contentb"><table id="attributes_Estudiante"><tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Access</th>
+</tr><tr>
+<td>codigo</td>
+<td> String</td>
+<td>private</td>
+</tr><tr>
+<td>correo</td>
+<td> String</td>
+<td>private</td>
+</tr><tr>
+<td>nombre</td>
+<td> String</td>
+<td>private</td>
+</tr><tr>
+<td>apellido</td>
+<td> String</td>
+<td>private</td>
+</tr><tr>
+<td>carreraEstudiante</td>
+<td> Carrera</td>
+<td>private</td>
+</tr><tr>
+<td>gruposEstudiante</td>
+<td> List<Grupo></td>
+<td>private</td>
+</tr><tr>
+<td>notasEstudiante</td>
+<td> List<Nota></td>
+<td>private</td>
+</tr></table>
+<table id="methods_Estudiante"><tr>
 <th  class="blue">Method</th>
 <th  class="blue">Returns</th>
 <th  class="blue">Access</th>
 <th  class="blue">Diagram</th></tr><tr>
-<td>bubbleSort(int arr[])<div type="button" class="collapsible"></div>
-<div class="content code">
-<p><pre class="prettyprint">Method body: <br/>int n=arr.length; <br/>for(int i=0;i&ltn-1;i++)<br/>for(int j=0;j&ltn-i-1;j++)<br/>if(arr[j]&gt arr[j+1]){<br/>int temp=arr[j];<br/>arr[j]=arr[j+1];<br/>arr[j+1]=temp;<br/>}<br/></pre></p>
-</div></td>
-<td>void</td>
-<td>default</td>
-<td><div class="center "><img src="images/Method_bubbleSort_diagram.svg"></div>
+<td>darCodigo()</td>
+<td>codigo</td>
+<td>public</td>
+<td><div class="center "><img src="images/Method_darCodigo_diagram.svg"></div>
 </td></tr><tr>
-<td>printArray(int arr[])<div type="button" class="collapsible"></div>
+<td>cambiarCodigo(String     codigo)<div type="button" class="collapsible"></div>
 <div class="content code">
-<p><pre class="prettyprint">Method body: <br/>int n=arr.length; <br/>for(int i=0;i&ltn;++i)<br/>System.out.print (arr[i]+" ");<br/>System.out.println(int  arr[]);<br/></pre></p>
-</div></td>
-<td>void</td>
-<td>default</td>
-<td><div class="center "><img src="images/Method_printArray_diagram.svg"></div>
-</td></tr><tr>
-<td>main(String args[])<div type="button" class="collapsible"></div>
-<div class="content code">
-<p><pre class="prettyprint">Method body: <br/>BubbleSortob=newBubbleSort(String  args[]); <br/>int arr[]={<br/>64,34,25,12,22,11,90}<br/>ob.bubbleSort(arr);<br/>System.out.println("Sorted array");<br/>ob.print Array(arr);<br/></pre></p>
+<p><pre class="prettyprint">Method body: <br/>this.codigo=codigo; <br/></pre></p>
 </div></td>
 <td>void</td>
 <td>public</td>
-<td><div class="center "><img src="images/Method_main_diagram.svg"></div>
+<td><div class="center "><img src="images/Method_cambiarCodigo_diagram.svg"></div>
+</td></tr><tr>
+<td>darCorreo()</td>
+<td>correo</td>
+<td>public</td>
+<td><div class="center "><img src="images/Method_darCorreo_diagram.svg"></div>
+</td></tr><tr>
+<td>cambiarCorreo(String     correo)<div type="button" class="collapsible"></div>
+<div class="content code">
+<p><pre class="prettyprint">Method body: <br/>this.correo=correo; <br/></pre></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+<td><div class="center "><img src="images/Method_cambiarCorreo_diagram.svg"></div>
+</td></tr><tr>
+<td>darNombre()</td>
+<td>nombre</td>
+<td>public</td>
+<td><div class="center "><img src="images/Method_darNombre_diagram.svg"></div>
+</td></tr><tr>
+<td>cambiarNombre(String     nombre)<div type="button" class="collapsible"></div>
+<div class="content code">
+<p><pre class="prettyprint">Method body: <br/>this.nombre=nombre; <br/></pre></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+<td><div class="center "><img src="images/Method_cambiarNombre_diagram.svg"></div>
+</td></tr><tr>
+<td>darApellido()</td>
+<td>apellido</td>
+<td>public</td>
+<td><div class="center "><img src="images/Method_darApellido_diagram.svg"></div>
+</td></tr><tr>
+<td>cambiarApellido(String     apellido)<div type="button" class="collapsible"></div>
+<div class="content code">
+<p><pre class="prettyprint">Method body: <br/>this.apellido=apellido; <br/></pre></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+<td><div class="center "><img src="images/Method_cambiarApellido_diagram.svg"></div>
+</td></tr><tr>
+<td>darCarrera()</td>
+<td>carreraEstudiante</td>
+<td>public</td>
+<td><div class="center "><img src="images/Method_darCarrera_diagram.svg"></div>
+</td></tr><tr>
+<td>cambiarCarrera(Carrera carrera)<div type="button" class="collapsible"></div>
+<div class="content code">
+<p><pre class="prettyprint">Method body: <br/>this.carreraEstudiante=carrera; <br/></pre></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+<td><div class="center "><img src="images/Method_cambiarCarrera_diagram.svg"></div>
+</td></tr><tr>
+<td>darGrupos()</td>
+<td>gruposEstudiante</td>
+<td>public</td>
+<td><div class="center "><img src="images/Method_darGrupos_diagram.svg"></div>
+</td></tr><tr>
+<td>cambiarGrupos(List&ltGrupo&gt grupos)<div type="button" class="collapsible"></div>
+<div class="content code">
+<p><pre class="prettyprint">Method body: <br/>this.gruposEstudiante=grupos; <br/></pre></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+<td><div class="center "><img src="images/Method_cambiarGrupos_diagram.svg"></div>
+</td></tr><tr>
+<td>darNota()</td>
+<td>notasEstudiante</td>
+<td>public</td>
+<td><div class="center "><img src="images/Method_darNota_diagram.svg"></div>
+</td></tr><tr>
+<td>cambiarNotas(List&ltNota&gt notas)<div type="button" class="collapsible"></div>
+<div class="content code">
+<p><pre class="prettyprint">Method body: <br/>this.notasEstudiante=notas; <br/></pre></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+<td><div class="center "><img src="images/Method_cambiarNotas_diagram.svg"></div>
+</td></tr><tr>
+<td>toString()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p><pre class="prettyprint">Method body: <br/>String cadena="Codigo: "+String .valueOf(this.darCodigo())+"\n"+"Correo: "+String .valueOf(this.darCorreo() <br/>)+"\n"+"Nombre: "+String .valueOf(this.darNombre()<br/>+"\n"+"Apellido: "+String .valueOf(this.darApellido())+"\n"+"Carrera: "+String .valueOf(this.darCarrera()<br/>)+"\n"+"Lista de Grupos: Vacio"+"\n"+"Lista de notas: Vacio");<br/></pre></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+<td><div class="center "><img src="images/Method_toString_diagram.svg"></div>
 </td></tr></table>
 </div><hr />
+</section><section class="js-section">
+<h3 class="section__title no_bot"> Carrera</h3><div type="button" class="collapsible_red"></div><div class="contentb"><table id="attributes_Carrera"><tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Access</th>
+</tr><tr>
+<td>nombre</td>
+<td> String</td>
+<td>private</td>
+</tr><tr>
+<td>facultadCarrera</td>
+<td> Facultad</td>
+<td>public</td>
+</tr><tr>
+<td>departamento</td>
+<td> String</td>
+<td>protected</td>
+</tr><tr>
+<td>nuevoListaEstudiantes</td>
+<td> List<Estudiante></td>
+<td>private</td>
+</tr></table>
+<table id="methods_Carrera"><tr>
+<th  class="blue">Method</th>
+<th  class="blue">Returns</th>
+<th  class="blue">Access</th>
+<th  class="blue">Diagram</th></tr><tr>
+<td>darFacultad()</td>
+<td>facultadCarrera</td>
+<td>public</td>
+<td><div class="center "><img src="images/Method_darFacultad_diagram.svg"></div>
+</td></tr><tr>
+<td>cambiarFacultad(Facultad facultad)<div type="button" class="collapsible"></div>
+<div class="content code">
+<p><pre class="prettyprint">Method body: <br/>this.facultadCarrera=facultad; <br/></pre></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+<td><div class="center "><img src="images/Method_cambiarFacultad_diagram.svg"></div>
+</td></tr><tr>
+<td>darDepartamento()</td>
+<td>departamento</td>
+<td>public</td>
+<td><div class="center "><img src="images/Method_darDepartamento_diagram.svg"></div>
+</td></tr><tr>
+<td>cambiarDepartamento(String       departamento)<div type="button" class="collapsible"></div>
+<div class="content code">
+<p><pre class="prettyprint">Method body: <br/>this.departamento=departamento; <br/></pre></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+<td><div class="center "><img src="images/Method_cambiarDepartamento_diagram.svg"></div>
+</td></tr><tr>
+<td>darNombre()</td>
+<td>nombre</td>
+<td>private</td>
+<td><div class="center "><img src="images/Method_darNombre_diagram.svg"></div>
+</td></tr><tr>
+<td>cambiarNombre(String       nombre)<div type="button" class="collapsible"></div>
+<div class="content code">
+<p><pre class="prettyprint">Method body: <br/>this.nombre=nombre; <br/></pre></p>
+</div></td>
+<td>void</td>
+<td>protected</td>
+<td><div class="center "><img src="images/Method_cambiarNombre_diagram.svg"></div>
+</td></tr><tr>
+<td>darEstudiantes()</td>
+<td>nuevoListaEstudiantes</td>
+<td>public</td>
+<td><div class="center "><img src="images/Method_darEstudiantes_diagram.svg"></div>
+</td></tr><tr>
+<td>cambiarEstudiantes(List&ltEstudiante &gt estudiantes)<div type="button" class="collapsible"></div>
+<div class="content code">
+<p><pre class="prettyprint">Method body: <br/>this.nuevoListaEstudiantes=estudiantes; <br/></pre></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+<td><div class="center "><img src="images/Method_cambiarEstudiantes_diagram.svg"></div>
+</td></tr><tr>
+<td>toString()<div type="button" class="collapsible"></div>
+<div class="content code">
+<p><pre class="prettyprint">Method body: <br/>String cadena="Carrera: "+String .valueOf(this.darNombre() <br/>)+"\n"+"Facultad: "+String .valueOf(this.darFacultad())+"\n"+"Departamento: "+String .valueOf(this.darDepartamento()<br/>+"\n"+"Lista de estudiantes: Vacio");<br/></pre></p>
+</div></td>
+<td>void</td>
+<td>public</td>
+<td><div class="center "><img src="images/Method_toString_diagram.svg"></div>
+</td></tr></table>
+</div><hr />
+</section><section class="js-section">
+<h3 class="section__title"> Class diagram</h3><div class="center"><img src="images/Class_diagram.svg"></div><hr />
 </section></article>
 </div><script src="style/handle_select.js"></script>
 </body>

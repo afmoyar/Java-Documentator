@@ -1,0 +1,6 @@
+@startuml
+title cambiarGrupos
+start
+:Assign <color:darkblue><i>grupos</i></color> to <b>this.gruposEstudiante</b>;
+stop
+@enduml

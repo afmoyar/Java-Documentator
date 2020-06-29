@@ -1,0 +1,6 @@
+@startuml
+title cambiarCodigo
+start
+:Assign <color:darkblue><i>codigo</i></color> to <b>this.codigo</b>;
+stop
+@enduml

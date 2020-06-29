@@ -1,0 +1,6 @@
+@startuml
+title darDepartamento
+start
+:<color:INDIGO><i>return</i></color> <color:INDIGO><b>departamento</b></color>;
+stop
+@enduml

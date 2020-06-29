@@ -1,0 +1,6 @@
+@startuml
+title darNombre
+start
+:<color:INDIGO><i>return</i></color> <color:INDIGO><b>nombre</b></color>;
+stop
+@enduml
