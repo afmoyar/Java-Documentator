@@ -891,13 +891,16 @@ statementExpressionList
 	;
 
 enhancedForStatement
-	:	'for' '(' variableModifier* unannType variableDeclaratorId ':' expression ')' statement
+	:	forEachSetUp statement
 	;
 
 enhancedForStatementNoShortIf
-	:	'for' '(' variableModifier* unannType variableDeclaratorId ':' expression ')' statementNoShortIf
+	:	forEachSetUp statementNoShortIf
 	;
 
+forEachSetUp
+    :   'for' '(' variableModifier* unannType variableDeclaratorId ':' expression ')'
+    ;
 breakStatement
 	:	'break' Identifier? ';'
 	;

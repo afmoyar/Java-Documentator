@@ -2,14 +2,14 @@
 title conditionals
 start
 :New variable: <b>n</b>;
-if (1>4) then (yes)
+if (1 > 4 or n not equals 0 ?) then (yes)
 :Assign <color:darkblue><i>2</i></color> to <b>n</b>;
-if (n!=2) then (yes)
+if (n not equals 2 ?) then (yes)
 :Assign <color:darkblue><i>5*n</i></color> to <b>n</b>;
 else (no)
 endif
 else (no)
-if (true) then (yes)
+if (true or false ?) then (yes)
 :Assign <color:darkblue><i>9+n</i></color> to <b>n</b>;
 else (no)
 endif

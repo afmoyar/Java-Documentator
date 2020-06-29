@@ -68,6 +68,9 @@ public class Main {
             walker.walk(new ClassListener(),tree);
             walker.walk(new MethodListener(),tree);
             walker.walk(new html_generation(),tree);
+            System.out.println("Analysis complete");
+            System.out.println("-----------------------------------------------");
+            System.out.println("To see the results, open index.html (located in the Documentation folder) in your browser");
             /*
             //System.out.println(tokens.getTokens());
             //System.out.println(tree.toStringTree(parser));

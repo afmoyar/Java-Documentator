@@ -1971,6 +1971,18 @@ public class Java8ParserBaseListener implements Java8ParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterForEachSetUp(Java8Parser.ForEachSetUpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitForEachSetUp(Java8Parser.ForEachSetUpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterBreakStatement(Java8Parser.BreakStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}

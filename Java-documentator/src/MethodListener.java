@@ -18,6 +18,7 @@ public class MethodListener extends Java8ParserBaseListener{
     private boolean isInsideMethod = false;
     private boolean isInsideForSetUp = false;
     private HashSet<String> methods = new HashSet<>();
+    private String variableType = "variable";
 
     private void write(String data,String fileName) {
         try {
@@ -46,12 +47,20 @@ public class MethodListener extends Java8ParserBaseListener{
         }
     }
 
+    public String expressionTranslate(String expression)
+    {
+        expression = expression.replace("||"," or ").replace("&&"," and ")
+                .replace("=="," equals ").replace(">"," > ")
+                .replace(">="," >= ").replace("<="," <= ")
+                .replace("<"," < ").replace("!="," not equals ");
+        return expression;
+    }
 
 
     @Override
     public void enterMethodDeclarator(Java8Parser.MethodDeclaratorContext ctx) {
         methodName = ctx.Identifier().getText();
-        System.out.println("entra a "+methodName);
+        //System.out.println("entra a "+methodName);
         toFile.append("@startuml\n");
         toFile.append("title ").append(methodName).append("\n");
         methods.add(methodName);
@@ -65,26 +74,57 @@ public class MethodListener extends Java8ParserBaseListener{
     }
 
     @Override
+    public void enterUnannType(Java8Parser.UnannTypeContext ctx) {
+        String type = ctx.getText();
+        if(type.contains("[]"))
+        {
+            variableType = "array";
+            return;
+        }
+        if(ctx.unannReferenceType()!=null)
+        {
+            if(!type.equals("String") && !type.equals("Integer")
+                    &&!type.equals("Double")&&!type.equals("Boolean")&& !type.equals("Long"))
+            {
+                if(type.contains("List<")){
+                    variableType = "list";
+                }else if(type.contains("Map<")) {
+                    variableType = "map";
+                }else if(type.contains("Set<")) {
+                    variableType = "set";
+                }else {
+                    variableType = "object";
+                }
+            }
+        }
+    }
+
+    @Override
     public void enterVariableDeclaratorList(Java8Parser.VariableDeclaratorListContext ctx) {
         ArrayList<String> variables = new ArrayList<>();
         String assignation = null;
         for(Java8Parser.VariableDeclaratorContext varctx: ctx.variableDeclarator())
         {
-            System.out.println("Declaracion de variable "+varctx.getText());
+            //System.out.println("Declaracion de variable "+varctx.getText());
             variables.add(varctx.variableDeclaratorId().Identifier().getText());
+            if(varctx.variableDeclaratorId().dims()!=null)
+            {
+                variableType = "array";
+            }
             if(varctx.variableInitializer()!=null)
             {
-                assignation = varctx.variableInitializer().getText();
+                assignation = varctx.variableInitializer().getText().replace("\\n","\\n<color:darkblue><i>");
             }
         }
         for (int i = 0; i <variables.size() ; i++) {
-            toFile.append(":New variable: <b>"+variables.get(i)+"</b>;\n");
+            toFile.append(":New "+variableType+": <b>"+variables.get(i)+"</b>;\n");
             if(assignation!=null)
             {
                 toFile.append(":Assign <color:darkblue><i>"+assignation+"</i></color> to <b>"+variables.get(i)+"</b>;\n");
             }
 
         }
+        variableType = "variable";
     }
 
     @Override
@@ -120,21 +160,49 @@ public class MethodListener extends Java8ParserBaseListener{
         String methodName = null;
         if(ctx.getText().contains("System.out.print") && ctx.argumentList()!=null)
         {
-            toFile.append(":Print: <color:darkblue><i>"+ctx.argumentList().getText()+"</i></color>;\n");
+            toFile.append(":Print: <color:darkblue><i>"+ctx.argumentList().getText().replace("\\n","\\n<color:darkblue><i>")+"</i></color>;\n");
             return;
         }
         else if(ctx.methodName()!=null)
         {
-            System.out.println("ctx.methodName()!=null");
+            //System.out.println("ctx.methodName()!=null");
            methodName = ctx.methodName().Identifier().getText();
         }else {
-            System.out.println("else");
+            //System.out.println("else");
             methodName = ctx.Identifier().getText();
         }
         if(methods.contains(methodName))
         {
-            toFile.append(":Enter subroutine: <color:darkred><b>"+methodName+"</b></color>;\n");
+            //calling a method created in the program
+            if(ctx.typeName()!=null)
+            {
+                //method belongs to an objetct
+                String objectName = ctx.typeName().Identifier().getText();
+                toFile.append(":Enter <b>"+objectName+"'s</b> subroutine: <color:darkred><b>"+methodName+"</b></color>;\n");
+                return;
+            }else{
+                toFile.append(":Enter subroutine: <color:darkred><b>"+methodName+"</b></color>;\n");
+                return;
+            }
+
+        }else{
+            toFile.append(":"+ctx.getText()+";\n");
         }
+        /*
+        if(ctx.typeName()!=null)
+        {
+            //method of some list or other data structure
+            String method = ctx.Identifier().getText();
+            String structure = ctx.typeName().Identifier().getText();
+            switch (method)
+            {
+                case "add":
+
+
+            }
+
+        }*/
+
     }
 
     @Override
@@ -144,7 +212,7 @@ public class MethodListener extends Java8ParserBaseListener{
 
     @Override
     public void enterIfThenStatement(Java8Parser.IfThenStatementContext ctx) {
-        toFile.append("if ("+ctx.expression().getText()+") then (yes)\n");
+        toFile.append("if ("+expressionTranslate(ctx.expression().getText())+ " ?) then (yes)\n");
 
     }
 
@@ -156,7 +224,7 @@ public class MethodListener extends Java8ParserBaseListener{
 
     @Override
     public void enterIfThenElseStatement(Java8Parser.IfThenElseStatementContext ctx) {
-        toFile.append("if ("+ctx.expression().getText()+") then (yes)\n");
+        toFile.append("if ("+expressionTranslate(ctx.expression().getText())+" ?) then (yes)\n");
     }
 
     @Override
@@ -171,7 +239,7 @@ public class MethodListener extends Java8ParserBaseListener{
 
     @Override
     public void enterIfThenElseStatementNoShortIf(Java8Parser.IfThenElseStatementNoShortIfContext ctx) {
-        toFile.append("if ("+ctx.expression().getText()+") then (yes)\n");
+        toFile.append("if ("+expressionTranslate(ctx.expression().getText())+" ?) then (yes)\n");
     }
 
     @Override
@@ -193,7 +261,7 @@ public class MethodListener extends Java8ParserBaseListener{
     @Override
     public void exitForSetUp(Java8Parser.ForSetUpContext ctx) {
         if(ctx.expression()!=null)
-            toFile.append("while ("+ctx.expression().getText()+") is (Yes)\n");
+            toFile.append("while ("+expressionTranslate(ctx.expression().getText())+" ?) is (Yes)\n");
         else
             toFile.append("while () is (Yes)\n");
         if(ctx.forUpdate()!=null)
@@ -214,7 +282,7 @@ public class MethodListener extends Java8ParserBaseListener{
 
     @Override
     public void enterWhileStatement(Java8Parser.WhileStatementContext ctx) {
-        toFile.append("while ("+ctx.expression().getText()+") is (Yes)\n");
+        toFile.append("while ("+expressionTranslate(ctx.expression().getText())+" ?) is (Yes)\n");
     }
 
     @Override
@@ -224,7 +292,7 @@ public class MethodListener extends Java8ParserBaseListener{
 
     @Override
     public void enterWhileStatementNoShortIf(Java8Parser.WhileStatementNoShortIfContext ctx) {
-        toFile.append("while ("+ctx.expression().getText()+") is (Yes)\n");
+        toFile.append("while ("+expressionTranslate(ctx.expression().getText())+" ?) is (Yes)\n");
     }
 
     @Override
@@ -239,7 +307,40 @@ public class MethodListener extends Java8ParserBaseListener{
 
     @Override
     public void exitDoStatement(Java8Parser.DoStatementContext ctx) {
-        toFile.append("repeat while ("+ctx.expression().getText()+")\n");
+        toFile.append("repeat while ("+expressionTranslate(ctx.expression().getText())+" ?)\n");
+    }
+
+    @Override
+    public void enterForEachSetUp(Java8Parser.ForEachSetUpContext ctx) {
+
+        toFile.append("while(For each <b>"+ctx.variableDeclaratorId().Identifier()+"</b> of <b>"+ctx.expression().getText()+"</b>);\n");
+    }
+
+    @Override
+    public void exitForEachSetUp(Java8Parser.ForEachSetUpContext ctx) {
+
+    }
+
+    @Override
+    public void exitEnhancedForStatement(Java8Parser.EnhancedForStatementContext ctx) {
+        toFile.append("endWhile (No more elements)\n");
+    }
+
+    @Override
+    public void exitEnhancedForStatementNoShortIf(Java8Parser.EnhancedForStatementNoShortIfContext ctx) {
+        toFile.append("endWhile\n");
+    }
+
+    @Override
+    public void enterReturnStatement(Java8Parser.ReturnStatementContext ctx) {
+        if(ctx.expression()!=null)
+        {
+            toFile.append(":<color:INDIGO><i>return</i></color> <color:INDIGO><b>"+ctx.expression().getText()+"</b></color>;\n");
+        }
+        else {
+            toFile.append(":<color:INDIGO><b>Exit subroutine</b></color>;\n");
+        }
+
     }
 
     @Override
@@ -248,6 +349,6 @@ public class MethodListener extends Java8ParserBaseListener{
         toFile.append("@enduml\n");
         write(toFile.toString(),"Method_"+methodName+"_diagram");
         isInsideMethod = false;
-        System.out.println("sale de "+methodName);
+        //System.out.println("sale de "+methodName);
     }
 }
