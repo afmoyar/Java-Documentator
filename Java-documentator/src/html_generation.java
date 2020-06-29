@@ -26,6 +26,7 @@ public class html_generation extends Java8ParserBaseListener{
     private List<String> methods = new ArrayList<String>();
 
     private boolean selected_first_on_menu = false;
+    private boolean has_class_diagram = false;
 
     @Override
     public void enterCompilationUnit(Java8Parser.CompilationUnitContext ctx) {
@@ -48,14 +49,24 @@ public class html_generation extends Java8ParserBaseListener{
                 "      <h1 class=\"logo\">Generated<span class=\"logo__thin\"> Documentation</span></h1>\n" +
                 "      <ul class=\"menu\">\n" +
                 "        <div class=\"menu__item toggle\"><span></span></div>\n" +
-                "        <li class=\"menu__item\"><a href=\"\" class=\"link link--dark\"><i class=\"fa fa-github\"></i> Github</a></li>\n" +
-                "        <li class=\"menu__item\"><a href=\"index.html\" class=\"link link--dark\"><i class=\"fa fa-home\"></i> Home</a></li>\n" +
+                "        <li class=\"menu__item\"><a href=\"https://github.com/afmoyar/Java-Documentator\" class=\"link link--dark\"><i class=\"fa fa-github\"></i> Github</a></li>\n" +
+                // "        <li class=\"menu__item\"><a href=\"index.html\" class=\"link link--dark\"><i class=\"fa fa-home\"></i> Home</a></li>\n" +
                 "      </ul>\n" +
                 "    </nav>\n" +
                 "    <div class=\"wrapper\">\n" +
                 "   <aside class=\"doc__nav\">\n" +
                 "        <ul>");
     }
+
+    @Override
+    public void enterMethodDeclarator(Java8Parser.MethodDeclaratorContext ctx) {
+        if(isPublicClass) {
+            String methodName = ctx.Identifier().getText();
+            //System.out.println("##entra a " + methodName);
+        }
+    }
+
+
 
     @Override
     public void enterNormalClassDeclaration(Java8Parser.NormalClassDeclarationContext ctx) {
@@ -73,231 +84,368 @@ public class html_generation extends Java8ParserBaseListener{
             if(modifier.equals("abstract"))
                 modifiers.append(modifier+" ");
         }
-        if(!isPublicClass)
-        {
-            //start section
-            String className = ctx.Identifier().getText();
-            System.out.println("in "+className);
-            glob_classname = className;
-            relations.put(className, new ArrayList<HashMap<String,String>>());
-            visitor = new Genvisitors(className,relations);
-            //sections_menu.append(modifiers.toString());
-            if(selected_first_on_menu){
-                sections_menu.append("<li class=\"js-btn\">"+className.replace("+","")+"</li>");
-            }
-            else{
-                sections_menu.append("<li class=\"js-btn selected\">"+className.replace("+","")+"</li>");
-                selected_first_on_menu = true;
-            }
 
-            sections_menu.append("\n");
+        //if(!isPublicClass){
+        //start section
+        String className = ctx.Identifier().getText();
+        if(isPublicClass){
+            className = "Public " + className;
+        }
 
-            sections.append(
-                    "<section class=\"js-section\">\n" +
-                    "<h3 class=\"section__title\"> " + className+"</h3>"
-                    //"<p>Constructor</p>" +
-                    );
-            for(Java8Parser.ClassBodyDeclarationContext class_body_ctx:ctx.classBody().classBodyDeclaration()){
-                try {
+        if(!isPublicClass) {
+            has_class_diagram = true;
+        }
 
-                    String tmp = visitor.visitClassBodyDeclaration(class_body_ctx);
+        System.out.println("in "+className);
+        glob_classname = className;
+        relations.put(className, new ArrayList<HashMap<String,String>>());
+        visitor = new Genvisitors(className,relations);
+        //sections_menu.append(modifiers.toString());
+        if(selected_first_on_menu){
+            sections_menu.append("<li class=\"js-btn\">"+className.replace("+","")+"</li>");
+        }
+        else{
+            sections_menu.append("<li class=\"js-btn selected\">"+className.replace("+","")+"</li>");
+            selected_first_on_menu = true;
+        }
 
-                    //check if its method or attribute
-                    if(tmp.length() != 0) {
+        sections_menu.append("\n");
 
-                        tmp = tmp.trim(); //Remove whitespaces
+        String class_style = "\"section__title no_bot\"";
+        /*
+        if(isPublicClass){
+            class_style = class_style + " public_class";
+        }*/
+        sections.append(
+                "<section class=\"js-section\">\n" +
+                        "<h3 class="+class_style+"> " + className+"</h3>"+
+                        "<div type=\"button\" class=\"collapsible_red\"></div>"+
+                        "<div class=\"contentb\">"
+                //"<p>Constructor</p>" +
+        );
+        for(Java8Parser.ClassBodyDeclarationContext class_body_ctx:ctx.classBody().classBodyDeclaration()){
+            try {
+
+                String tmp = visitor.visitClassBodyDeclaration(class_body_ctx);
+
+                //check if its method or attribute
+                if(tmp.length() != 0) {
+
+                    tmp = tmp.trim(); //Remove whitespaces
                         /*
                         System.out.println("--------- ");
                         System.out.println(tmp);
                         System.out.println("at -1: "+tmp.charAt(tmp.length() - 1));
                         System.out.println("at -2: "+tmp.charAt(tmp.length() - 2));
                         System.out.println("--------- ");*/
-                        System.out.println("###"+tmp);
-                        if (tmp.charAt(tmp.length() - 1) == ')' &&
-                                tmp.charAt(tmp.length() - 2) == '(') {
+                    //System.out.println("###"+tmp);
+                    if (tmp.charAt(tmp.length() - 1) == ')' &&
+                            tmp.charAt(tmp.length() - 2) == '(') {
 
-                            String method_body = visitor.visit_method_body(class_body_ctx.classMemberDeclaration().methodDeclaration());
-                            tmp = tmp + method_body;
-                            methods.add(tmp);
-                        } else {
-                            attributes.add(tmp);
-                        }
+                        String method_body = visitor.visit_method_body(class_body_ctx.classMemberDeclaration().methodDeclaration());
+                        tmp = tmp + method_body;
+                        methods.add(tmp);
+                    } else {
+                        attributes.add(tmp);
                     }
-                }catch(Exception e){
-                    //System.out.println(e);
                 }
+            }catch(Exception e){
+                //System.out.println(e);
+            }
+        }
+
+
+        if(!attributes.isEmpty()){
+            sections.append(
+                    "<table id=\""+"attributes_"+ className+"\">"+
+                            "<tr>\n" +
+                            "<th>Attribute</th>\n" +
+                            "<th>Type</th>\n" +
+                            "<th>Access</th>\n" +
+                            "</tr>");
+        }
+
+        for(String attr:attributes){
+            String type = "";
+            String attribute_name = "";
+            String modifier = "default"; //non-static
+            boolean from_zero = true;
+            Character leading = attr.charAt(0);
+            //System.out.println(attr);
+            if(leading == '+'){
+                modifier = "public";
+                from_zero = false;
+            }
+            if(leading == '-'){
+                modifier = "private";
+                from_zero = false;
+            }
+            if(leading == '#'){
+                modifier = "protected";
+                from_zero = false;
+            }
+            if(attr.contains("{static}") && leading == '{'){
+                from_zero = true;
             }
 
+            //InnerClasses.java
 
-            if(!attributes.isEmpty()){
-                sections.append("<table id=\""+"attributes_"+ className+"\">"+
-                        "<tr>\n" +
-                        "<th>Attribute</th>\n" +
-                        "<th>Type</th>\n" +
-                        "<th>Access</th>\n" +
-                        "</tr>");
+            String[] parts = attr.split(":");
+            //System.out.println(parts[0]);
+            String attrname = "";
+            if(from_zero == true){ //|| modifier == "non-static"){
+                attrname = parts[0].substring(0, parts[0].length()).replace("{static}","");
+            }
+            else{
+                attrname = parts[0].substring(1, parts[0].length()).replace("{static}","");
             }
 
-            for(String attr:attributes){
-                String type = "";
-                String attribute_name = "";
-                String modifier = "default"; //non-static
-                boolean from_zero = true;
-                Character leading = attr.charAt(0);
-                //System.out.println(attr);
-                if(leading == '+'){
-                    modifier = "public";
-                    from_zero = false;
-                }
-                if(leading == '-'){
-                    modifier = "private";
-                    from_zero = false;
-                }
-                if(leading == '#'){
-                    modifier = "protected";
-                    from_zero = false;
-                }
-                if(attr.contains("{static}") && leading == '{'){
-                    from_zero = true;
-                }
-
-                //InnerClasses.java
-
-                String[] parts = attr.split(":");
-                //System.out.println(parts[0]);
-                String attrname = "";
-                if(from_zero == true){ //|| modifier == "non-static"){
-                    attrname = parts[0].substring(0, parts[0].length()).replace("{static}","");
-                }
-                else{
-                    attrname = parts[0].substring(1, parts[0].length()).replace("{static}","");
-                }
-
-                if(modifier != "") {
-                    sections.append("<tr>\n" +
-                            "<td>" + attrname +
-                            "</td>\n" +
-                            "<td>" + parts[1] + "</td>\n" +
-                            "<td>" + modifier + "</td>\n" +
-                            "</tr>"
-                    );
-                }
-
-            }
-
-            //close attributes table
-            if(!attributes.isEmpty()) {
-                sections.append("</table>\n");
-            }
-
-            if(!methods.isEmpty()){
-                //initialize methods table
-                sections.append(
-                        "<table id=\""+"methods_"+className+"\">"+
-                                "<tr>\n" +
-                                "<th  class=\"blue\">Method</th>\n" +
-                                "<th  class=\"blue\">Returns</th>\n" +
-                                "<th  class=\"blue\">Access</th>\n" +
-                                "</tr>"
+            if(modifier != "") {
+                sections.append("<tr>\n" +
+                        "<td>" + attrname +
+                        "</td>\n" +
+                        "<td>" + parts[1] + "</td>\n" +
+                        "<td>" + modifier + "</td>\n" +
+                        "</tr>"
                 );
             }
 
-            for(String method:methods){
-                String modifier = "default";
-                boolean from_zero = true;
-                Character leading = method.charAt(0);
-                if(leading == '+'){
-                    modifier = "public";
-                    from_zero = false;
-                }
-                if(leading == '-'){
-                    modifier = "private";
-                    from_zero = false;
-                }
-                if(leading == '#'){
-                    modifier = "protected";
-                    from_zero = false;
-                }
+        }
 
-                String[] parts = method.split("\\)",2); //separates by ")", 0: method_name 1: method body
-                //String[] method_body = parts[1].split("\\;"); //gets each line of body
-                //String[] method_body = parts[1].split("\\;|\\}|\\{"); //gets each line of body
-                String[] method_body = parts[1].split("((?<=\\;)|(?<=\\})|(?<=\\{))"); //gets each line of body
+        //close attributes table
+        if(!attributes.isEmpty()) {
+            sections.append("</table>\n");
+        }
 
-                String ret_stmt = "void";
+        if(!methods.isEmpty()){
+            //initialize methods table
+            sections.append(
+                    "<table id=\""+"methods_"+className+"\">"+
+                            "<tr>\n" +
+                            "<th  class=\"blue\">Method</th>\n" +
+                            "<th  class=\"blue\">Returns</th>\n" +
+                            "<th  class=\"blue\">Access</th>\n" +
+                            "<th  class=\"blue\">Diagram</th>" +
+                            "</tr>"
+            );
+        }
 
+        for(String method:methods){
+            String modifier = "default";
+            boolean from_zero = true;
+            Character leading = method.charAt(0);
+            if(leading == '+'){
+                modifier = "public";
+                from_zero = false;
+            }
+            if(leading == '-'){
+                modifier = "private";
+                from_zero = false;
+            }
+            if(leading == '#'){
+                modifier = "protected";
+                from_zero = false;
+            }
 
-                if(modifier != "") {
-                   String method_name = "";
-                    if(from_zero == true){
-                        method_name = parts[0].substring(0, parts[0].length()).replace("{static}","");
+            //System.out.println("!!!"+method);
+
+            String[] parts = method.split("\\)",2); //separates by ")", 0: method_name 1: method body
+            //String[] method_body = parts[1].split("\\;"); //gets each line of body
+            //String[] method_body = parts[1].split("\\;|\\}|\\{"); //gets each line of body
+
+            List<String> bodylines = new ArrayList<String>();
+            // using simple for loop
+            String tmps = "";
+            boolean in_for = false;
+            int for_pcs = 0;
+            for (int i = 0; i < parts[1].length(); i++) {
+                 Character current = parts[1].charAt(i);
+
+                 tmps = tmps + current;
+                 if(current == 'f' && for_pcs == 0){
+                     for_pcs++;
+                 }
+                 if(current == 'o' && for_pcs == 1){
+                    for_pcs++;
+                 }
+                 if(current == 'r' && for_pcs == 2){
+                    for_pcs = 0;
+                    in_for = true;
+                 }
+
+                 if(current == ';' && !in_for){
+                     bodylines.add(tmps);
+                     tmps = "";
+                 }
+                if(current == '}' && !in_for){
+                    try{
+                        Character next = parts[1].charAt(i+1); //check if its last character
+                        bodylines.add(tmps);
+                        tmps = "";
+
+                    }catch (Exception e){
+                        bodylines.add(tmps);
+                        tmps = "";
                     }
-                    else{
-                        method_name = parts[0].substring(1, parts[0].length()).replace("{static}","");
-                    }
-                    //append method name
-                    sections.append("<tr>\n" +
-                            "<td>" + method_name + ")"
-                    );
+                }
+                if(current == '{' && !in_for) {
+                    bodylines.add(tmps);
+                    tmps = "";
+                }
+                 if(current == ')' && in_for){
+                    bodylines.add(tmps);
+                    in_for = false;
+                    tmps = "";
+                }
 
-                    //append method body
-                    boolean initialize_collapsible = false;
-                    for(String body_line: method_body){
-                        //System.out.println("!!!"+body_line);
-                        if(body_line.contains("return")){
-                            try {
-                                String[] tmp = body_line.split("return");
-                                //ret_stmt = tmp[tmp.length - 1];
-                                //tmp[tmp.length -1].length()-1
-                                if(tmp[tmp.length - 1].charAt(0) != ';'){
-                                    ret_stmt = body_line.split("return")[1];
-                                }
-                                else{
-                                    sections.append(body_line.trim() + "<br/>");
-                                }
-                            }
-                            catch(Exception e){
-                                sections.append(body_line.trim() + "<br/>");
-                                System.out.println("ERR! "+body_line);
-                            }
-                        }
-                        else{
-                            if(initialize_collapsible == false){
-                                sections.append("<div type=\"button\" class=\"collapsible\"></div>\n" +
-                                                "<div class=\"content code\">\n" +
-                                                "<p><pre class=\"prettyprint\">Method body: <br/>"+body_line.trim()+" <br/>");
-                                initialize_collapsible = true;
+            }
+            //BubbleSort.java
+
+            //String[] method_body = parts[1].split("((?<=\\;)|(?<=\\})|(?<=\\{))"); //gets each line of body
+            System.out.println("***"+parts[1]);
+            //parts[1].replaceAll("\\)for","\\)**for");
+            //parts[1].replaceAll("\\)for","\\);for");
+            //String[] method_body = parts[1].split("((\n)|(?<=\\})|(?<=\\{))"); //gets each line of body
+            String[] method_body = parts[1].split("((?<=\\;)|(?<=\\)\\})|(?<=\\)\\{))"); //gets each line of body
+
+
+            /*
+            boolean in_for = false;
+
+            for (int i = 0; i < method_body.length; i++) {
+                String body_line = method_body[i];
+                if(body_line.contains("for")){
+                    in_for = true;
+                }
+                if(in_for == true){
+                    for (int j = i; j < method_body.length; j++) {
+                         if(method_body[j].contains(")")){
+                             in_for = false;
+                         }
+                         if(in_for == true){
+                             method_body[i] = method_body[i] + body_line;
+                         }
+                         if(in_for == false){
+                            method_body[j] = body_line;
+                         }
+
+                    }
+                }
+            }*/
+
+            String ret_stmt = "void";
+
+            if(modifier != "") {
+                String method_name = "";
+                if(from_zero == true){
+                    method_name = parts[0].substring(0, parts[0].length()).replace("{static}","");
+                }
+                else{
+                    method_name = parts[0].substring(1, parts[0].length()).replace("{static}","");
+                }
+                //append method name
+                sections.append("<tr>\n" +
+                        "<td>" + method_name + ")"
+                );
+
+                //append method body
+                boolean initialize_collapsible = false;
+                //for(String body_line: method_body){
+                for(String body_line: bodylines){
+                    boolean pass_line = false;
+                    //System.out.println("!!!"+body_line);
+
+                    body_line = body_line.replace("&","&amp"); //escape & character
+                    body_line = body_line.replace("<","&lt"); //escape < character
+                    body_line = body_line.replace(">","&gt"); //escape > character
+
+
+                    body_line = body_line.replace("int","int ");
+                    body_line = body_line.replace("int[]","int[] ");
+                    body_line = body_line.replace("Integer","Integer ");
+                    body_line = body_line.replace("Integer[]","Integer[] ");
+
+                    body_line = body_line.replace("String","String ");
+                    body_line = body_line.replace("String[]","String[] ");
+                    body_line = body_line.replace("<String>","<String> ");
+
+                    body_line = body_line.replace("Double","Double ");
+                    body_line = body_line.replace("Double[]","Double[] ");
+                    body_line = body_line.replace("<Double>","<Double> ");
+
+
+                    body_line = body_line.replace("Boolean","Boolean ");
+                    body_line = body_line.replace("boolean","boolean ");
+                    body_line = body_line.replace("Boolean[]","Boolean[] ");
+                    body_line = body_line.replace("<Boolean>","<Boolean> ");
+
+                    body_line = body_line.replace("Long","Long ");
+                    body_line = body_line.replace("Long[]","Long[] ");
+                    body_line = body_line.replace("<Long>","<Long> ");
+
+                    if(body_line.charAt(0) == ';'){
+                        pass_line = true;
+                    }
+
+                    if(body_line.contains("return")){
+                        try {
+                            String[] tmp = body_line.split("return");
+                            //ret_stmt = tmp[tmp.length - 1];
+                            //tmp[tmp.length -1].length()-1
+                            if(tmp[tmp.length - 1].charAt(0) != ';'){
+                                ret_stmt = body_line.split("return")[1];
                             }
                             else{
                                 sections.append(body_line.trim() + "<br/>");
                             }
                         }
+                        catch(Exception e){
+                            sections.append(body_line.trim() + "<br/>");
+                            //System.out.println("ERR! "+body_line);
+                        }
                     }
-                    //close collapsible if exists
-                    if(initialize_collapsible == true){
-                        sections.append("</pre></p>\n" +
-                                        "</div>");
+                    else{
+                        if(!pass_line) {
+                            if (initialize_collapsible == false) {
+                                sections.append("<div type=\"button\" class=\"collapsible\"></div>\n" +
+                                        "<div class=\"content code\">\n" +
+                                        "<p><pre class=\"prettyprint\">Method body: <br/>" + body_line.trim() + " <br/>");
+                                initialize_collapsible = true;
+                            } else {
+                                sections.append(body_line.trim() + "<br/>");
+                            }
+                        }
                     }
-
-                    //append return value and access
-                    sections.append(
-                            "</td>\n" +
-                            "<td>" + ret_stmt.replace(";","") + "</td>\n" +
-                            "<td>" + modifier + "</td>\n" +
-                            "</tr>");
                 }
-            }
-            if(!methods.isEmpty()) {
-                //close the table
-                sections.append("</table>\n");
-            }
-            //close the section
-            sections.append(
-                    "<p>End section</p>\n" +
-                    "<hr />\n" +
-                    "</section>");
+                //close collapsible if exists
+                if(initialize_collapsible == true){
+                    sections.append("</pre></p>\n" +
+                            "</div>");
+                }
 
+                //append return value and access
+                sections.append(
+                        "</td>\n" +
+                                "<td>" + ret_stmt.replace(";","") + "</td>\n" +
+                                "<td>" + modifier + "</td>\n" +
+                                "<td><div class=\"center \">" +
+                                "<img src=\"images/Method_"+method_name.replace("(","")+"_diagram.svg\"></div>\n" +
+                                "</td>" +
+                                "</tr>");
+            }
         }
+        if(!methods.isEmpty()) {
+            //close the table
+            sections.append("</table>\n");
+        }
+        //close the section
+        sections.append(
+                //"<p>End section</p>\n" +
+                "</div>" +
+                        "<hr />\n" +
+                        "</section>");
+
+        //}
         isPublicClass = false;
         glob_classname = "";
     }
@@ -306,24 +454,37 @@ public class html_generation extends Java8ParserBaseListener{
     @Override
     public void exitNormalClassDeclaration(Java8Parser.NormalClassDeclarationContext ctx) {
 
+        //isPublicClass = false;
     }
 
 
     @Override
     public void exitCompilationUnit(Java8Parser.CompilationUnitContext ctx) {
+        if(has_class_diagram) {
+            sections_menu.append("<li class=\"js-btn\">Class diagram</li>");
+
+            sections.append("<section class=\"js-section\">\n" +
+                    "<h3 class=\"section__title\"> Class diagram</h3>" +
+                    "<div class=\"center\">" +
+                    "<img src=\"images/" + "Class_diagram" + ".svg\">"+
+                    "</div>"+
+                    "<hr />\n" +
+                    "</section>"
+            );
+        }
 
         struct.append(sections_menu);
         struct.append("</ul>\n" +
-                      "</aside>"+
-                      "<article class=\"doc__content\">");
+                "</aside>"+
+                "<article class=\"doc__content\">");
 
-        sections.append("<img src=\"images/" + "Class_diagram" + ".svg\">"); //change to the classname
+
         struct.append(sections);
         String ending = "</article>\n" +
-                        "</div>" +
-                        "<script src=\"style/handle_select.js\"></script>\n" +
-                        "</body>\n" +
-                        "</html>";
+                "</div>" +
+                "<script src=\"style/handle_select.js\"></script>\n" +
+                "</body>\n" +
+                "</html>";
         struct.append(ending);
         write(struct.toString(),"index.html");
     }
