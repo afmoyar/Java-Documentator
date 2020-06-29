@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.StringTokenizer;
 public class Genvisitors extends Java8ParserBaseVisitor<String> {
         private String className;
@@ -147,6 +148,68 @@ public class Genvisitors extends Java8ParserBaseVisitor<String> {
 
             body = ctx.methodBody().block().blockStatements().getText();
             return body;
+        }
+
+        public String objects_replacements(String params, List<String> possible){
+            for(String obj : possible){
+                //System.out.println("00"+possible);
+                if(params.contains(obj)){
+                    params = params.replace(obj, obj+" ");
+                }
+            }
+
+            return params;
+        }
+
+        public String space_replacements(String params){
+            params = params.replace(">", "> ");
+
+            params = params.replace("&","&amp"); //escape & character
+            params = params.replace("<","&lt"); //escape < character
+            params = params.replace(">","&gt"); //escape > character
+
+            params = params.replace("int","int ");
+            params = params.replace("int[]","int[] ");
+            params = params.replace("Integer","Integer ");
+            params = params.replace("Integer[]","Integer[] ");
+
+            params = params.replace("String","String ");
+            params = params.replace("String[]","String[] ");
+            params = params.replace("<String>","<String> ");
+
+            params = params.replace("Double","Double ");
+            params = params.replace("Double[]","Double[] ");
+            params = params.replace("<Double>","<Double> ");
+
+
+            params = params.replace("Boolean","Boolean ");
+            params = params.replace("boolean","boolean ");
+            params = params.replace("Boolean[]","Boolean[] ");
+            params = params.replace("<Boolean>","<Boolean> ");
+
+            params = params.replace("Long","Long ");
+            params = params.replace("long","long ");
+            params = params.replace("Long[]","Long[] ");
+            params = params.replace("<Long>","<Long> ");
+
+            params = params.replace("print ln","println");
+
+            return params;
+        }
+
+        public String visit_method_params(Java8Parser.MethodDeclarationContext ctx){
+            try{
+            String params = "";
+            //ctx.methodHeader().typeParameters().typeParameterList();
+            //System.out.println("...");
+            params = ctx.methodHeader().methodDeclarator().formalParameterList().getText();
+            params = this.space_replacements(params);
+            return params;
+            }
+            catch (Exception e){
+                System.out.println("no params");
+                return "";
+            }
         }
 
         @Override

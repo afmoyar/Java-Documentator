@@ -25,6 +25,8 @@ public class html_generation extends Java8ParserBaseListener{
     private List<String> attributes = new ArrayList<String>();
     private List<String> methods = new ArrayList<String>();
 
+    private List<String> possible_declarations = new ArrayList<String>();
+
     private boolean selected_first_on_menu = false;
     private boolean has_class_diagram = false;
 
@@ -66,6 +68,23 @@ public class html_generation extends Java8ParserBaseListener{
         }
     }
 
+    @Override
+    public void enterNormalInterfaceDeclaration(Java8Parser.NormalInterfaceDeclarationContext ctx) {
+        //System.out.println("Interface detectada");
+        StringBuilder modifiers = new StringBuilder();
+
+        for(Java8Parser.InterfaceModifierContext mofifierctx: ctx.interfaceModifier())
+        {
+            String modifier = mofifierctx.getText();
+            //if modifier is public means this class is the main class, so its not included
+            if(modifier.equals("public"))
+                isPublicClass = true;
+            if(modifier.equals("abstract"))
+                modifiers.append(modifier+" ");
+        }
+        String interfaceName = ctx.Identifier().getText();
+        possible_declarations.add(interfaceName.trim());
+    }
 
 
     @Override
@@ -97,6 +116,8 @@ public class html_generation extends Java8ParserBaseListener{
         }
 
         System.out.println("in "+className);
+        possible_declarations.add(className);
+
         glob_classname = className;
         relations.put(className, new ArrayList<HashMap<String,String>>());
         visitor = new Genvisitors(className,relations);
@@ -132,21 +153,24 @@ public class html_generation extends Java8ParserBaseListener{
                 if(tmp.length() != 0) {
 
                     tmp = tmp.trim(); //Remove whitespaces
-                        /*
-                        System.out.println("--------- ");
-                        System.out.println(tmp);
-                        System.out.println("at -1: "+tmp.charAt(tmp.length() - 1));
-                        System.out.println("at -2: "+tmp.charAt(tmp.length() - 2));
-                        System.out.println("--------- ");*/
-                    //System.out.println("###"+tmp);
+
                     if (tmp.charAt(tmp.length() - 1) == ')' &&
                             tmp.charAt(tmp.length() - 2) == '(') {
 
                         String method_body = visitor.visit_method_body(class_body_ctx.classMemberDeclaration().methodDeclaration());
+                        String params = visitor.visit_method_params(class_body_ctx.classMemberDeclaration().methodDeclaration());
+                        params = visitor.objects_replacements(params, possible_declarations);
                         tmp = tmp + method_body;
+                        //add params
+                        //System.out.println(params);
+                        tmp = tmp.replace("()","("+params+")");
+                        //System.out.println("ismetohd"+tmp);
                         methods.add(tmp);
+
                     } else {
                         attributes.add(tmp);
+                        String[] atribute_str = tmp.split(":");
+                        possible_declarations.add(atribute_str[1].trim());
                     }
                 }
             }catch(Exception e){
@@ -208,6 +232,7 @@ public class html_generation extends Java8ParserBaseListener{
                         "<td>" + modifier + "</td>\n" +
                         "</tr>"
                 );
+
             }
 
         }
@@ -247,7 +272,6 @@ public class html_generation extends Java8ParserBaseListener{
                 from_zero = false;
             }
 
-            //System.out.println("!!!"+method);
 
             String[] parts = method.split("\\)",2); //separates by ")", 0: method_name 1: method body
             //String[] method_body = parts[1].split("\\;"); //gets each line of body
@@ -299,41 +323,15 @@ public class html_generation extends Java8ParserBaseListener{
                 }
 
             }
-            //BubbleSort.java
 
+            //BubbleSort.java
             //String[] method_body = parts[1].split("((?<=\\;)|(?<=\\})|(?<=\\{))"); //gets each line of body
-            System.out.println("***"+parts[1]);
-            //parts[1].replaceAll("\\)for","\\)**for");
-            //parts[1].replaceAll("\\)for","\\);for");
+            //System.out.println("***"+parts[1]);
             //String[] method_body = parts[1].split("((\n)|(?<=\\})|(?<=\\{))"); //gets each line of body
             String[] method_body = parts[1].split("((?<=\\;)|(?<=\\)\\})|(?<=\\)\\{))"); //gets each line of body
 
-
-            /*
-            boolean in_for = false;
-
-            for (int i = 0; i < method_body.length; i++) {
-                String body_line = method_body[i];
-                if(body_line.contains("for")){
-                    in_for = true;
-                }
-                if(in_for == true){
-                    for (int j = i; j < method_body.length; j++) {
-                         if(method_body[j].contains(")")){
-                             in_for = false;
-                         }
-                         if(in_for == true){
-                             method_body[i] = method_body[i] + body_line;
-                         }
-                         if(in_for == false){
-                            method_body[j] = body_line;
-                         }
-
-                    }
-                }
-            }*/
-
             String ret_stmt = "void";
+
 
             if(modifier != "") {
                 String method_name = "";
@@ -354,34 +352,7 @@ public class html_generation extends Java8ParserBaseListener{
                 for(String body_line: bodylines){
                     boolean pass_line = false;
                     //System.out.println("!!!"+body_line);
-
-                    body_line = body_line.replace("&","&amp"); //escape & character
-                    body_line = body_line.replace("<","&lt"); //escape < character
-                    body_line = body_line.replace(">","&gt"); //escape > character
-
-
-                    body_line = body_line.replace("int","int ");
-                    body_line = body_line.replace("int[]","int[] ");
-                    body_line = body_line.replace("Integer","Integer ");
-                    body_line = body_line.replace("Integer[]","Integer[] ");
-
-                    body_line = body_line.replace("String","String ");
-                    body_line = body_line.replace("String[]","String[] ");
-                    body_line = body_line.replace("<String>","<String> ");
-
-                    body_line = body_line.replace("Double","Double ");
-                    body_line = body_line.replace("Double[]","Double[] ");
-                    body_line = body_line.replace("<Double>","<Double> ");
-
-
-                    body_line = body_line.replace("Boolean","Boolean ");
-                    body_line = body_line.replace("boolean","boolean ");
-                    body_line = body_line.replace("Boolean[]","Boolean[] ");
-                    body_line = body_line.replace("<Boolean>","<Boolean> ");
-
-                    body_line = body_line.replace("Long","Long ");
-                    body_line = body_line.replace("Long[]","Long[] ");
-                    body_line = body_line.replace("<Long>","<Long> ");
+                    body_line = visitor.space_replacements(body_line);
 
                     if(body_line.charAt(0) == ';'){
                         pass_line = true;
@@ -423,13 +394,17 @@ public class html_generation extends Java8ParserBaseListener{
                             "</div>");
                 }
 
-                //append return value and access
+                //append return value, access and diagram image
+                String[] split_name = method_name.split("\\(");
+                String image_name = split_name[0];
+
                 sections.append(
                         "</td>\n" +
                                 "<td>" + ret_stmt.replace(";","") + "</td>\n" +
                                 "<td>" + modifier + "</td>\n" +
                                 "<td><div class=\"center \">" +
-                                "<img src=\"images/Method_"+method_name.replace("(","")+"_diagram.svg\"></div>\n" +
+                                "<img src=\"images/Method_"+image_name+"_diagram.svg\"></div>\n" +
+                                //"<img src=\"images/Method_"+method_name.replace("(","")+"_diagram.svg\"></div>\n" +
                                 "</td>" +
                                 "</tr>");
             }
@@ -487,6 +462,7 @@ public class html_generation extends Java8ParserBaseListener{
                 "</html>";
         struct.append(ending);
         write(struct.toString(),"index.html");
+
     }
 
     private static void write(String data,String fileName) {
