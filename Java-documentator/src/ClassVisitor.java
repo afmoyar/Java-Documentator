@@ -109,7 +109,7 @@ public class ClassVisitor extends Java8ParserBaseVisitor<String> {
                 this.relations.get(this.className).add(new HashMap<String,String>());
                 int lastRelationIndex =  this.relations.get(this.className).size()-1;
                 this.relations.get(this.className).get(lastRelationIndex).put(type,"unknown");
-                System.out.println("class name: "+this.className+" unknown "+type);
+                //System.out.println("class name: "+this.className+" unknown "+type);
             }
 
             //System.out.println(this.relations);
@@ -216,7 +216,7 @@ public class ClassVisitor extends Java8ParserBaseVisitor<String> {
         if(ctx.normalClassDeclaration()!=null)
         {
             String innerClass = ctx.normalClassDeclaration().Identifier().getText();
-            System.out.println(this.className +" has an inner class named: "+innerClass);
+            //System.out.println(this.className +" has an inner class named: "+innerClass);
             HashMap<String, String> map = new HashMap<>();
             map.put(innerClass,"innerClass");
             this.relations.get(this.className).add(map);

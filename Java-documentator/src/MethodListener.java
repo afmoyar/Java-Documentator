@@ -60,7 +60,7 @@ public class MethodListener extends Java8ParserBaseListener{
     @Override
     public void enterMethodDeclarator(Java8Parser.MethodDeclaratorContext ctx) {
         methodName = ctx.Identifier().getText();
-        System.out.println("entra a "+methodName);
+        //System.out.println("entra a "+methodName);
         toFile.append("@startuml\n");
         toFile.append("title ").append(methodName).append("\n");
         methods.add(methodName);
@@ -105,7 +105,7 @@ public class MethodListener extends Java8ParserBaseListener{
         String assignation = null;
         for(Java8Parser.VariableDeclaratorContext varctx: ctx.variableDeclarator())
         {
-            System.out.println("Declaracion de variable "+varctx.getText());
+            //System.out.println("Declaracion de variable "+varctx.getText());
             variables.add(varctx.variableDeclaratorId().Identifier().getText());
             if(varctx.variableDeclaratorId().dims()!=null)
             {
@@ -349,6 +349,6 @@ public class MethodListener extends Java8ParserBaseListener{
         toFile.append("@enduml\n");
         write(toFile.toString(),"Method_"+methodName+"_diagram");
         isInsideMethod = false;
-        System.out.println("sale de "+methodName);
+        //System.out.println("sale de "+methodName);
     }
 }
