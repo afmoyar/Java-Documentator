@@ -118,9 +118,9 @@ public class html_generation extends Java8ParserBaseListener{
         }*/
         sections.append(
                 "<section class=\"js-section\">\n" +
-                "<h3 class="+class_style+"> " + className+"</h3>"+
-                "<div type=\"button\" class=\"collapsible_red\"></div>"+
-                "<div class=\"contentb\">"
+                        "<h3 class="+class_style+"> " + className+"</h3>"+
+                        "<div type=\"button\" class=\"collapsible_red\"></div>"+
+                        "<div class=\"contentb\">"
                 //"<p>Constructor</p>" +
         );
         for(Java8Parser.ClassBodyDeclarationContext class_body_ctx:ctx.classBody().classBodyDeclaration()){
@@ -158,11 +158,11 @@ public class html_generation extends Java8ParserBaseListener{
         if(!attributes.isEmpty()){
             sections.append(
                     "<table id=\""+"attributes_"+ className+"\">"+
-                    "<tr>\n" +
-                    "<th>Attribute</th>\n" +
-                    "<th>Type</th>\n" +
-                    "<th>Access</th>\n" +
-                    "</tr>");
+                            "<tr>\n" +
+                            "<th>Attribute</th>\n" +
+                            "<th>Type</th>\n" +
+                            "<th>Access</th>\n" +
+                            "</tr>");
         }
 
         for(String attr:attributes){
@@ -252,9 +252,86 @@ public class html_generation extends Java8ParserBaseListener{
             String[] parts = method.split("\\)",2); //separates by ")", 0: method_name 1: method body
             //String[] method_body = parts[1].split("\\;"); //gets each line of body
             //String[] method_body = parts[1].split("\\;|\\}|\\{"); //gets each line of body
-            String[] method_body = parts[1].split("((?<=\\;)|(?<=\\})|(?<=\\{))"); //gets each line of body
+
+            List<String> bodylines = new ArrayList<String>();
+            // using simple for loop
+            String tmps = "";
+            boolean in_for = false;
+            int for_pcs = 0;
+            for (int i = 0; i < parts[1].length(); i++) {
+                 Character current = parts[1].charAt(i);
+
+                 tmps = tmps + current;
+                 if(current == 'f' && for_pcs == 0){
+                     for_pcs++;
+                 }
+                 if(current == 'o' && for_pcs == 1){
+                    for_pcs++;
+                 }
+                 if(current == 'r' && for_pcs == 2){
+                    for_pcs = 0;
+                    in_for = true;
+                 }
+
+                 if(current == ';' && !in_for){
+                     bodylines.add(tmps);
+                     tmps = "";
+                 }
+                if(current == '}' && !in_for){
+                    try{
+                        Character next = parts[1].charAt(i+1); //check if its last character
+                        bodylines.add(tmps);
+                        tmps = "";
+
+                    }catch (Exception e){
+                        bodylines.add(tmps);
+                        tmps = "";
+                    }
+                }
+                if(current == '{' && !in_for) {
+                    bodylines.add(tmps);
+                    tmps = "";
+                }
+                 if(current == ')' && in_for){
+                    bodylines.add(tmps);
+                    in_for = false;
+                    tmps = "";
+                }
+
+            }
+            //BubbleSort.java
+
+            //String[] method_body = parts[1].split("((?<=\\;)|(?<=\\})|(?<=\\{))"); //gets each line of body
+            System.out.println("***"+parts[1]);
+            //parts[1].replaceAll("\\)for","\\)**for");
+            //parts[1].replaceAll("\\)for","\\);for");
+            //String[] method_body = parts[1].split("((\n)|(?<=\\})|(?<=\\{))"); //gets each line of body
+            String[] method_body = parts[1].split("((?<=\\;)|(?<=\\)\\})|(?<=\\)\\{))"); //gets each line of body
 
 
+            /*
+            boolean in_for = false;
+
+            for (int i = 0; i < method_body.length; i++) {
+                String body_line = method_body[i];
+                if(body_line.contains("for")){
+                    in_for = true;
+                }
+                if(in_for == true){
+                    for (int j = i; j < method_body.length; j++) {
+                         if(method_body[j].contains(")")){
+                             in_for = false;
+                         }
+                         if(in_for == true){
+                             method_body[i] = method_body[i] + body_line;
+                         }
+                         if(in_for == false){
+                            method_body[j] = body_line;
+                         }
+
+                    }
+                }
+            }*/
 
             String ret_stmt = "void";
 
@@ -273,12 +350,14 @@ public class html_generation extends Java8ParserBaseListener{
 
                 //append method body
                 boolean initialize_collapsible = false;
-                for(String body_line: method_body){
+                //for(String body_line: method_body){
+                for(String body_line: bodylines){
+                    boolean pass_line = false;
                     //System.out.println("!!!"+body_line);
 
-                    body_line = body_line.replace("&"," &amp "); //escape & character
-                    body_line = body_line.replace("<"," &lt "); //escape < character
-                    body_line = body_line.replace(">"," &gt "); //escape > character
+                    body_line = body_line.replace("&","&amp"); //escape & character
+                    body_line = body_line.replace("<","&lt"); //escape < character
+                    body_line = body_line.replace(">","&gt"); //escape > character
 
 
                     body_line = body_line.replace("int","int ");
@@ -304,6 +383,9 @@ public class html_generation extends Java8ParserBaseListener{
                     body_line = body_line.replace("Long[]","Long[] ");
                     body_line = body_line.replace("<Long>","<Long> ");
 
+                    if(body_line.charAt(0) == ';'){
+                        pass_line = true;
+                    }
 
                     if(body_line.contains("return")){
                         try {
@@ -323,14 +405,15 @@ public class html_generation extends Java8ParserBaseListener{
                         }
                     }
                     else{
-                        if(initialize_collapsible == false){
-                            sections.append("<div type=\"button\" class=\"collapsible\"></div>\n" +
-                                    "<div class=\"content code\">\n" +
-                                    "<p><pre class=\"prettyprint\">Method body: <br/>"+body_line.trim()+" <br/>");
-                            initialize_collapsible = true;
-                        }
-                        else{
-                            sections.append(body_line.trim() + "<br/>");
+                        if(!pass_line) {
+                            if (initialize_collapsible == false) {
+                                sections.append("<div type=\"button\" class=\"collapsible\"></div>\n" +
+                                        "<div class=\"content code\">\n" +
+                                        "<p><pre class=\"prettyprint\">Method body: <br/>" + body_line.trim() + " <br/>");
+                                initialize_collapsible = true;
+                            } else {
+                                sections.append(body_line.trim() + "<br/>");
+                            }
                         }
                     }
                 }
@@ -359,8 +442,8 @@ public class html_generation extends Java8ParserBaseListener{
         sections.append(
                 //"<p>End section</p>\n" +
                 "</div>" +
-                "<hr />\n" +
-                "</section>");
+                        "<hr />\n" +
+                        "</section>");
 
         //}
         isPublicClass = false;
