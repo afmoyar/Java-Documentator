@@ -132,14 +132,7 @@ public class html_generation extends Java8ParserBaseListener{
                 if(tmp.length() != 0) {
 
                     tmp = tmp.trim(); //Remove whitespaces
-                    System.out.println("77"+tmp);
-                        /*
-                        System.out.println("--------- ");
-                        System.out.println(tmp);
-                        System.out.println("at -1: "+tmp.charAt(tmp.length() - 1));
-                        System.out.println("at -2: "+tmp.charAt(tmp.length() - 2));
-                        System.out.println("--------- ");*/
-                    //System.out.println("###"+tmp);
+
                     if (tmp.charAt(tmp.length() - 1) == ')' &&
                             tmp.charAt(tmp.length() - 2) == '(') {
 
@@ -157,7 +150,7 @@ public class html_generation extends Java8ParserBaseListener{
                     }
                 }
             }catch(Exception e){
-                System.out.println(e);
+                //System.out.println(e);
             }
         }
 

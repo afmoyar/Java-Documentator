@@ -180,6 +180,8 @@ public class Genvisitors extends Java8ParserBaseVisitor<String> {
             params = params.replace("Long[]","Long[] ");
             params = params.replace("<Long>","<Long> ");
 
+            params = params.replace("print ln","println");
+
             return params;
         }
 
