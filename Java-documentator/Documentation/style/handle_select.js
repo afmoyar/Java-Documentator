@@ -26,6 +26,23 @@ for (i = 0; i < coll.length; i++) {
   });
 }
 
+//outer collapsible (Red)
+var coll_red = document.getElementsByClassName("collapsible_red");
+var i;
+
+for (i = 0; i < coll_red.length; i++) {
+  console.log(coll_red)
+  coll_red[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+
 
 // toggle tabs on codeblock
 window.addEventListener("load", function() {
