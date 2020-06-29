@@ -4,7 +4,7 @@
 Final project for the Programming languages class at Universidad Nacional de Colombia.
 
 This project generates documentation from Java source code. Source code to analyze should be inside only one file.
-####Documentation supported:
+#### Documentation supported:
 - Information about class attributes
 - Information about every method
 - Class diagram (the outer public class is not included)
@@ -30,7 +30,7 @@ Once the analysis is complete, open in your browser index.html, wich is located 
 
 if you want to check or modify the code that generates the uml graphs, check the puml_code int the Documentation folder.
 
-###Contact:
+### Contact:
 - Michael Estiven Guerrero
 - Andrés Felipe Moya
 - Esteban Jaramillo Sarmiento
