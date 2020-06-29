@@ -20,61 +20,37 @@
     </nav>
     <div class="wrapper">
    <aside class="doc__nav">
-        <ul><li class="js-btn selected">Public Flow</li>
+        <ul><li class="js-btn selected">Public BubbleSort</li>
 </ul>
 </aside><article class="doc__content"><section class="js-section">
-<h3 class="section__title no_bot"> Public Flow</h3><div type="button" class="collapsible_red"></div><div class="contentb"><table id="methods_Public Flow"><tr>
+<h3 class="section__title no_bot"> Public BubbleSort</h3><div type="button" class="collapsible_red"></div><div class="contentb"><table id="methods_Public BubbleSort"><tr>
 <th  class="blue">Method</th>
 <th  class="blue">Returns</th>
 <th  class="blue">Access</th>
 <th  class="blue">Diagram</th></tr><tr>
-<td>conditionals()<div type="button" class="collapsible"></div>
+<td>bubbleSort()<div type="button" class="collapsible"></div>
 <div class="content code">
-<p><pre class="prettyprint">Method body: <br/>int n; <br/>if(1&gt4||n!=0){<br/>n=2;<br/>if(n!=2)n*=5;<br/>}<br/>elseif(true||false){<br/>n+=9;<br/>}<br/></pre></p>
+<p><pre class="prettyprint">Method body: <br/>int n=arr.length; <br/>for(int i=0;i&ltn-1;i++)<br/>for(int j=0;j&ltn-i-1;j++)<br/>if(arr[j]&gtarr[j+1]){<br/>int temp=arr[j];<br/>arr[j]=arr[j+1];<br/>arr[j+1]=temp;<br/>}<br/></pre></p>
 </div></td>
 <td>void</td>
 <td>default</td>
-<td><div class="center "><img src="images/Method_conditionals_diagram.svg"></div>
+<td><div class="center "><img src="images/Method_bubbleSort_diagram.svg"></div>
 </td></tr><tr>
-<td>forLoop()<div type="button" class="collapsible"></div>
+<td>printArray()<div type="button" class="collapsible"></div>
 <div class="content code">
-<p><pre class="prettyprint">Method body: <br/>for(int i=0;i&lt6;i++) <br/>{<br/>if(i==5){<br/>String x="hello";<br/>}<br/>}<br/></pre></p>
+<p><pre class="prettyprint">Method body: <br/>int n=arr.length; <br/>for(int i=0;i&ltn;++i)<br/>System.out.print (arr[i]+" ");<br/>System.out.print ln();<br/></pre></p>
 </div></td>
 <td>void</td>
 <td>default</td>
-<td><div class="center "><img src="images/Method_forLoop_diagram.svg"></div>
+<td><div class="center "><img src="images/Method_printArray_diagram.svg"></div>
 </td></tr><tr>
-<td>whileLoop()<div type="button" class="collapsible"></div>
+<td>main()<div type="button" class="collapsible"></div>
 <div class="content code">
-<p><pre class="prettyprint">Method body: <br/>int a=5; <br/>while(true){<br/>a=-8;<br/>System.out.print ln("hello");<br/>forLoop()<br/>}<br/></pre></p>
+<p><pre class="prettyprint">Method body: <br/>BubbleSortob=newBubbleSort(); <br/>int arr[]={<br/>64,34,25,12,22,11,90}<br/>ob.bubbleSort(arr);<br/>System.out.print ln("Sorted array");<br/>ob.print Array(arr);<br/></pre></p>
 </div></td>
 <td>void</td>
-<td>default</td>
-<td><div class="center "><img src="images/Method_whileLoop_diagram.svg"></div>
-</td></tr><tr>
-<td>doWhileLoop()<div type="button" class="collapsible"></div>
-<div class="content code">
-<p><pre class="prettyprint">Method body: <br/>boolean a=true; <br/>do{<br/>a=false;<br/>}<br/>while(a==true);<br/></pre></p>
-</div></td>
-<td>void</td>
-<td>default</td>
-<td><div class="center "><img src="images/Method_doWhileLoop_diagram.svg"></div>
-</td></tr><tr>
-<td>withReturnValue()<div type="button" class="collapsible"></div>
-<div class="content code">
-<p><pre class="prettyprint">Method body: <br/>int number=6; <br/>if(number&gt6){<br/>}<br/></pre></p>
-</div></td>
-<td>20</td>
-<td>default</td>
-<td><div class="center "><img src="images/Method_withReturnValue_diagram.svg"></div>
-</td></tr><tr>
-<td>withArrays()<div type="button" class="collapsible"></div>
-<div class="content code">
-<p><pre class="prettyprint">Method body: <br/>int []numbers; <br/>ArrayList&ltString &gtwords=newArrayList&lt&gt();<br/>words.add("Word");<br/>HashMap&ltString ,Integer &gtnumberMap=newHashMap&lt&gt();<br/>HashSet&ltInteger &gtnumberSet=newHashSet&lt&gt();<br/>Integer x=newInteger (5);<br/></pre></p>
-</div></td>
-<td>void</td>
-<td>default</td>
-<td><div class="center "><img src="images/Method_withArrays_diagram.svg"></div>
+<td>public</td>
+<td><div class="center "><img src="images/Method_main_diagram.svg"></div>
 </td></tr></table>
 </div><hr />
 </section></article>

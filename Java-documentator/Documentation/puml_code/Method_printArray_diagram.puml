@@ -1,0 +1,14 @@
+@startuml
+title printArray
+start
+:New variable: <b>n</b>;
+:Assign <color:darkblue><i>arr.length</i></color> to <b>n</b>;
+:New variable: <b>i</b>;
+:Assign <color:darkblue><i>0</i></color> to <b>i</b>;
+while (i < n ?) is (Yes)
+:++i;
+:Print: <color:darkblue><i>arr[i]+" "</i></color>;
+endwhile (No)
+:System.out.println();
+stop
+@enduml

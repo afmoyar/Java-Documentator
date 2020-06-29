@@ -107,6 +107,10 @@ public class MethodListener extends Java8ParserBaseListener{
         {
             System.out.println("Declaracion de variable "+varctx.getText());
             variables.add(varctx.variableDeclaratorId().Identifier().getText());
+            if(varctx.variableDeclaratorId().dims()!=null)
+            {
+                variableType = "array";
+            }
             if(varctx.variableInitializer()!=null)
             {
                 assignation = varctx.variableInitializer().getText();
@@ -120,6 +124,7 @@ public class MethodListener extends Java8ParserBaseListener{
             }
 
         }
+        variableType = "variable";
     }
 
     @Override
@@ -169,7 +174,24 @@ public class MethodListener extends Java8ParserBaseListener{
         if(methods.contains(methodName))
         {
             toFile.append(":Enter subroutine: <color:darkred><b>"+methodName+"</b></color>;\n");
+            return;
+        }else{
+            toFile.append(":"+ctx.getText()+";\n");
         }
+        /*
+        if(ctx.typeName()!=null)
+        {
+            //method of some list or other data structure
+            String method = ctx.Identifier().getText();
+            String structure = ctx.typeName().Identifier().getText();
+            switch (method)
+            {
+                case "add":
+
+
+            }
+
+        }*/
 
     }
 
