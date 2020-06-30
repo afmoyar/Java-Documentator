@@ -1,0 +1,6 @@
+@startuml
+title getId
+start
+:<color:INDIGO><i>return</i></color> <color:INDIGO><b>id</b></color>;
+stop
+@enduml

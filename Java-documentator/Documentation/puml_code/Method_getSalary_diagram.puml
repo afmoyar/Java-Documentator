@@ -1,0 +1,6 @@
+@startuml
+title getSalary
+start
+:<color:INDIGO><i>return</i></color> <color:INDIGO><b>salary</b></color>;
+stop
+@enduml

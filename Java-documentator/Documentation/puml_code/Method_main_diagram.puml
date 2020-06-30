@@ -1,0 +1,13 @@
+:New object: <b>mainSubject</b>;
+:Assign <color:darkblue><i>"Physics"</i></color> to <b>mainSubject</b>;
+@startuml
+title main
+start
+:New object: <b>obj</b>;
+:Assign <color:darkblue><i>newJavaExample()</i></color> to <b>obj</b>;
+:Print: <color:darkblue><i>obj.getCollegeName()</i></color>;
+:Print: <color:darkblue><i>obj.getDesignation()</i></color>;
+:Print: <color:darkblue><i>obj.mainSubject</i></color>;
+:Enter <b>obj's</b> subroutine: <color:darkred><b>does</b></color>;
+stop
+@enduml

@@ -1,0 +1,14 @@
+:New variable: <b>designation</b>;
+:Assign <color:darkblue><i>"Teacher"</i></color> to <b>designation</b>;
+:New variable: <b>collegeName</b>;
+:Assign <color:darkblue><i>"Beginnersbook"</i></color> to <b>collegeName</b>;
+:New object: <b>teaches_job</b>;
+:Assign <color:darkblue><i>"Teacher"</i></color> to <b>teaches_job</b>;
+:New object: <b>heart</b>;
+:Assign <color:darkblue><i>newHeart()</i></color> to <b>this.heart</b>;
+@startuml
+title getDesignation
+start
+:<color:INDIGO><i>return</i></color> <color:INDIGO><b>designation</b></color>;
+stop
+@enduml

@@ -1,0 +1,6 @@
+@startuml
+title getMuscles
+start
+:<color:INDIGO><i>return</i></color> <color:INDIGO><b>muscles</b></color>;
+stop
+@enduml

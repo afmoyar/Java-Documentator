@@ -1,0 +1,6 @@
+@startuml
+title setId
+start
+:Assign <color:darkblue><i>id</i></color> to <b>this.id</b>;
+stop
+@enduml

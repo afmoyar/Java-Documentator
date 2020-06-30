@@ -115,7 +115,7 @@ public class html_generation extends Java8ParserBaseListener{
             has_class_diagram = true;
         }
 
-        System.out.println("in "+className);
+        //System.out.println("in "+className);
         possible_declarations.add(className);
 
         glob_classname = className;

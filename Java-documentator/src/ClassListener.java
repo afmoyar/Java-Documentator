@@ -1,4 +1,3 @@
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import net.sourceforge.plantuml.FileFormat;
 import net.sourceforge.plantuml.FileFormatOption;
 import net.sourceforge.plantuml.SourceStringReader;
@@ -264,7 +263,7 @@ public class ClassListener extends Java8ParserBaseListener {
                             relatedClass = relation;
 
 
-                        System.out.println(classKey+" "+classRelations.get(relation)+" "+relation);
+                        //System.out.println(classKey+" "+classRelations.get(relation)+" "+relation);
                         if(classRelations.get(relation).equals("unknown")&&
                                 constructorAsigments.containsKey(classKey)&&
                                 constructorAsigments.get(classKey).contains(relatedClass)) {

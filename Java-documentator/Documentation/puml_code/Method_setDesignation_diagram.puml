@@ -1,0 +1,6 @@
+@startuml
+title setDesignation
+start
+:Assign <color:darkblue><i>designation</i></color> to <b>this.designation</b>;
+stop
+@enduml

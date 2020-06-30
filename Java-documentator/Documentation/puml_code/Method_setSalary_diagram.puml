@@ -1,0 +1,6 @@
+@startuml
+title setSalary
+start
+:Assign <color:darkblue><i>salary</i></color> to <b>this.salary</b>;
+stop
+@enduml

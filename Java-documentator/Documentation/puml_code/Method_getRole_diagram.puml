@@ -1,0 +1,9 @@
+:New variable: <b>role</b>;
+:New variable: <b>salary</b>;
+:New variable: <b>id</b>;
+@startuml
+title getRole
+start
+:<color:INDIGO><i>return</i></color> <color:INDIGO><b>role</b></color>;
+stop
+@enduml

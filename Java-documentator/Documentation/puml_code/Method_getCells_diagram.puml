@@ -1,0 +1,8 @@
+:New variable: <b>cells</b>;
+:New variable: <b>blood</b>;
+:New variable: <b>muscles</b>;
+@startuml
+title getCells
+start
+stop
+@enduml

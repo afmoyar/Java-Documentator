@@ -1,0 +1,6 @@
+@startuml
+title setRole
+start
+:Assign <color:darkblue><i>role</i></color> to <b>this.role</b>;
+stop
+@enduml

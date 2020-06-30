@@ -1,3 +1,55 @@
 @startuml
 title Class diagram
+Interface Thing{
+	+getName()
+	+doStuff()
+}
+Interface Person{
+	+getName()
+	+doStuff()
+}
+Interface Worker{
+	+getWork()
+	+getPaid()
+}
+class Teacher{
+	-designation: String
+	-collegeName: String
+	-teaches_job: Job
+	-heart: Heart
+	+getDesignation()
+	#setDesignation()
+	#getCollegeName()
+	#setCollegeName()
+	does()
+}
+class GoodTeacher{
+	mainSubject: String
+	+{static}main()
+}
+class Job{
+	-role: String
+	-salary: long
+	-id: int
+	+getRole()
+	+setRole()
+	+getSalary()
+	+setSalary()
+	+getId()
+	+setId()
+}
+class Heart{
+	-cells: String
+	+blood: String
+	+muscles: String
+	+getCells()
+	+getBlood()
+	+getMuscles()
+}
+GoodTeacher -up-|> Teacher
+Teacher o-- Job
+Teacher *-- Heart
+Teacher .up.|> Person
+Teacher .up.|> Worker
+Person .up.|> Thing
 @enduml

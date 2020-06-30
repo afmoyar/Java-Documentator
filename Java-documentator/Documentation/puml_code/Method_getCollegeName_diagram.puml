@@ -1,0 +1,6 @@
+@startuml
+title getCollegeName
+start
+:<color:INDIGO><i>return</i></color> <color:INDIGO><b>collegeName</b></color>;
+stop
+@enduml

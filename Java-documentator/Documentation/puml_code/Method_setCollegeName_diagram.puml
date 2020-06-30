@@ -1,0 +1,6 @@
+@startuml
+title setCollegeName
+start
+:Assign <color:darkblue><i>collegeName</i></color> to <b>this.collegeName</b>;
+stop
+@enduml

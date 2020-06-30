@@ -1,0 +1,6 @@
+@startuml
+title does
+start
+:Print: <color:darkblue><i>"Teaching"</i></color>;
+stop
+@enduml
