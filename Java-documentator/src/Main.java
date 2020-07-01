@@ -43,7 +43,7 @@ public class Main {
                                 lexer = new Java8Lexer(CharStreams.fromFileName("Input/"+option));
                                 validOption = true;
                             }catch (Exception e){
-                                System.out.println(e);
+                                //System.out.println(e);
                                 System.out.println("Enter valid file name");
                                 validOption = false;
                             }
